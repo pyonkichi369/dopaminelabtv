@@ -1,0 +1,75 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'Neuroscience × Japanese philosophy for the AI age. Research on dopamine, attention, and staying focused.',
+  ogImage = '/og-default.png',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | Dopamine Lab TV</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- OG -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@DopamineLab" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/icon-brain.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="/">
+        <img src="/icon-brain.png" alt="Dopamine Lab" />
+        <span>Dopamine <span class="lab">Lab</span> TV</span>
+      </a>
+      <nav>
+        <a href="/posts">Articles</a>
+        <a href="/about">About</a>
+        <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener">YouTube</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 Dopamine Lab TV · The science of staying human.</p>
+      <div class="footer-links">
+        <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://dopaminelab.substack.com" target="_blank" rel="noopener">Substack</a>
+        <a href="/about">About</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
