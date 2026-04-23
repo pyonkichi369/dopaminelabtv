@@ -10,6 +10,7 @@ const dateStr = new Date(frontmatter.date).toLocaleDateString('en-US', {
 <BaseLayout
   title={frontmatter.title}
   description={frontmatter.excerpt}
+  article={{ publishedTime: frontmatter.date, tags: frontmatter.tags ?? [] }}
 >
   <div class="container">
     <div class="article-header">

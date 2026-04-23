@@ -5,51 +5,110 @@ export interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  article?: {
+    publishedTime: string;
+    tags: string[];
+  };
 }
 
 const {
   title,
-  description = 'Neuroscience × Japanese philosophy for the AI age. Research on dopamine, attention, and staying focused.',
+  description = 'Neuroscience × Japanese philosophy for the AI age. Research on dopamine, attention, and staying focused in the era of AI.',
   ogImage = '/og-default.png',
+  article,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const siteName = 'Dopamine Lab TV';
+const fullTitle = title === 'The Lab is Open' ? `${siteName} — The science of staying human.` : `${title} | ${siteName}`;
+
+// JSON-LD
+const isArticle = !!article;
+const jsonLD = isArticle ? {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  image: new URL(ogImage, Astro.site).toString(),
+  datePublished: article?.publishedTime,
+  author: { '@type': 'Organization', name: siteName, url: Astro.site?.toString() },
+  publisher: { '@type': 'Organization', name: siteName, url: Astro.site?.toString() },
+  mainEntityOfPage: canonicalURL.toString(),
+  keywords: article?.tags?.join(', '),
+} : {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteName,
+  url: Astro.site?.toString(),
+  description,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${Astro.site}posts/?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+};
 ---
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title} | Dopamine Lab TV</title>
+  <title>{fullTitle}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalURL} />
 
-  <!-- OG -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content={title} />
+  <!-- SEO -->
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="author" content="Dopamine Lab TV" />
+  <meta name="keywords" content="dopamine, ADHD, focus, neuroscience, Zen, Japanese philosophy, AI anxiety, attention, digital wellness, mindfulness" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content={isArticle ? 'article' : 'website'} />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:url" content={canonicalURL} />
+  <meta property="og:locale" content="en_US" />
+  {isArticle && <meta property="article:published_time" content={article!.publishedTime} />}
+  {isArticle && article?.tags?.map(t => <meta property="article:tag" content={t} />)}
+
+  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@DopamineLab" />
+  <meta name="twitter:creator" content="@DopamineLab" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/icon-brain.png" />
+  <link rel="apple-touch-icon" href="/icon-brain.png" />
 
-  <!-- Fonts -->
+  <!-- AIO: LLM-readable meta -->
+  <meta name="ai-content-type" content={isArticle ? 'research-article' : 'publication-home'} />
+  <meta name="ai-topic" content="neuroscience, dopamine, attention, Japanese philosophy, AI anxiety" />
+  <meta name="ai-audience" content="adults, knowledge workers, AI-anxious professionals, ADHD community" />
+
+  <!-- Fonts — preload for LCP -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLD)} />
 </head>
 <body>
   <header>
     <div class="header-inner">
       <a class="logo" href="/">
-        <img src="/icon-brain.png" alt="Dopamine Lab" />
+        <img src="/icon-brain.png" alt="Dopamine Lab TV logo" width="28" height="28" />
         <span>Dopamine <span class="lab">Lab</span> TV</span>
       </a>
-      <nav>
+      <nav aria-label="Main navigation">
         <a href="/posts">Articles</a>
         <a href="/about">About</a>
         <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener">YouTube</a>
@@ -57,7 +116,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <slot />
   </main>
 
