@@ -3,9 +3,11 @@ import BaseLayout from './BaseLayout.astro';
 
 const { frontmatter, lang = 'en' } = Astro.props;
 
-const dateStr = new Date(frontmatter.date).toLocaleDateString('en-US', {
-  year: 'numeric', month: 'long', day: 'numeric'
-});
+const isJa = lang === 'ja';
+const dateStr = new Date(frontmatter.date).toLocaleDateString(
+  isJa ? 'ja-JP' : 'en-US',
+  { year: 'numeric', month: 'long', day: 'numeric' }
+);
 ---
 <BaseLayout
   title={frontmatter.title}
@@ -13,6 +15,8 @@ const dateStr = new Date(frontmatter.date).toLocaleDateString('en-US', {
   lang={lang}
   article={{ publishedTime: frontmatter.date, tags: frontmatter.tags ?? [] }}
 >
+  <div class="reading-progress" id="reading-progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={0}></div>
+
   <div class="container">
     <div class="article-header">
       <div class="post-tags">
@@ -23,19 +27,41 @@ const dateStr = new Date(frontmatter.date).toLocaleDateString('en-US', {
       <h1>{frontmatter.title}</h1>
       <div class="post-meta">
         <span class="date">{dateStr}</span>
-        {frontmatter.readTime && <span class="read-time">{frontmatter.readTime} min read</span>}
+        {frontmatter.readTime && (
+          <span class="read-time">{frontmatter.readTime}{isJa ? ' 分' : ' min read'}</span>
+        )}
       </div>
     </div>
 
-    <div class="article-body">
+    <div class="article-body" id="article-body">
       <slot />
 
       <div class="cta-block">
-        <p>New research → human language. Every week.</p>
-        <a class="btn" href="https://dopaminelab.substack.com" target="_blank" rel="noopener">
-          Subscribe on Substack
+        <p>{isJa ? '毎週、最新研究をわかりやすく届けます。' : 'New research → human language. Every week.'}</p>
+        <a class="btn" href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener">
+          {isJa ? 'Substackで購読する' : 'Subscribe on Substack'}
         </a>
       </div>
     </div>
   </div>
 </BaseLayout>
+
+<script>
+(function () {
+  const bar = document.getElementById('reading-progress') as HTMLElement | null;
+  const body = document.getElementById('article-body') as HTMLElement | null;
+  if (!bar || !body) return;
+
+  function update() {
+    const rect = body.getBoundingClientRect();
+    const total = body.offsetHeight;
+    const scrolled = -rect.top;
+    const pct = Math.min(100, Math.max(0, (scrolled / total) * 100));
+    bar.style.width = pct + '%';
+    bar.setAttribute('aria-valuenow', String(Math.round(pct)));
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
