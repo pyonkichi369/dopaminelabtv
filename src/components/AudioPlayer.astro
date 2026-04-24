@@ -39,11 +39,11 @@ const modes = [
 .ap {
   position: fixed;
   bottom: 28px;
-  left: 28px;
+  right: 28px;
   z-index: 200;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 10px;
 }
 
@@ -199,7 +199,7 @@ const modes = [
 }
 
 @media (max-width: 600px) {
-  .ap { bottom: 18px; left: 18px; }
+  .ap { bottom: 18px; right: 18px; }
   .ap-panel { width: 196px; }
 }
 </style>
