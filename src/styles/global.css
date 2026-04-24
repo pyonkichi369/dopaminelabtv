@@ -113,6 +113,16 @@ nav a:hover { color: var(--text); opacity: 1; }
 }
 .lang-switch:hover { background: var(--accent-dim); opacity: 1; }
 
+/* ── Mobile header controls (lang + hamburger) ── */
+.header-mobile-controls {
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
+.header-lang-switch {
+  display: none;
+}
+
 /* ── Hamburger toggle ── */
 .nav-toggle {
   display: none;
@@ -808,6 +818,8 @@ footer::before {
   .logo img { width: 20px; height: 20px; }
   /* デスクトップ nav を非表示 → hamburger に切り替え */
   nav { display: none; }
+  .header-mobile-controls { display: flex; }
+  .header-lang-switch { display: inline-flex; }
   .nav-toggle { display: flex; }
 
   /* ── Container / Layout ── */

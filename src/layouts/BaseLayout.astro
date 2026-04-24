@@ -137,9 +137,15 @@ const jsonLD = isArticle ? {
           </>
         )}
       </nav>
-      <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-nav">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="header-mobile-controls">
+        {lang === 'ja'
+          ? <a href="/" class="lang-switch header-lang-switch">EN</a>
+          : <a href="/ja/" class="lang-switch header-lang-switch">JP</a>
+        }
+        <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -162,12 +168,6 @@ const jsonLD = isArticle ? {
           </>
         )}
       </nav>
-      <div class="mobile-nav-lang">
-        {lang === 'ja'
-          ? <a href="/" class="lang-switch">EN</a>
-          : <a href="/ja/" class="lang-switch">日本語</a>
-        }
-      </div>
     </div>
   </div>
 
