@@ -113,6 +113,112 @@ nav a:hover { color: var(--text); opacity: 1; }
 }
 .lang-switch:hover { background: var(--accent-dim); opacity: 1; }
 
+/* ── Hamburger toggle ── */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--text-muted);
+  transition: transform 0.28s ease, opacity 0.2s ease;
+  transform-origin: center;
+}
+/* ✕ 変形 */
+.nav-open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); background: var(--text); }
+.nav-open .nav-toggle span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); background: var(--text); }
+
+/* ── Mobile nav overlay ── */
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: rgba(250,245,236,0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 99;              /* header(100) の下 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.nav-open .mobile-nav {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  width: 100%;
+  padding: 0 32px;
+  text-align: center;
+}
+
+/* 装飾漢字 */
+.mobile-nav-kanji {
+  font-family: var(--font-jp);
+  font-size: 6rem;
+  color: var(--accent);
+  opacity: 0.06;
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+  font-weight: 300;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.mobile-nav-link {
+  font-family: var(--font-jp);
+  font-size: 1.75rem;
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  padding: 12px 0;
+  transition: color 0.15s;
+  display: block;
+}
+.mobile-nav-link:hover { color: var(--accent); opacity: 1; }
+
+.mobile-nav-lang {
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  width: 80px;
+}
+.mobile-nav-lang .lang-switch {
+  font-size: 0.8rem !important;
+  padding: 6px 16px;
+}
+
 /* ── Divider — horizontal rule with 家紋 dot ── */
 .wa-divider {
   display: flex;
@@ -592,30 +698,16 @@ footer::before {
   :root { --max-w: 100%; }
 
   /* ── Header mobile ── */
-  header { padding: 12px 0; }
-  .header-inner { padding: 0 16px; }
-  .logo {
-    font-size: 0.875rem;
-    gap: 8px;
+  header { padding: 0; }
+  .header-inner {
+    padding: 0 16px;
+    min-height: 56px;
   }
+  .logo { font-size: 0.875rem; gap: 8px; }
   .logo img { width: 20px; height: 20px; }
-  nav { gap: 8px; }
-  nav a {
-    font-size: 0.72rem;
-    letter-spacing: 0.05em;
-    /* 44pt touch target (mobile only) */
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    padding: 0 2px;
-  }
-  .lang-switch {
-    padding: 0 8px;
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    font-size: 0.66rem !important;
-  }
+  /* デスクトップ nav を非表示 → hamburger に切り替え */
+  nav { display: none; }
+  .nav-toggle { display: flex; }
 
   /* ── Container / Layout ── */
   .container { padding: 0 16px; }
@@ -682,13 +774,8 @@ footer::before {
   .nami-divider { margin: 32px 0; }
 }
 
-/* ── Extra small (320px) — nav overflow prevention ── */
+/* ── Extra small (320px) ── */
 @media (max-width: 380px) {
-  /* 「About」は footer にもあるので非表示 */
-  nav a[href="/about"],
-  nav a[href*="/about"] { display: none; }
-
   .logo { font-size: 0.82rem; }
-  nav { gap: 6px; }
-  nav a { font-size: 0.68rem; }
+  .mobile-nav-link { font-size: 1.5rem; }
 }

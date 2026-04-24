@@ -136,8 +136,39 @@ const jsonLD = isArticle ? {
           </>
         )}
       </nav>
+      <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
+
+  <!-- Mobile nav overlay -->
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true" role="dialog" aria-label="ナビゲーション">
+    <div class="mobile-nav-inner">
+      <span class="mobile-nav-kanji" aria-hidden="true">道</span>
+      <nav class="mobile-nav-links" aria-label="モバイルナビゲーション">
+        {lang === 'ja' ? (
+          <>
+            <a href="/ja/posts" class="mobile-nav-link">記事</a>
+            <a href="/about" class="mobile-nav-link">About</a>
+            <a href="https://www.youtube.com/@DopamineLabTV" class="mobile-nav-link" target="_blank" rel="noopener">YouTube</a>
+          </>
+        ) : (
+          <>
+            <a href="/posts" class="mobile-nav-link">Articles</a>
+            <a href="/about" class="mobile-nav-link">About</a>
+            <a href="https://www.youtube.com/@DopamineLabTV" class="mobile-nav-link" target="_blank" rel="noopener">YouTube</a>
+          </>
+        )}
+      </nav>
+      <div class="mobile-nav-lang">
+        {lang === 'ja'
+          ? <a href="/" class="lang-switch">EN</a>
+          : <a href="/ja/" class="lang-switch">日本語</a>
+        }
+      </div>
+    </div>
+  </div>
 
   <main id="main-content">
     <slot />
@@ -153,5 +184,41 @@ const jsonLD = isArticle ? {
       </div>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+      const mobileNav = document.querySelector<HTMLElement>('.mobile-nav');
+      if (!toggle || !mobileNav) return;
+
+      function openNav() {
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.setAttribute('aria-label', 'メニューを閉じる');
+        mobileNav.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('nav-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeNav() {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'メニューを開く');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('nav-open');
+        document.body.style.overflow = '';
+      }
+
+      toggle.addEventListener('click', () => {
+        toggle.getAttribute('aria-expanded') === 'true' ? closeNav() : openNav();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeNav();
+      });
+
+      mobileNav.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeNav);
+      });
+    })();
+  </script>
 </body>
 </html>
