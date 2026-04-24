@@ -1,15 +1,15 @@
-/* ── Design Tokens — 和 × Dark ── */
+/* ── Design Tokens — 和紙 × 朱 ── */
 :root {
-  --bg:        #0d0b09;      /* 墨色 ink black */
-  --bg-card:   #141109;      /* 濃墨 deep ink */
-  --bg-hover:  #1c1810;      /* hover */
-  --text:      #ede5d5;      /* 和紙 washi cream */
-  --text-muted:#8a7f6e;      /* 薄墨 faded ink */
+  --bg:        #faf5ec;      /* 和紙 washi cream */
+  --bg-card:   #f3ead8;      /* 薄い和紙 */
+  --bg-hover:  #ebe0c9;      /* hover */
+  --text:      #1e1910;      /* 墨 ink */
+  --text-muted:#7e6e5a;      /* 薄墨 */
   --accent:    #b44840;      /* 朱色 vermillion */
-  --accent-dim:rgba(180,72,64,0.12);
-  --gold:      #c9a251;      /* 金 gold */
-  --border:    rgba(237,229,213,0.08);
-  --border-accent: rgba(180,72,64,0.3);
+  --accent-dim:rgba(180,72,64,0.07);
+  --gold:      #8a6f2e;      /* 金 gold (dark for light bg) */
+  --border:    rgba(30,25,16,0.1);
+  --border-accent: rgba(180,72,64,0.25);
   --font-sans: 'Inter', 'Helvetica Neue', sans-serif;
   --font-jp:   'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
   --radius:    2px;
@@ -33,10 +33,10 @@ body::before {
   position: fixed;
   inset: 0;
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 0;
-  opacity: 0.55;
+  opacity: 0.45;
 }
 
 main, header, footer { position: relative; z-index: 1; }
@@ -58,8 +58,9 @@ header {
   padding: 18px 0;
   position: sticky;
   top: 0;
-  background: rgba(13,11,9,0.94);
-  backdrop-filter: blur(16px);
+  background: rgba(250,245,236,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   z-index: 100;
 }
 
@@ -86,8 +87,8 @@ header {
 .logo img {
   width: 26px;
   height: 26px;
-  filter: invert(1) sepia(0.3) hue-rotate(340deg);
-  opacity: 0.85;
+  filter: sepia(0.5) hue-rotate(330deg) saturate(0.7) brightness(0.45);
+  opacity: 0.9;
 }
 
 .logo .lab { color: var(--accent); }
@@ -99,22 +100,16 @@ nav a {
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  /* Apple HIG 44pt touch target */
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  padding: 0 2px;
 }
 nav a:hover { color: var(--text); opacity: 1; }
 
 .lang-switch {
   border: 1px solid var(--border-accent);
-  padding: 0 11px;
+  padding: 4px 10px;
   border-radius: 1px;
   font-size: 0.7rem !important;
   color: var(--accent) !important;
   letter-spacing: 0.06em;
-  /* touch target handled by nav a min-height */
 }
 .lang-switch:hover { background: var(--accent-dim); opacity: 1; }
 
@@ -213,7 +208,7 @@ nav a:hover { color: var(--text); opacity: 1; }
   font-family: var(--font-jp);
   font-size: clamp(9rem, 24vw, 20rem);
   color: var(--accent);
-  opacity: 0.035;
+  opacity: 0.055;    /* ライト背景では少し濃くして視認性を出す */
   line-height: 1;
   pointer-events: none;
   user-select: none;
@@ -331,7 +326,7 @@ nav a:hover { color: var(--text); opacity: 1; }
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--gold);
-  background: rgba(201,162,81,0.1);
+  background: rgba(138,111,46,0.1);
   padding: 2px 7px;
   border-radius: 1px;
 }
@@ -396,7 +391,7 @@ nav a:hover { color: var(--text); opacity: 1; }
   margin-bottom: 1.6em;
   font-size: 1.0rem;
   line-height: 1.9;
-  color: #d8cfc0;
+  color: var(--text-muted);
 }
 
 .article-body h2 {
@@ -570,7 +565,7 @@ footer::before {
 .about-section p {
   font-size: 0.975rem;
   line-height: 1.9;
-  color: #d8cfc0;
+  color: var(--text-muted);
   margin-bottom: 1.5em;
 }
 .about-section blockquote {
@@ -597,26 +592,28 @@ footer::before {
   :root { --max-w: 100%; }
 
   /* ── Header mobile ── */
-  header { padding: 0; }
-  .header-inner {
-    padding: 0 16px;
-    min-height: 56px;        /* 明示的な高さで安定レイアウト */
-  }
+  header { padding: 12px 0; }
+  .header-inner { padding: 0 16px; }
   .logo {
     font-size: 0.875rem;
     gap: 8px;
   }
   .logo img { width: 20px; height: 20px; }
-  nav {
-    gap: 8px;                /* 320pxでも収まるよう詰める */
-  }
+  nav { gap: 8px; }
   nav a {
     font-size: 0.72rem;
     letter-spacing: 0.05em;
-    padding: 0 1px;
+    /* 44pt touch target (mobile only) */
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 2px;
   }
   .lang-switch {
     padding: 0 8px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
     font-size: 0.66rem !important;
   }
 
