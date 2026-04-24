@@ -377,6 +377,20 @@ nav a:hover { color: var(--text); opacity: 1; }
   padding-right: 4px;
 }
 
+/* 円相 Enso — hero background */
+.hero-enso {
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(260px, 52vw, 480px);
+  height: auto;
+  color: var(--accent);
+  opacity: 0.09;
+  pointer-events: none;
+  user-select: none;
+}
+
 /* ── Posts ── */
 .posts-section { padding: 72px 0; }
 

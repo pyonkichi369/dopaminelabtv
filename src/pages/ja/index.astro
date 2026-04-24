@@ -15,6 +15,20 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
   description="AI時代のドーパミン・注意力・集中力の研究。神経科学と日本哲学の交差点から。">
   <div class="container">
     <section class="hero">
+      <svg class="hero-enso" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <filter id="enso-ink-ja" x="-15%" y="-15%" width="130%" height="130%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="2" seed="12" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+        </defs>
+        <circle cx="200" cy="200" r="158"
+          stroke="currentColor" stroke-width="20" stroke-linecap="round"
+          pathLength="100" stroke-dasharray="92 8" stroke-dashoffset="4"
+          filter="url(#enso-ink-ja)"
+        />
+      </svg>
+      <span class="hero-tate" aria-hidden="true">神経科学・日本哲学</span>
       <p class="hero-eyebrow">Dopamine Lab TV</p>
       <h1 style="font-family: var(--font-jp)">人間であり続ける<br />科学。</h1>
       <p class="hero-sub" style="font-family: var(--font-jp)">
