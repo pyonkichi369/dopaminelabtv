@@ -32,4 +32,4 @@ The goal isn't purity. It's clarity about what you're trading.
 
 ---
 
-*New research dispatches every Sunday. Subscribe to [Substack](https://dopaminelab.substack.com) for the full Lab Report with audio.*
+*New research dispatches every Sunday. Subscribe to [Substack](https://dopaminelabtv.substack.com) for the full Lab Report with audio.*
