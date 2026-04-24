@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import AudioPlayer from '../components/AudioPlayer.astro';
 
 export interface Props {
   title: string;
@@ -173,6 +174,8 @@ const jsonLD = isArticle ? {
   <main id="main-content">
     <slot />
   </main>
+
+  <AudioPlayer />
 
   <footer>
     <div class="footer-inner">

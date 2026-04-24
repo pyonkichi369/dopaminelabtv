@@ -1,0 +1,213 @@
+---
+const modes = [
+  { id: 'rise',    label: 'RISE',    tagline: '200Hz + SMR · Morning Activation' },
+  { id: 'calm',    label: 'CALM',    tagline: '528Hz + α · Relax & Restore' },
+  { id: 'flow',    label: 'FLOW',    tagline: '200Hz + β · Focus & Create' },
+  { id: 'peak',    label: 'PEAK',    tagline: '200Hz + γ · Enter the Zone' },
+  { id: 'deep',    label: 'DEEP',    tagline: '100Hz + δ · Sleep & Drift' },
+  { id: 'recover', label: 'RECOVER', tagline: '528Hz + θ · Rest & Reset' },
+];
+---
+
+<div class="audio-player" id="audio-player" aria-label="Lab BGM Player">
+  <audio id="lab-audio" loop preload="none"></audio>
+
+  <button class="ap-toggle" id="ap-toggle" aria-expanded="false" aria-label="Lab BGM">
+    <svg class="ap-icon-play" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
+      <polygon points="3,1 13,7 3,13"/>
+    </svg>
+    <svg class="ap-icon-pause" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" style="display:none">
+      <rect x="2" y="1" width="4" height="12"/><rect x="8" y="1" width="4" height="12"/>
+    </svg>
+    <span class="ap-label">LAB BGM</span>
+  </button>
+
+  <div class="ap-panel" id="ap-panel" aria-hidden="true">
+    <p class="ap-panel-heading">binaural · pick a mode</p>
+    <div class="ap-modes">
+      {modes.map(m => (
+        <button class="ap-mode-btn" data-mode={m.id} aria-pressed="false">
+          <span class="ap-mode-label">{m.label}</span>
+          <span class="ap-mode-tagline">{m.tagline}</span>
+        </button>
+      ))}
+    </div>
+    <p class="ap-headphone-note">🎧 Use headphones for binaural effect</p>
+  </div>
+</div>
+
+<style>
+.audio-player {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.ap-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 8px 14px 8px 12px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  transition: border-color 0.2s, color 0.2s;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.ap-toggle:hover { border-color: var(--border-accent); color: var(--accent); }
+.ap-toggle.playing { border-color: var(--border-accent); color: var(--accent); }
+
+.ap-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 16px;
+  width: 240px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.ap-panel.open { display: flex; }
+
+.ap-panel-heading {
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.ap-modes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ap-mode-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  padding: 8px 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s;
+}
+.ap-mode-btn:hover { background: var(--accent-dim); border-color: var(--border-accent); }
+.ap-mode-btn[aria-pressed="true"] { background: var(--accent-dim); border-color: var(--border-accent); }
+
+.ap-mode-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--text);
+  font-weight: 500;
+}
+.ap-mode-btn[aria-pressed="true"] .ap-mode-label { color: var(--accent); }
+
+.ap-mode-tagline {
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.ap-headphone-note {
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  margin-top: 2px;
+}
+
+@media (max-width: 600px) {
+  .audio-player { bottom: 16px; right: 16px; }
+  .ap-panel { width: 220px; }
+}
+</style>
+
+<script>
+(function () {
+  const audio = document.getElementById('lab-audio') as HTMLAudioElement;
+  const toggle = document.getElementById('ap-toggle') as HTMLButtonElement;
+  const panel = document.getElementById('ap-panel') as HTMLDivElement;
+  const iconPlay = toggle.querySelector('.ap-icon-play') as SVGElement;
+  const iconPause = toggle.querySelector('.ap-icon-pause') as SVGElement;
+  const modeButtons = document.querySelectorAll<HTMLButtonElement>('.ap-mode-btn');
+
+  let currentMode: string | null = null;
+  let panelOpen = false;
+
+  function showIcon(playing: boolean) {
+    iconPlay.style.display = playing ? 'none' : 'block';
+    iconPause.style.display = playing ? 'block' : 'none';
+    toggle.classList.toggle('playing', playing);
+  }
+
+  function setMode(id: string) {
+    currentMode = id;
+    audio.src = `/audio/${id}.m4a`;
+    audio.load();
+    audio.play().catch(() => {});
+    showIcon(true);
+    modeButtons.forEach(b => {
+      b.setAttribute('aria-pressed', b.dataset.mode === id ? 'true' : 'false');
+    });
+  }
+
+  toggle.addEventListener('click', () => {
+    if (!panelOpen) {
+      panel.classList.add('open');
+      panel.setAttribute('aria-hidden', 'false');
+      toggle.setAttribute('aria-expanded', 'true');
+      panelOpen = true;
+      // Auto-start with 'flow' if nothing selected
+      if (!currentMode) setMode('flow');
+    } else {
+      if (audio.paused) {
+        audio.play().catch(() => {});
+        showIcon(true);
+      } else {
+        audio.pause();
+        showIcon(false);
+      }
+    }
+  });
+
+  modeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.mode!;
+      if (currentMode === id && !audio.paused) {
+        audio.pause();
+        showIcon(false);
+      } else {
+        setMode(id);
+      }
+    });
+  });
+
+  // Close panel on outside click
+  document.addEventListener('click', (e) => {
+    const player = document.getElementById('audio-player');
+    if (panelOpen && player && !player.contains(e.target as Node)) {
+      panel.classList.remove('open');
+      panel.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+      panelOpen = false;
+    }
+  });
+})();
+</script>
