@@ -14,6 +14,8 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
 <BaseLayout title="The Lab is Open">
   <div class="container">
     <section class="hero">
+      <span class="zen-kanji-bg" aria-hidden="true">心</span>
+      <span class="hero-tate" aria-hidden="true">神経科学・日本哲学</span>
       <p class="hero-eyebrow">Dopamine Lab TV</p>
       <h1>The science of<br />staying human.</h1>
       <p class="hero-sub">
@@ -24,7 +26,7 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
     </section>
 
     <section class="posts-section">
-      <p class="section-label">Latest from the Lab</p>
+      <div class="wa-divider">Latest from the Lab</div>
       {posts.length === 0 ? (
         <div class="post-card" style="justify-content: center; color: var(--text-muted); font-size: 0.9rem;">
           First episode dropping soon.
