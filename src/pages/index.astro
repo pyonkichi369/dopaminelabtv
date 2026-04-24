@@ -37,6 +37,108 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
       <p class="hero-tagline">神経科学 × 日本哲学 for the AI age · <a href="/ja/">日本語版</a></p>
     </section>
 
+    <!-- Diagnostic Check -->
+    <section class="check-section" id="check">
+      <p class="section-label">Brain State Check</p>
+      <div class="check-card">
+        <!-- Quiz -->
+        <div id="check-quiz">
+          <div class="check-intro">
+            <h2 class="check-heading">
+              To everyone running on fumes —<br>
+              <span class="check-heading-accent">it's not willpower. it's your brain.</span>
+            </h2>
+            <p class="check-sub">Check which ones apply (5 questions)</p>
+          </div>
+
+          <div class="check-questions">
+            {[
+              'You open social media without deciding to',
+              'You can\'t focus on anything for long',
+              'You feel anxious but have no motivation',
+              'You sleep but still feel tired',
+              'Time disappears and you\'re not sure where it went',
+            ].map((q, i) => (
+              <div class="check-q">
+                <p class="check-q-text">
+                  <span class="check-q-num">Q{i + 1}</span>{q}
+                </p>
+                <div class="check-q-btns">
+                  <button class="check-btn" data-q={i} data-val="yes">YES</button>
+                  <button class="check-btn" data-q={i} data-val="no">NO</button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button class="btn check-submit" id="check-submit" disabled aria-disabled="true">
+            See your result →
+          </button>
+        </div>
+
+        <!-- Result (hidden until quiz completes) -->
+        <div id="check-result" hidden>
+          <div id="check-result-high" hidden>
+            <p class="check-badge check-badge--high">Dopamine Overload State</p>
+            <h3 class="check-result-h">
+              Your brain is hooked<br>on short-term stimulation
+            </h3>
+            <p class="check-result-body">
+              Social media. Videos. Notifications. Your brain has grown so accustomed to quick
+              rewards that deep focus has become difficult. This isn't a character flaw —
+              it's a neuroscientific state.
+            </p>
+          </div>
+          <div id="check-result-low" hidden>
+            <p class="check-badge check-badge--low">Brain State: Relatively Stable</p>
+            <h3 class="check-result-h">
+              Your balance is holding —<br>for now
+            </h3>
+            <p class="check-result-body">
+              The modern environment constantly tries to reset your dopamine baseline.
+              Prevention and deepening your understanding are key.
+            </p>
+          </div>
+
+          <div class="check-cta">
+            <p class="check-cta-label">Start here</p>
+            <div class="check-cta-links">
+              <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener"
+                 class="check-cta-link">
+                <span class="check-cta-num">01</span>
+                <span class="check-cta-text">
+                  <strong>Go deeper</strong>
+                  <span>Substack — weekly letter</span>
+                </span>
+                <span class="check-cta-arrow">→</span>
+              </a>
+              <a href="https://room.rakuten.co.jp/dopaminelabtv/items" target="_blank" rel="noopener"
+                 class="check-cta-link">
+                <span class="check-cta-num">02</span>
+                <span class="check-cta-text">
+                  <strong>Recommended tools</strong>
+                  <span>Rakuten ROOM — researcher picks</span>
+                </span>
+                <span class="check-cta-arrow">→</span>
+              </a>
+              <div class="check-cta-link check-cta-link--soon">
+                <span class="check-cta-num">03</span>
+                <span class="check-cta-text">
+                  <strong>Build better habits with AI</strong>
+                  <span>App Store / Google Play</span>
+                </span>
+                <span class="check-cta-soon">Coming soon</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="check-retry" id="check-retry">
+            ← Take it again
+          </button>
+        </div>
+      </div>
+    </section>
+
     <section class="posts-section">
       <div class="wa-divider">Latest from the Lab</div>
       {posts.length === 0 ? (
@@ -64,4 +166,61 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
       )}
     </section>
   </div>
+<script is:inline>
+(function () {
+  var answers = [null, null, null, null, null];
+  var submitBtn = document.getElementById('check-submit');
+  var retryBtn = document.getElementById('check-retry');
+  var quizEl = document.getElementById('check-quiz');
+  var resultEl = document.getElementById('check-result');
+  var resultHigh = document.getElementById('check-result-high');
+  var resultLow = document.getElementById('check-result-low');
+
+  if (!submitBtn) return;
+
+  document.querySelectorAll('.check-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var q = parseInt(btn.dataset.q);
+      answers[q] = btn.dataset.val;
+
+      btn.closest('.check-q').querySelectorAll('.check-btn').forEach(function (b) {
+        b.classList.remove('check-btn--active');
+      });
+      btn.classList.add('check-btn--active');
+
+      if (answers.every(function (a) { return a !== null; })) {
+        submitBtn.disabled = false;
+        submitBtn.removeAttribute('aria-disabled');
+      }
+    });
+  });
+
+  submitBtn.addEventListener('click', function () {
+    var yesCount = answers.filter(function (a) { return a === 'yes'; }).length;
+    quizEl.hidden = true;
+    resultEl.hidden = false;
+    if (yesCount >= 3) {
+      resultHigh.hidden = false;
+      resultLow.hidden = true;
+    } else {
+      resultHigh.hidden = true;
+      resultLow.hidden = false;
+    }
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  retryBtn.addEventListener('click', function () {
+    answers = [null, null, null, null, null];
+    document.querySelectorAll('.check-btn').forEach(function (b) {
+      b.classList.remove('check-btn--active');
+    });
+    submitBtn.disabled = true;
+    submitBtn.setAttribute('aria-disabled', 'true');
+    quizEl.hidden = false;
+    resultEl.hidden = true;
+    resultHigh.hidden = true;
+    resultLow.hidden = true;
+  });
+})();
+</script>
 </BaseLayout>
