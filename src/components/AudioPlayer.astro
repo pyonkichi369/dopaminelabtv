@@ -30,7 +30,14 @@ const modes = [
         </button>
       ))}
     </div>
-    <p class="ap-hint">🎧 ヘッドフォン推奨</p>
+    <p class="ap-hint">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+        <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
+        <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+      </svg>
+      ヘッドフォン推奨
+    </p>
   </div>
 </div>
 
@@ -191,6 +198,9 @@ const modes = [
 
 /* ── Hint ── */
 .ap-hint {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: 0.58rem;
   color: var(--text-muted);
   opacity: 0.65;
