@@ -794,6 +794,247 @@ footer::before {
   background: var(--accent-dim);
 }
 
+/* ── Diagnostic Check ── */
+.check-section {
+  padding: 72px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.check-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px 36px;
+  position: relative;
+  overflow: hidden;
+}
+
+.check-card::before {
+  content: '脳';
+  position: absolute;
+  right: 16px;
+  top: 8px;
+  font-family: var(--font-jp);
+  font-size: 7rem;
+  color: var(--accent);
+  opacity: 0.05;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.check-intro { margin-bottom: 32px; }
+
+.check-heading {
+  font-size: clamp(1.15rem, 3.5vw, 1.55rem);
+  font-weight: 300;
+  line-height: 1.55;
+  letter-spacing: 0.03em;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.check-heading-accent {
+  display: block;
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.check-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.check-questions {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.check-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  background: var(--bg);
+  transition: background 0.2s;
+}
+.check-q + .check-q { border-top: 1px solid var(--border); }
+.check-q:has(.check-btn--active) { background: var(--accent-dim); }
+
+.check-q-num {
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-right: 8px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+}
+
+.check-q-text {
+  font-size: 0.9rem;
+  color: var(--text);
+  flex: 1;
+  line-height: 1.5;
+}
+
+.check-q-btns { display: flex; gap: 8px; flex-shrink: 0; }
+
+.check-btn {
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: var(--font-sans);
+}
+.check-btn:hover { border-color: var(--border-accent); color: var(--accent); background: var(--accent-dim); }
+.check-btn--active { background: var(--accent); color: #faf5ec; border-color: var(--accent); }
+
+.check-submit {
+  width: 100%;
+  text-align: center;
+  padding: 12px;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+}
+.check-submit:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* Result */
+.check-badge {
+  display: inline-block;
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-family: var(--font-sans);
+}
+.check-badge--high { background: rgba(180,72,64,0.1); color: var(--accent); border: 1px solid var(--border-accent); }
+.check-badge--low  { background: rgba(138,111,46,0.1); color: var(--gold);   border: 1px solid rgba(138,111,46,0.25); }
+
+.check-result-h {
+  font-size: clamp(1.35rem, 3.5vw, 1.75rem);
+  font-weight: 300;
+  line-height: 1.45;
+  letter-spacing: 0.03em;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+.check-result-body {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.9;
+  margin-bottom: 32px;
+  max-width: 52ch;
+}
+
+.check-cta { margin-top: 28px; }
+
+.check-cta-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.check-cta-links {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.check-cta-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--bg);
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.2s;
+  position: relative;
+}
+.check-cta-link + .check-cta-link { border-top: 1px solid var(--border); }
+.check-cta-link:not(.check-cta-link--soon):hover { background: var(--bg-hover); opacity: 1; }
+.check-cta-link::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transition: transform 0.2s;
+}
+.check-cta-link:not(.check-cta-link--soon):hover::before { transform: scaleY(1); }
+
+.check-cta-link--soon { opacity: 0.4; cursor: default; }
+
+.check-cta-num {
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-weight: 500;
+  flex-shrink: 0;
+  width: 18px;
+  font-family: var(--font-sans);
+}
+
+.check-cta-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.check-cta-text strong { font-size: 0.88rem; color: var(--text); font-weight: 500; }
+.check-cta-text span  { font-size: 0.73rem; color: var(--text-muted); font-family: var(--font-sans); }
+
+.check-cta-arrow {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 0.15s;
+}
+.check-cta-link:not(.check-cta-link--soon):hover .check-cta-arrow { transform: translateX(4px); }
+
+.check-cta-soon {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 1px;
+  flex-shrink: 0;
+  font-family: var(--font-sans);
+}
+
+.check-retry {
+  margin-top: 20px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  padding: 0;
+  transition: color 0.15s;
+}
+.check-retry:hover { color: var(--text); }
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .container { padding: 0 20px; }
@@ -807,6 +1048,13 @@ footer::before {
 
 @media (max-width: 600px) {
   :root { --max-w: 100%; }
+
+  /* ── Check section mobile ── */
+  .check-section { padding: 48px 0; }
+  .check-card { padding: 24px 16px; }
+  .check-q { flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 16px; }
+  .check-q-btns { width: 100%; }
+  .check-btn { flex: 1; text-align: center; padding: 8px 0; }
 
   /* ── Header mobile ── */
   header { padding: 0; }

@@ -38,6 +38,107 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
       <p class="hero-tagline"><a href="/">English</a> · 日本語版</p>
     </section>
 
+    <!-- Diagnostic Check -->
+    <section class="check-section" id="check">
+      <p class="section-label">脳の状態チェック</p>
+      <div class="check-card">
+        <!-- Quiz -->
+        <div id="check-quiz">
+          <div class="check-intro">
+            <h2 class="check-heading" style="font-family: var(--font-jp)">
+              ストレスで壊れかけてる人へ<br>
+              <span class="check-heading-accent">それ、根性じゃなくて脳の仕様です</span>
+            </h2>
+            <p class="check-sub" style="font-family: var(--font-jp)">あてはまるものを選んでください（5問）</p>
+          </div>
+
+          <div class="check-questions">
+            {[
+              'ついSNSを開いてしまう',
+              '何をするにも集中できない',
+              'やる気が出ないのに不安だけある',
+              '寝ても疲れが取れない',
+              '何もしてないのに時間が溶ける',
+            ].map((q, i) => (
+              <div class="check-q">
+                <p class="check-q-text" style="font-family: var(--font-jp)">
+                  <span class="check-q-num">Q{i + 1}</span>{q}
+                </p>
+                <div class="check-q-btns">
+                  <button class="check-btn" data-q={i} data-val="yes">YES</button>
+                  <button class="check-btn" data-q={i} data-val="no">NO</button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button class="btn check-submit" id="check-submit" disabled aria-disabled="true">
+            結果を見る →
+          </button>
+        </div>
+
+        <!-- Result (hidden until quiz completes) -->
+        <div id="check-result" hidden>
+          <div id="check-result-high" hidden>
+            <p class="check-badge check-badge--high">ドーパミン過負荷状態</p>
+            <h3 class="check-result-h" style="font-family: var(--font-jp)">
+              短期刺激に、<br>脳が依存しています
+            </h3>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              SNS・動画・通知。脳が快楽に慣れすぎて、長期集中が機能しにくい状態です。
+              これは意志の問題ではなく、神経科学的な現象です。
+            </p>
+          </div>
+          <div id="check-result-low" hidden>
+            <p class="check-badge check-badge--low">脳の状態：比較的安定</p>
+            <h3 class="check-result-h" style="font-family: var(--font-jp)">
+              今のところ、<br>バランスは保たれています
+            </h3>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              ただし、現代環境は常にドーパミンをリセットしようとします。
+              予防と深化が鍵です。
+            </p>
+          </div>
+
+          <div class="check-cta">
+            <p class="check-cta-label">今すぐ整える</p>
+            <div class="check-cta-links">
+              <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener"
+                 class="check-cta-link">
+                <span class="check-cta-num">01</span>
+                <span class="check-cta-text">
+                  <strong style="font-family: var(--font-jp)">深く学びたい人へ</strong>
+                  <span>Substack — 週1レター</span>
+                </span>
+                <span class="check-cta-arrow">→</span>
+              </a>
+              <a href="https://room.rakuten.co.jp/dopaminelabtv/items" target="_blank" rel="noopener"
+                 class="check-cta-link">
+                <span class="check-cta-num">02</span>
+                <span class="check-cta-text">
+                  <strong style="font-family: var(--font-jp)">おすすめアイテム</strong>
+                  <span>楽天ROOM — 研究者厳選</span>
+                </span>
+                <span class="check-cta-arrow">→</span>
+              </a>
+              <div class="check-cta-link check-cta-link--soon">
+                <span class="check-cta-num">03</span>
+                <span class="check-cta-text">
+                  <strong style="font-family: var(--font-jp)">AIで習慣を整えるアプリ</strong>
+                  <span>App Store / Google Play</span>
+                </span>
+                <span class="check-cta-soon">近日公開</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="check-retry" id="check-retry" style="font-family: var(--font-jp)">
+            ← もう一度やる
+          </button>
+        </div>
+      </div>
+    </section>
+
     <section class="posts-section">
       <p class="section-label">ラボからの最新記事</p>
       {posts.length === 0 ? (
@@ -67,4 +168,61 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
       )}
     </section>
   </div>
+<script is:inline>
+(function () {
+  var answers = [null, null, null, null, null];
+  var submitBtn = document.getElementById('check-submit');
+  var retryBtn = document.getElementById('check-retry');
+  var quizEl = document.getElementById('check-quiz');
+  var resultEl = document.getElementById('check-result');
+  var resultHigh = document.getElementById('check-result-high');
+  var resultLow = document.getElementById('check-result-low');
+
+  if (!submitBtn) return;
+
+  document.querySelectorAll('.check-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var q = parseInt(btn.dataset.q);
+      answers[q] = btn.dataset.val;
+
+      btn.closest('.check-q').querySelectorAll('.check-btn').forEach(function (b) {
+        b.classList.remove('check-btn--active');
+      });
+      btn.classList.add('check-btn--active');
+
+      if (answers.every(function (a) { return a !== null; })) {
+        submitBtn.disabled = false;
+        submitBtn.removeAttribute('aria-disabled');
+      }
+    });
+  });
+
+  submitBtn.addEventListener('click', function () {
+    var yesCount = answers.filter(function (a) { return a === 'yes'; }).length;
+    quizEl.hidden = true;
+    resultEl.hidden = false;
+    if (yesCount >= 3) {
+      resultHigh.hidden = false;
+      resultLow.hidden = true;
+    } else {
+      resultHigh.hidden = true;
+      resultLow.hidden = false;
+    }
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  retryBtn.addEventListener('click', function () {
+    answers = [null, null, null, null, null];
+    document.querySelectorAll('.check-btn').forEach(function (b) {
+      b.classList.remove('check-btn--active');
+    });
+    submitBtn.disabled = true;
+    submitBtn.setAttribute('aria-disabled', 'true');
+    quizEl.hidden = false;
+    resultEl.hidden = true;
+    resultHigh.hidden = true;
+    resultLow.hidden = true;
+  });
+})();
+</script>
 </BaseLayout>
