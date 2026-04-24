@@ -1,210 +1,267 @@
 ---
 const modes = [
-  { id: 'rise', label: 'RISE', tagline: '200Hz + SMR · Morning Activation' },
-  { id: 'flow', label: 'FLOW', tagline: '200Hz + β · Focus & Create' },
-  { id: 'peak', label: 'PEAK', tagline: '200Hz + γ · Enter the Zone' },
+  { id: 'rise', label: 'RISE', tagline: 'SMR · 朝の覚醒' },
+  { id: 'flow', label: 'FLOW', tagline: 'β波 · 集中' },
+  { id: 'peak', label: 'PEAK', tagline: 'γ波 · ゾーン' },
 ];
 ---
 
-<div class="audio-player" id="audio-player" aria-label="Lab BGM Player">
+<div class="ap" id="audio-player" aria-label="Lab BGM">
   <audio id="lab-audio" loop preload="none"></audio>
 
-  <button class="ap-toggle" id="ap-toggle" aria-expanded="false" aria-label="Lab BGM">
-    <svg class="ap-icon-play" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
-      <polygon points="3,1 13,7 3,13"/>
-    </svg>
-    <svg class="ap-icon-pause" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" style="display:none">
-      <rect x="2" y="1" width="4" height="12"/><rect x="8" y="1" width="4" height="12"/>
-    </svg>
-    <span class="ap-label">LAB BGM</span>
+  <!-- floating trigger -->
+  <button class="ap-btn" id="ap-toggle" aria-expanded="false" aria-label="Lab BGM を開く">
+    <span class="ap-kanji" aria-hidden="true">音</span>
+    <span class="ap-waves" aria-hidden="true">
+      <span class="ap-bar"></span>
+      <span class="ap-bar"></span>
+      <span class="ap-bar"></span>
+    </span>
   </button>
 
+  <!-- panel -->
   <div class="ap-panel" id="ap-panel" aria-hidden="true">
-    <p class="ap-panel-heading">binaural · pick a mode</p>
+    <p class="ap-eyebrow">Focus BGM · binaural</p>
     <div class="ap-modes">
       {modes.map(m => (
-        <button class="ap-mode-btn" data-mode={m.id} aria-pressed="false">
-          <span class="ap-mode-label">{m.label}</span>
-          <span class="ap-mode-tagline">{m.tagline}</span>
+        <button class="ap-mode" data-mode={m.id} aria-pressed="false">
+          <span class="ap-mode-name">{m.label}</span>
+          <span class="ap-mode-sub">{m.tagline}</span>
         </button>
       ))}
     </div>
-    <p class="ap-headphone-note">🎧 Use headphones for binaural effect</p>
+    <p class="ap-hint">🎧 ヘッドフォン推奨</p>
   </div>
 </div>
 
 <style>
-.audio-player {
+/* ── Container ── */
+.ap {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 28px;
+  right: 28px;
   z-index: 200;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 8px;
+  gap: 10px;
 }
 
-.ap-toggle {
+/* ── Trigger button ── */
+.ap-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 8px 14px 8px 12px;
-  cursor: pointer;
-  color: var(--text-muted);
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  transition: border-color 0.2s, color 0.2s;
+  justify-content: center;
+  transition: border-color 0.25s, box-shadow 0.25s;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  position: relative;
 }
-.ap-toggle:hover { border-color: var(--border-accent); color: var(--accent); }
-.ap-toggle.playing { border-color: var(--border-accent); color: var(--accent); }
+.ap-btn:hover {
+  border-color: var(--border-accent);
+}
+.ap-btn.playing {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(180,72,64,0.12);
+}
 
+/* 音 kanji — visible when stopped */
+.ap-kanji {
+  font-family: var(--font-jp);
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1;
+  transition: opacity 0.2s;
+  position: absolute;
+}
+.ap-btn.playing .ap-kanji { opacity: 0; }
+
+/* wave bars — visible when playing */
+.ap-waves {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 16px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  position: absolute;
+}
+.ap-btn.playing .ap-waves { opacity: 1; }
+
+.ap-bar {
+  display: block;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  animation: none;
+}
+.ap-bar:nth-child(1) { height: 8px; }
+.ap-bar:nth-child(2) { height: 14px; }
+.ap-bar:nth-child(3) { height: 6px; }
+
+.ap-btn.playing .ap-bar:nth-child(1) { animation: wave 1.1s ease-in-out infinite; }
+.ap-btn.playing .ap-bar:nth-child(2) { animation: wave 1.1s ease-in-out infinite 0.18s; }
+.ap-btn.playing .ap-bar:nth-child(3) { animation: wave 1.1s ease-in-out infinite 0.36s; }
+
+@keyframes wave {
+  0%, 100% { transform: scaleY(1); }
+  50%       { transform: scaleY(0.35); }
+}
+
+/* ── Panel ── */
 .ap-panel {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 16px;
-  width: 240px;
-  display: none;
+  border-radius: var(--radius);
+  padding: 18px 16px 14px;
+  width: 210px;
+  display: flex;
   flex-direction: column;
   gap: 10px;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
 }
-.ap-panel.open { display: flex; }
+.ap-panel.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
 
-.ap-panel-heading {
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
+.ap-eyebrow {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: 2px;
 }
 
+/* ── Mode buttons ── */
 .ap-modes {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
-.ap-mode-btn {
+.ap-mode {
   display: flex;
-  flex-direction: column;
-  gap: 1px;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
   background: none;
   border: 1px solid transparent;
   border-radius: 2px;
-  padding: 8px 10px;
+  padding: 7px 10px;
   cursor: pointer;
-  text-align: left;
   transition: background 0.15s, border-color 0.15s;
+  width: 100%;
 }
-.ap-mode-btn:hover { background: var(--accent-dim); border-color: var(--border-accent); }
-.ap-mode-btn[aria-pressed="true"] { background: var(--accent-dim); border-color: var(--border-accent); }
+.ap-mode:hover {
+  background: var(--accent-dim);
+  border-color: var(--border-accent);
+}
+.ap-mode[aria-pressed="true"] {
+  background: var(--accent-dim);
+  border-color: var(--border-accent);
+}
 
-.ap-mode-label {
-  font-size: 0.68rem;
+.ap-mode-name {
+  font-size: 0.7rem;
   letter-spacing: 0.14em;
   color: var(--text);
   font-weight: 500;
 }
-.ap-mode-btn[aria-pressed="true"] .ap-mode-label { color: var(--accent); }
+.ap-mode[aria-pressed="true"] .ap-mode-name { color: var(--accent); }
 
-.ap-mode-tagline {
+.ap-mode-sub {
   font-size: 0.58rem;
   color: var(--text-muted);
-  letter-spacing: 0.04em;
+  font-family: var(--font-jp);
+  white-space: nowrap;
 }
 
-.ap-headphone-note {
+/* ── Hint ── */
+.ap-hint {
   font-size: 0.58rem;
   color: var(--text-muted);
-  opacity: 0.7;
+  opacity: 0.65;
   border-top: 1px solid var(--border);
   padding-top: 8px;
-  margin-top: 2px;
 }
 
 @media (max-width: 600px) {
-  .audio-player { bottom: 16px; right: 16px; }
-  .ap-panel { width: 220px; }
+  .ap { bottom: 18px; right: 18px; }
+  .ap-panel { width: 196px; }
 }
 </style>
 
 <script>
 (function () {
-  const audio = document.getElementById('lab-audio') as HTMLAudioElement;
-  const toggle = document.getElementById('ap-toggle') as HTMLButtonElement;
-  const panel = document.getElementById('ap-panel') as HTMLDivElement;
-  const iconPlay = toggle.querySelector('.ap-icon-play') as SVGElement;
-  const iconPause = toggle.querySelector('.ap-icon-pause') as SVGElement;
-  const modeButtons = document.querySelectorAll<HTMLButtonElement>('.ap-mode-btn');
+  const audio   = document.getElementById('lab-audio') as HTMLAudioElement;
+  const btn     = document.getElementById('ap-toggle') as HTMLButtonElement;
+  const panel   = document.getElementById('ap-panel') as HTMLDivElement;
+  const modes   = document.querySelectorAll<HTMLButtonElement>('.ap-mode');
 
-  let currentMode: string | null = null;
-  let panelOpen = false;
+  let current: string | null = null;
+  let open = false;
 
-  function showIcon(playing: boolean) {
-    iconPlay.style.display = playing ? 'none' : 'block';
-    iconPause.style.display = playing ? 'block' : 'none';
-    toggle.classList.toggle('playing', playing);
+  function setPlaying(v: boolean) {
+    btn.classList.toggle('playing', v);
+    btn.setAttribute('aria-label', v ? 'BGM 再生中 — クリックで停止/モード変更' : 'Lab BGM を開く');
   }
 
-  function setMode(id: string) {
-    currentMode = id;
+  function selectMode(id: string) {
+    current = id;
     audio.src = `/audio/${id}.m4a`;
     audio.load();
     audio.play().catch(() => {});
-    showIcon(true);
-    modeButtons.forEach(b => {
-      b.setAttribute('aria-pressed', b.dataset.mode === id ? 'true' : 'false');
-    });
+    setPlaying(true);
+    modes.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === id ? 'true' : 'false'));
   }
 
-  toggle.addEventListener('click', () => {
-    if (!panelOpen) {
-      panel.classList.add('open');
-      panel.setAttribute('aria-hidden', 'false');
-      toggle.setAttribute('aria-expanded', 'true');
-      panelOpen = true;
-      // Auto-start with 'flow' if nothing selected
-      if (!currentMode) setMode('flow');
+  function openPanel() {
+    panel.classList.add('open');
+    panel.setAttribute('aria-hidden', 'false');
+    btn.setAttribute('aria-expanded', 'true');
+    open = true;
+    if (!current) selectMode('flow');
+  }
+
+  function closePanel() {
+    panel.classList.remove('open');
+    panel.setAttribute('aria-hidden', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    open = false;
+  }
+
+  btn.addEventListener('click', () => {
+    if (!open) {
+      openPanel();
     } else {
-      if (audio.paused) {
-        audio.play().catch(() => {});
-        showIcon(true);
-      } else {
-        audio.pause();
-        showIcon(false);
-      }
+      audio.paused ? (audio.play().catch(() => {}), setPlaying(true)) : (audio.pause(), setPlaying(false));
     }
   });
 
-  modeButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = btn.dataset.mode!;
-      if (currentMode === id && !audio.paused) {
-        audio.pause();
-        showIcon(false);
-      } else {
-        setMode(id);
-      }
+  modes.forEach(b => {
+    b.addEventListener('click', () => {
+      const id = b.dataset.mode!;
+      if (current === id && !audio.paused) { audio.pause(); setPlaying(false); }
+      else selectMode(id);
     });
   });
 
-  // Close panel on outside click
-  document.addEventListener('click', (e) => {
-    const player = document.getElementById('audio-player');
-    if (panelOpen && player && !player.contains(e.target as Node)) {
-      panel.classList.remove('open');
-      panel.setAttribute('aria-hidden', 'true');
-      toggle.setAttribute('aria-expanded', 'false');
-      panelOpen = false;
-    }
+  document.addEventListener('click', e => {
+    const root = document.getElementById('audio-player');
+    if (open && root && !root.contains(e.target as Node)) closePanel();
   });
 })();
 </script>
