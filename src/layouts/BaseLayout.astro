@@ -5,6 +5,7 @@ export interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  lang?: 'en' | 'ja';
   article?: {
     publishedTime: string;
     tags: string[];
@@ -15,6 +16,7 @@ const {
   title,
   description = 'Neuroscience × Japanese philosophy for the AI age. Research on dopamine, attention, and staying focused in the era of AI.',
   ogImage = '/og-default.png',
+  lang = 'en',
   article,
 } = Astro.props;
 
@@ -49,7 +51,7 @@ const jsonLD = isArticle ? {
 };
 ---
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -100,6 +102,15 @@ const jsonLD = isArticle ? {
 
   <!-- JSON-LD structured data -->
   <script type="application/ld+json" set:html={JSON.stringify(jsonLD)} />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E15WQVQVES"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-E15WQVQVES');
+  </script>
 </head>
 <body>
   <header>
@@ -109,9 +120,21 @@ const jsonLD = isArticle ? {
         <span>Dopamine <span class="lab">Lab</span> TV</span>
       </a>
       <nav aria-label="Main navigation">
-        <a href="/posts">Articles</a>
-        <a href="/about">About</a>
-        <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener">YouTube</a>
+        {lang === 'ja' ? (
+          <>
+            <a href="/ja/posts">記事</a>
+            <a href="/about">About</a>
+            <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener">YouTube</a>
+            <a href="/" class="lang-switch">EN</a>
+          </>
+        ) : (
+          <>
+            <a href="/posts">Articles</a>
+            <a href="/about">About</a>
+            <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener">YouTube</a>
+            <a href="/ja/" class="lang-switch">JP</a>
+          </>
+        )}
       </nav>
     </div>
   </header>

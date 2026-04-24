@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allPosts = await Astro.glob('../../content/posts/ja/*.md');
+const posts = allPosts
+  .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
+  .slice(0, 20);
+
+function formatDate(d: string) {
+  return new Date(d).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
+---
+<BaseLayout title="ラボは開いている" lang="ja"
+  description="AI時代のドーパミン・注意力・集中力の研究。神経科学と日本哲学の交差点から。">
+  <div class="container">
+    <section class="hero">
+      <p class="hero-eyebrow">Dopamine Lab TV</p>
+      <h1 style="font-family: var(--font-jp)">人間であり続ける<br />科学。</h1>
+      <p class="hero-sub" style="font-family: var(--font-jp)">
+        AI時代のドーパミン・注意力・明晰な思考の研究。神経科学 × 日本哲学——
+        ハックなし、ハッスルなし。シグナルだけ。
+      </p>
+      <p class="hero-tagline"><a href="/">English</a> · 日本語版</p>
+    </section>
+
+    <section class="posts-section">
+      <p class="section-label">ラボからの最新記事</p>
+      {posts.length === 0 ? (
+        <div class="post-card" style="justify-content: center; color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-jp)">
+          最初のエピソードは近日公開予定。
+        </div>
+      ) : (
+        <div class="posts-list">
+          {posts.map(post => (
+            <article class="post-card">
+              <div class="post-card-body">
+                <div class="post-tags">
+                  {post.frontmatter.tags?.map((t: string) => <span class="tag">{t}</span>)}
+                </div>
+                <h2 style="font-family: var(--font-jp)">
+                  <a href={`/ja/posts/${slug(post)}`}>{post.frontmatter.title}</a>
+                </h2>
+                <p class="post-excerpt" style="font-family: var(--font-jp)">{post.frontmatter.excerpt}</p>
+              </div>
+              <div class="post-meta">
+                <span class="date">{formatDate(post.frontmatter.date)}</span>
+                {post.frontmatter.readTime && <span class="read-time">{post.frontmatter.readTime}分</span>}
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </section>
+  </div>
+</BaseLayout>

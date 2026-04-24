@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const allPosts = await Astro.glob('../content/posts/*.md');
+const allPosts = await Astro.glob('../content/posts/en/*.md');
 const posts = allPosts
   .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
   .slice(0, 20);
@@ -9,14 +9,10 @@ const posts = allPosts
 function formatDate(d: string) {
   return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
-
-function slug(p: any) {
-  return p.file.split('/').pop().replace('.md', '');
-}
+function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
 ---
 <BaseLayout title="The Lab is Open">
   <div class="container">
-
     <section class="hero">
       <p class="hero-eyebrow">Dopamine Lab TV</p>
       <h1>The science of<br />staying human.</h1>
@@ -24,17 +20,14 @@ function slug(p: any) {
         Research on dopamine, attention, and what it means to think clearly in the age of AI.
         Neuroscience × Japanese philosophy — no hacks, no hustle. Just signal.
       </p>
-      <p class="hero-tagline">
-        神経科学 × 日本哲学 for the AI age
-      </p>
+      <p class="hero-tagline">神経科学 × 日本哲学 for the AI age · <a href="/ja/">日本語版</a></p>
     </section>
 
     <section class="posts-section">
       <p class="section-label">Latest from the Lab</p>
-
       {posts.length === 0 ? (
         <div class="post-card" style="justify-content: center; color: var(--text-muted); font-size: 0.9rem;">
-          First episode dropping soon — subscribe to Substack for early access.
+          First episode dropping soon.
         </div>
       ) : (
         <div class="posts-list">
@@ -42,24 +35,19 @@ function slug(p: any) {
             <article class="post-card">
               <div class="post-card-body">
                 <div class="post-tags">
-                  {post.frontmatter.tags?.map((t: string) => (
-                    <span class="tag">{t}</span>
-                  ))}
+                  {post.frontmatter.tags?.map((t: string) => <span class="tag">{t}</span>)}
                 </div>
                 <h2><a href={`/posts/${slug(post)}`}>{post.frontmatter.title}</a></h2>
                 <p class="post-excerpt">{post.frontmatter.excerpt}</p>
               </div>
               <div class="post-meta">
                 <span class="date">{formatDate(post.frontmatter.date)}</span>
-                {post.frontmatter.readTime && (
-                  <span class="read-time">{post.frontmatter.readTime} min</span>
-                )}
+                {post.frontmatter.readTime && <span class="read-time">{post.frontmatter.readTime} min</span>}
               </div>
             </article>
           ))}
         </div>
       )}
     </section>
-
   </div>
 </BaseLayout>

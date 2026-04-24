@@ -1,20 +1,20 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-const allPosts = await Astro.glob('../../content/posts/en/*.md');
+const allPosts = await Astro.glob('../../../content/posts/ja/*.md');
 const posts = allPosts.sort(
   (a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
 );
 
 function formatDate(d: string) {
-  return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  return new Date(d).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
 ---
-<BaseLayout title="All Articles" description="All research dispatches from Dopamine Lab TV.">
+<BaseLayout title="全記事" lang="ja" description="Dopamine Lab TVの全記事一覧。">
   <div class="container">
     <section class="posts-section" style="padding-top: 52px;">
-      <p class="section-label">All Articles — {posts.length} dispatches</p>
+      <p class="section-label">全記事 — {posts.length}本</p>
       <div class="posts-list">
         {posts.map(post => (
           <article class="post-card">
@@ -22,12 +22,14 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
               <div class="post-tags">
                 {post.frontmatter.tags?.map((t: string) => <span class="tag">{t}</span>)}
               </div>
-              <h2><a href={`/posts/${slug(post)}`}>{post.frontmatter.title}</a></h2>
-              <p class="post-excerpt">{post.frontmatter.excerpt}</p>
+              <h2 style="font-family: var(--font-jp)">
+                <a href={`/ja/posts/${slug(post)}`}>{post.frontmatter.title}</a>
+              </h2>
+              <p class="post-excerpt" style="font-family: var(--font-jp)">{post.frontmatter.excerpt}</p>
             </div>
             <div class="post-meta">
               <span class="date">{formatDate(post.frontmatter.date)}</span>
-              {post.frontmatter.readTime && <span class="read-time">{post.frontmatter.readTime} min</span>}
+              {post.frontmatter.readTime && <span class="read-time">{post.frontmatter.readTime}分</span>}
             </div>
           </article>
         ))}
