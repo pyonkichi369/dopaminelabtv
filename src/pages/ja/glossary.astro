@@ -1,0 +1,196 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = '禅語辞典——日本哲学と神経科学 | Dopamine Lab TV';
+const description = '整う・間・無心・侘び寂び・一期一会……日本の禅語・哲学概念を、現代神経科学と接続して解説する辞典。';
+
+const terms = [
+  {
+    id: 'totonou',
+    kanji: '整う',
+    romaji: 'totonou',
+    literal: '秩序が戻る・整然とした状態になる',
+    philosophy: '急性ストレスを通過したあとに訪れる、静けさと明晰さが同時に存在する状態。リラックスではなく、再較正。神経系が完全なサイクルを完了し、出発点より高いベースラインに着地した瞬間を指す。',
+    neuro: '交感神経系の急上昇に続く副交感神経リバウンド。14°Cの冷水への短時間暴露でノルエピネフリンが最大300%上昇し、前頭前皮質の注意力が鋭化する。その後15〜30分間、認知パフォーマンスが計測可能に向上する窓が開く。',
+    article: { href: '/ja/posts/totonou-no-kagaku', label: '整う（ととのう）——脳が本当に求めているものの正体' },
+    featured: true,
+  },
+  {
+    id: 'danshari',
+    kanji: '断捨離',
+    romaji: 'danshari',
+    literal: '断つ・捨てる・離れる',
+    philosophy: '必要でないものを断ち（断）、余剰を捨て（捨）、執着から離れる（離）実践。物だけでなく、習慣・約束・思考パターンにも適用できる。ものを持つことをやめ、手放すことを積み重ねる生き方。',
+    neuro: '所有するすべての物と未完了の約束は、ワーキングメモリの帯域を占有する。決断疲れは集中と同じ前頭前皮質リソースを消耗させる。認知負荷を減らすことは、重要なことへのドーパミン温存に直結する。',
+    article: null,
+  },
+  {
+    id: 'heijoshin',
+    kanji: '平常心',
+    romaji: 'heijoshin',
+    literal: '普段の心・乱れない日常の心',
+    philosophy: '禅の理想とする平静さ——称賛でも批判でも揺れない、安定した存在の質。感情の平坦さではなく、何があっても自然に行動が流れ出てくる落ち着いた地盤。',
+    neuro: '整うが目指すドーパミンのトニックベースライン（背景レベル）の状態。心拍変動（HRV）の高さが生理学的なシグネチャ。このベースラインが保たれてはじめて、報酬への位相的反応が意味を持つ。',
+    article: null,
+  },
+  {
+    id: 'ichigo-ichie',
+    kanji: '一期一会',
+    romaji: 'ichigo ichie',
+    literal: '一生に一度の出会い',
+    philosophy: 'この瞬間——この会話、この食事、この光——は、まったく同じ形では二度と訪れない。だからこそ、完全にここにいることが求められる。茶道の精神から生まれた言葉。',
+    neuro: '注意の深さは広さとは質的に異なるドーパミン反応を生む。スクロールは絶え間ない新奇性を与えるが、脳は構造的に同一の刺激として認識し報酬反応が鈍化する。真の現前は、より豊かで持続的な信号を引き出す。',
+    article: null,
+  },
+  {
+    id: 'chisoku',
+    kanji: '知足',
+    romaji: 'chisoku',
+    literal: '足るを知る',
+    philosophy: '老子の言葉「知足者富」——足るを知る者は富む。より多くを求める欲求が罠であることを能動的に認識し、すでに十分が存在することを見る。受動的な諦めではなく、気づきの実践。',
+    neuro: 'ベリッジの「欲しがる（wanting）」と「好む（liking）」の区別。現代のデザインはドーパミン駆動の欲求システムを搾取し、満足システムを満たさない。知足はそのループを断ち切る認知的再フレーミング。',
+    article: null,
+  },
+  {
+    id: 'komorebi',
+    kanji: '木漏れ日',
+    romaji: 'komorebi',
+    literal: '木の葉の間から漏れる日の光',
+    philosophy: 'どこにでも存在するが、多くの言語が名前を持たない現象——葉間を揺れる光の模様。名前をつけることは、見過ごされるものを見る招待状。日本の美学は、他者が飛ばすものへ注意を向ける語彙を持つ。',
+    neuro: '注意回復理論（カプラン）：フラクタルパターンを持つ自然環境は、デジタル作業で消耗した方向性注意を回復させる。自然光のパターンへの短時間の暴露でもコルチゾールが低下し、認知能力が回復する。',
+    article: null,
+  },
+  {
+    id: 'ma',
+    kanji: '間',
+    romaji: 'ma',
+    literal: '隙間・間隔・あいだの空間',
+    philosophy: '音を可能にする構造的な沈黙、息と息のあいだの空間、音符と音符のあいだの間隔。間は空虚ではない。周囲のすべてに形を与える建築だ。日本の建築・音楽・武道・茶道はすべてこの原理を内包する。',
+    neuro: '現代生活が消し去る自律神経サイクルの回復半分。活性化のあとに本物の非活性化がなければ、ドーパミンのベースラインはリセットできない。間は無駄な時間ではなく、努力を持続可能にするメカニズムだ。',
+    article: { href: '/ja/posts/totonou-no-kagaku', label: '整う（ととのう）——脳が本当に求めているものの正体' },
+  },
+  {
+    id: 'mono-no-aware',
+    kanji: 'もののあわれ',
+    romaji: 'mono no aware',
+    literal: 'ものの哀れ・ものごとへの共感',
+    philosophy: '無常への苦甘い感受性——美しいからこそ、それが続かないことを知る。桜は散るから意味がある。この感覚は悲しみではなく、現在への研ぎ澄まされた生きた感覚だ。',
+    neuro: '無常の受容は反芻思考を減らす——コルチゾール上昇とドーパミン抑制に相関する自己反復的思考。喪失の感情処理が回避ではなく完了されると、前頭前皮質の柔軟性が回復する。',
+    article: null,
+  },
+  {
+    id: 'mu',
+    kanji: '無',
+    romaji: 'mu',
+    literal: 'なし・無・ないこと',
+    philosophy: '禅の空の概念——虚無主義的な不在ではなく、豊かな空白。「無！」という公案は存在についての問いではなく、その問いを成立させているフレームを手放せという指示だ。',
+    neuro: 'デフォルトモードネットワーク（DMN）は精神的休息中に活性化し、記憶を統合し、創造的洞察を生み、感情を処理する。絶え間ない刺激はDMN活動を抑制する。何もしないことは、脳が最も重要な仕事をする時間だ。',
+    article: null,
+  },
+  {
+    id: 'mushin',
+    kanji: '無心',
+    romaji: 'mushin',
+    literal: '心なし・空の心',
+    philosophy: '禅の武道が理想とする状態——気散・自我・意図的な計算から解放された心。自己観察者の干渉なしに、現前するものへ流動的に反応する。',
+    neuro: 'フロー状態（チクセントミハイ）。一過性の前頭葉機能低下仮説：ピーク・パフォーマンス中に前頭前皮質の自己参照的処理が静まり、皮質下のパターン認識が干渉なしに動作する。ドーパミンは安定して高い。',
+    article: null,
+  },
+  {
+    id: 'shoshin',
+    kanji: '初心',
+    romaji: 'shoshin',
+    literal: '初めて学ぶ者の心',
+    philosophy: '「初心者の心には多くの可能性がある。熟達者の心には少ししかない」——鈴木俊隆。馴染みある領域でも、初めてであるかのように、前提なく、開いた姿勢で向き合うこと。',
+    neuro: '本物の好奇心と神経可塑性はつながっている。新奇な環境と真の不確実性がシナプス結合を強化するドーパミン反応を引き起こす。倦んだ馴染みはそれを抑制する。初心は学習を生き続けさせる認知的姿勢だ。',
+    article: null,
+  },
+  {
+    id: 'shu-ha-ri',
+    kanji: '守破離',
+    romaji: 'shu-ha-ri',
+    literal: '守る・破る・離れる',
+    philosophy: '習得の3段階：ルールを忠実に守り（守）、理解をもってルールを破り（破）、ルール自体を超越する（離）。各段階は、前の段階を安全にしていたものを手放すことを要求する。',
+    neuro: 'スキル習得においてドーパミンの役割が段階ごとに変化する。守ではルール遵守に報酬、破では創造的なリスクに報酬、離では活動そのものが報酬になる内発的動機が生まれる。前頭前皮質は学習したパターンを徐々に大脳基底核へ委譲する。',
+    article: null,
+  },
+  {
+    id: 'wabi-sabi',
+    kanji: '侘び寂び',
+    romaji: 'wabi-sabi',
+    literal: '侘び：静かな簡素さ　寂び：時を経た美・錆びの美',
+    philosophy: '不完全・不完結・無常のなかに美を見出すこと。縁の不均一な茶碗。風雨に晒された木の門。金継ぎで埋められた割れ目。侘び寂びは、ものが別様であるべきだという前提を拒否する。',
+    neuro: '完璧主義は脅威検出システムを活性化させる——コルチゾールが上昇し、ドーパミンが枯渇し、前頭前皮質はエラー修正モードに狭まる。不完全さを固有のものとして受け入れることでこの負荷が下がり、認知的柔軟性と創造的能力が戻る。',
+    article: null,
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="ja"
+  ogImage="/og/ja/glossary.png"
+>
+  <div class="glossary-page">
+    <div class="glossary-hero">
+      <p class="glossary-eyebrow">禅語辞典</p>
+      <h1 class="glossary-title" style="font-family: var(--font-jp)">日本哲学と<br>神経科学</h1>
+      <p class="glossary-subtitle" style="font-family: var(--font-jp)">
+        科学がまだ測定中のものに、古代の概念が名前をつけていた。
+        各用語を現代神経科学と接続して解説する。
+      </p>
+      <a href="/glossary" class="glossary-lang-switch">English →</a>
+    </div>
+
+    <nav class="glossary-index" aria-label="用語へジャンプ">
+      {terms.map(t => (
+        <a href={`#${t.id}`} class={`glossary-index-link${t.featured ? ' glossary-index-link--featured' : ''}`}>
+          <span class="glossary-index-kanji">{t.kanji}</span>
+          <span class="glossary-index-romaji">{t.romaji}</span>
+        </a>
+      ))}
+    </nav>
+
+    <div class="glossary-entries">
+      {terms.map(t => (
+        <article class={`glossary-entry${t.featured ? ' glossary-entry--featured' : ''}`} id={t.id}>
+          <div class="glossary-entry-header">
+            <span class="glossary-kanji">{t.kanji}</span>
+            <div class="glossary-meta">
+              <span class="glossary-romaji">{t.romaji}</span>
+              <span class="glossary-literal">「{t.literal}」</span>
+            </div>
+          </div>
+          <div class="glossary-body">
+            <p class="glossary-philosophy" style="font-family: var(--font-jp)">{t.philosophy}</p>
+            <div class="glossary-neuro">
+              <span class="glossary-neuro-label">神経科学</span>
+              <p style="font-family: var(--font-jp)">{t.neuro}</p>
+            </div>
+            {t.article && (
+              <a href={t.article.href} class="glossary-article-link">
+                → {t.article.label}
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "name": "禅語辞典——日本哲学と神経科学",
+    "description": description,
+    "url": "https://dopaminelabtv.com/ja/glossary/",
+    "inLanguage": "ja",
+    "hasDefinedTerm": terms.map(t => ({
+      "@type": "DefinedTerm",
+      "name": `${t.kanji}（${t.romaji}）`,
+      "description": t.philosophy,
+      "url": `https://dopaminelabtv.com/ja/glossary/#${t.id}`,
+    }))
+  })} />
+</BaseLayout>

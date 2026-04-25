@@ -1,0 +1,196 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Zen Glossary — Japanese Philosophy & Neuroscience | Dopamine Lab TV';
+const description = 'A glossary of Zen and Japanese philosophical concepts — each mapped to modern neuroscience. From totonou to mushin, wabi-sabi to ichigo ichie.';
+
+const terms = [
+  {
+    id: 'totonou',
+    kanji: '整う',
+    romaji: 'totonou',
+    literal: 'to be arranged; to be put in order',
+    philosophy: 'The state of simultaneous calm and clarity reached after moving through acute stress — not relaxation, but recalibration. The nervous system completes a full cycle and lands at a higher baseline than where it started.',
+    neuro: 'Parasympathetic rebound following sympathetic activation. Brief cold exposure drives norepinephrine up to 300%, sharpening prefrontal focus. A 15–30 minute window of elevated cognitive performance follows.',
+    article: { href: '/posts/totonou-what-your-brain-needs', label: 'Totonou: The Japanese Word for What Your Brain Has Been Missing' },
+    featured: true,
+  },
+  {
+    id: 'danshari',
+    kanji: '断捨離',
+    romaji: 'danshari',
+    literal: 'refuse · discard · separate',
+    philosophy: 'A practice of intentional reduction — refusing what you don\'t need (断), discarding excess (捨), and detaching from attachment to things (離). Applied not just to objects but to habits, commitments, and mental clutter.',
+    neuro: 'Every owned object and open commitment occupies working memory bandwidth. Decision fatigue depletes the same prefrontal resources as focus. Reducing cognitive load directly preserves dopamine for what matters.',
+    article: null,
+  },
+  {
+    id: 'heijoshin',
+    kanji: '平常心',
+    romaji: 'heijoshin',
+    literal: 'ordinary mind; everyday mind',
+    philosophy: 'The Zen ideal of equanimity — a stable, undisturbed baseline from which action flows naturally. Not emotional flatness, but a settled quality of presence that doesn\'t spike with praise or collapse with criticism.',
+    neuro: 'The target dopamine tonic baseline — the resting level from which phasic reward responses become meaningful. High HRV (heart rate variability) is the physiological signature of heijoshin. Totonou is one way to reach it.',
+    article: null,
+  },
+  {
+    id: 'ichigo-ichie',
+    kanji: '一期一会',
+    romaji: 'ichigo ichie',
+    literal: 'one time, one meeting',
+    philosophy: 'Treasure each encounter as unique and unrepeatable. This moment — this conversation, this meal, this light — will never exist in exactly this configuration again. The appropriate response is full presence.',
+    neuro: 'Depth of attention produces qualitatively different dopamine responses than breadth. Scroll culture provides constant novelty — but the brain registers it as structurally identical stimulation, blunting reward. Genuine presence activates a richer, longer-lasting signal.',
+    article: null,
+  },
+  {
+    id: 'chisoku',
+    kanji: '知足',
+    romaji: 'chisoku',
+    literal: 'knowing sufficiency; knowing enough',
+    philosophy: 'From the Tao Te Ching: "One who knows contentment is wealthy." Not passive resignation, but the active recognition that the appetite for more is a trap — and that enough is already present.',
+    neuro: 'Berridge\'s distinction between "wanting" (dopamine-driven craving) and "liking" (opioid-mediated pleasure). Modern design exploits the wanting system without satisfying the liking system. Chisoku is the cognitive reframe that interrupts the loop.',
+    article: null,
+  },
+  {
+    id: 'komorebi',
+    kanji: '木漏れ日',
+    romaji: 'komorebi',
+    literal: 'sunlight filtering through leaves',
+    philosophy: 'A word for a phenomenon that exists everywhere but most languages don\'t name — dappled light through tree canopy. Naming it is an invitation to notice the unremarkable. Japanese aesthetics builds a vocabulary for attending to what others skip past.',
+    neuro: 'Attention Restoration Theory (Kaplan & Kaplan): natural environments with fractal patterns replenish directed-attention resources depleted by digital work. Even brief exposure to natural light patterns reduces cortisol and restores cognitive capacity.',
+    article: null,
+  },
+  {
+    id: 'ma',
+    kanji: '間',
+    romaji: 'ma',
+    literal: 'gap; interval; space between',
+    philosophy: 'The meaningful pause — the structural silence that makes sound possible, the space between breaths, the interval between notes. Ma is not emptiness. It is the architecture that gives form to everything around it.',
+    neuro: 'The recovery half of the autonomic cycle that modern life eliminates. Without genuine deactivation after activation, the dopamine baseline cannot reset. Ma is not wasted time — it is the mechanism by which effort becomes sustainable.',
+    article: { href: '/posts/totonou-what-your-brain-needs', label: 'Totonou: The Japanese Word for What Your Brain Has Been Missing' },
+  },
+  {
+    id: 'mono-no-aware',
+    kanji: 'もののあわれ',
+    romaji: 'mono no aware',
+    literal: 'the pathos of things; an empathy with things',
+    philosophy: 'A bittersweet sensitivity to impermanence — moved by beauty precisely because it will not last. Cherry blossoms matter because they fall. The feeling is not sadness; it is a sharpened aliveness to the present.',
+    neuro: 'Acceptance of impermanence reduces rumination — the repetitive, self-referential thinking that correlates with elevated cortisol and suppressed dopamine. Emotional processing of loss, when completed rather than avoided, restores prefrontal flexibility.',
+    article: null,
+  },
+  {
+    id: 'mu',
+    kanji: '無',
+    romaji: 'mu',
+    literal: 'nothing; nothingness; without',
+    philosophy: 'The Zen concept of emptiness — not nihilistic absence but fertile void. The famous koan "Mu!" is not a question about existence but an instruction to release the framing that makes the question seem real.',
+    neuro: 'The Default Mode Network activates during mental rest — integrating memory, generating creative insight, processing emotion. Constant stimulation suppresses DMN activity. Doing nothing is when the brain does some of its most important work.',
+    article: null,
+  },
+  {
+    id: 'mushin',
+    kanji: '無心',
+    romaji: 'mushin',
+    literal: 'no-mind; empty mind',
+    philosophy: 'The state prized in Zen martial arts: a mind free from distraction, ego, and deliberate calculation — responding fluidly to what is present without the interference of the self-monitoring observer.',
+    neuro: 'Flow state (Csikszentmihalyi). The transient hypofrontality hypothesis: during peak performance, the prefrontal cortex\'s self-referential processing quiets, allowing subcortical pattern-recognition to operate without interference. Dopamine is steady and high.',
+    article: null,
+  },
+  {
+    id: 'shoshin',
+    kanji: '初心',
+    romaji: 'shoshin',
+    literal: 'beginner\'s mind',
+    philosophy: '"In the beginner\'s mind there are many possibilities, in the expert\'s mind there are few." — Shunryu Suzuki. Approaching even familiar territory with openness, as if for the first time, without the filter of assumed knowledge.',
+    neuro: 'Genuine curiosity and neuroplasticity are linked. Novel environments and genuine uncertainty drive dopamine responses that strengthen synaptic connections. Jaded familiarity suppresses them. Shoshin is the cognitive posture that keeps learning alive.',
+    article: null,
+  },
+  {
+    id: 'shu-ha-ri',
+    kanji: '守破離',
+    romaji: 'shu-ha-ri',
+    literal: 'protect · break · separate',
+    philosophy: 'The three stages of mastery: follow the rules faithfully (守), break them with understanding (破), transcend them entirely (離). Each stage requires leaving behind what made the previous one safe.',
+    neuro: 'Skill acquisition shifts dopamine\'s role at each stage. In 守, dopamine rewards rule-following. In 破, it rewards creative risk. In 離, the reward is intrinsic — the activity becomes the reward. The prefrontal cortex progressively offloads learned patterns to basal ganglia.',
+    article: null,
+  },
+  {
+    id: 'wabi-sabi',
+    kanji: '侘び寂び',
+    romaji: 'wabi-sabi',
+    literal: 'wabi: quiet simplicity · sabi: beauty of age and patina',
+    philosophy: 'The beauty found in imperfection, incompleteness, and impermanence. A tea bowl with an irregular rim. A weathered wooden gate. The crack in the glaze filled with gold (kintsugi). Wabi-sabi refuses the premise that things should be otherwise.',
+    neuro: 'Perfectionism activates the threat-detection system — cortisol rises, dopamine depletes, and the prefrontal cortex narrows to error-correction mode. Accepting imperfection as inherent reduces this load. Cognitive flexibility and creative capacity return.',
+    article: null,
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="en"
+  ogImage="/og/glossary.png"
+>
+  <div class="glossary-page">
+    <div class="glossary-hero">
+      <p class="glossary-eyebrow">Zen Glossary</p>
+      <h1 class="glossary-title">Japanese Philosophy<br>Meets Neuroscience</h1>
+      <p class="glossary-subtitle">
+        Ancient concepts that named what science is still measuring.
+        Each term mapped to its neurological counterpart.
+      </p>
+      <a href="/ja/glossary" class="glossary-lang-switch">日本語版 →</a>
+    </div>
+
+    <nav class="glossary-index" aria-label="Jump to term">
+      {terms.map(t => (
+        <a href={`#${t.id}`} class={`glossary-index-link${t.featured ? ' glossary-index-link--featured' : ''}`}>
+          <span class="glossary-index-kanji">{t.kanji}</span>
+          <span class="glossary-index-romaji">{t.romaji}</span>
+        </a>
+      ))}
+    </nav>
+
+    <div class="glossary-entries">
+      {terms.map(t => (
+        <article class={`glossary-entry${t.featured ? ' glossary-entry--featured' : ''}`} id={t.id}>
+          <div class="glossary-entry-header">
+            <span class="glossary-kanji">{t.kanji}</span>
+            <div class="glossary-meta">
+              <span class="glossary-romaji">{t.romaji}</span>
+              <span class="glossary-literal">"{t.literal}"</span>
+            </div>
+          </div>
+          <div class="glossary-body">
+            <p class="glossary-philosophy">{t.philosophy}</p>
+            <div class="glossary-neuro">
+              <span class="glossary-neuro-label">Neuroscience</span>
+              <p>{t.neuro}</p>
+            </div>
+            {t.article && (
+              <a href={t.article.href} class="glossary-article-link">
+                → {t.article.label}
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "name": "Zen Glossary — Japanese Philosophy & Neuroscience",
+    "description": description,
+    "url": "https://dopaminelabtv.com/glossary/",
+    "inLanguage": "en",
+    "hasDefinedTerm": terms.map(t => ({
+      "@type": "DefinedTerm",
+      "name": `${t.kanji} (${t.romaji})`,
+      "description": t.philosophy,
+      "url": `https://dopaminelabtv.com/glossary/#${t.id}`,
+    }))
+  })} />
+</BaseLayout>
