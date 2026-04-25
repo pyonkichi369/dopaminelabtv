@@ -930,7 +930,11 @@ footer::before {
 .check-q-btns { display: flex; gap: 8px; flex-shrink: 0; }
 
 .check-btn {
-  padding: 6px 16px;
+  padding: 10px 16px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--bg-card);
@@ -1078,6 +1082,7 @@ footer::before {
   align-items: center;
   gap: 7px;
   padding: 7px 18px;
+  min-height: 44px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--bg);
@@ -1096,7 +1101,10 @@ footer::before {
   font-size: 0.78rem;
   cursor: pointer;
   letter-spacing: 0.05em;
-  padding: 0;
+  padding: 10px 8px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   transition: color 0.15s;
 }
 .check-retry:hover { color: var(--text); }
@@ -1234,6 +1242,7 @@ footer::before {
   align-items: center;
   gap: 7px;
   padding: 9px 18px;
+  min-height: 44px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   font-family: var(--font-sans);
@@ -1671,7 +1680,9 @@ h3:hover .heading-anchor {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 8px 12px;
+  min-height: 44px;
   border-radius: var(--radius);
   text-decoration: none;
   transition: background 0.2s;
