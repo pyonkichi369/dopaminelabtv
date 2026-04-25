@@ -197,6 +197,7 @@ const jsonLD = isArticle ? {
         )}
       </nav>
       <div class="header-mobile-controls">
+        <button class="ma-toggle" id="ma-toggle" aria-label="間モードを切り替え" title="間モード — 低刺激表示">間</button>
         {lang === 'ja'
           ? <a href="/" class="lang-switch header-lang-switch">EN</a>
           : <a href="/ja/" class="lang-switch header-lang-switch">JP</a>
@@ -247,18 +248,22 @@ const jsonLD = isArticle ? {
         {lang === 'ja' ? (
           <>
             <a href="/ja/posts">記事</a>
+            <a href="/ja/glossary">禅語</a>
+            <a href="/ja/totonou">totonou</a>
+            <a href="/ja/research">参考文献</a>
+            <a href="/protocols">プロトコル</a>
             <a href="/ja/tags/">タグ</a>
-            <a href="/ja/about">About</a>
-            <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTube</a>
             <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
             <a href="/rss-ja.xml" aria-label="RSS Feed">RSS</a>
           </>
         ) : (
           <>
             <a href="/posts">Articles</a>
+            <a href="/glossary">Glossary</a>
+            <a href="/totonou">totonou</a>
+            <a href="/research">Research</a>
+            <a href="/protocols">Protocols</a>
             <a href="/tags/">Tags</a>
-            <a href="/about">About</a>
-            <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTube</a>
             <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
             <a href="/rss.xml" aria-label="RSS Feed">RSS</a>
           </>
@@ -299,6 +304,20 @@ const jsonLD = isArticle ? {
 
       mobileNav.querySelectorAll('a').forEach((link) => {
         link.addEventListener('click', closeNav);
+      });
+    })();
+
+    // Ma Mode — 間モード
+    (function () {
+      var btn = document.getElementById('ma-toggle');
+      var html = document.documentElement;
+      var KEY = 'ma-mode';
+      if (localStorage.getItem(KEY) === '1') { html.classList.add('ma-mode'); if (btn) btn.classList.add('ma-toggle--active'); }
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        var on = html.classList.toggle('ma-mode');
+        localStorage.setItem(KEY, on ? '1' : '0');
+        btn.classList.toggle('ma-toggle--active', on);
       });
     })();
   </script>

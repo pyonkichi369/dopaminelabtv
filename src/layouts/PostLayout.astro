@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { getSeriesForSlug, getSeriesIndex } from '../data/series';
 
 const { frontmatter, lang = 'en', ogImage } = Astro.props;
 const sources: { name: string; url?: string }[] = frontmatter.sources ?? [];
@@ -42,9 +43,13 @@ const breadcrumbLD = {
   ],
 };
 
+// Series
+const currentSlug = Astro.url.pathname.split('/').filter(Boolean).pop() ?? '';
+const seriesInfo = getSeriesForSlug(currentSlug, lang as 'en' | 'ja');
+const seriesIndex = seriesInfo ? getSeriesIndex(seriesInfo, currentSlug, lang as 'en' | 'ja') : -1;
+
 // Related posts
 const allPosts = await Astro.glob('../content/posts/**/*.md');
-const currentSlug = Astro.url.pathname.split('/').filter(Boolean).pop() ?? '';
 const related = allPosts
   .filter(p => {
     const parts = p.file.split('/');
@@ -79,6 +84,24 @@ const related = allPosts
   <div class="reading-progress" id="reading-progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={0}></div>
 
   <div class="container">
+    <!-- Series banner -->
+    {seriesInfo && (
+      <a
+        href={isJa ? `/ja/series/${seriesInfo.id}` : `/series/${seriesInfo.id}`}
+        class="series-banner"
+        aria-label={isJa ? `シリーズ: ${seriesInfo.titleJa}` : `Series: ${seriesInfo.title}`}
+      >
+        <span class="series-banner-label">{isJa ? 'シリーズ' : 'Series'}</span>
+        <span class="series-banner-title">{isJa ? seriesInfo.titleJa : seriesInfo.title}</span>
+        <span class="series-banner-count">
+          {isJa
+            ? `${seriesIndex + 1} / ${seriesInfo.slugs.ja.length}本`
+            : `Part ${seriesIndex + 1} of ${seriesInfo.slugs.en.length}`}
+        </span>
+        <span class="series-banner-arrow">→</span>
+      </a>
+    )}
+
     <!-- Breadcrumb -->
     <nav class="breadcrumb" aria-label="breadcrumb">
       <a href={isJa ? '/ja/' : '/'}>{homeLabel}</a>

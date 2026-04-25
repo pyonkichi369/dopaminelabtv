@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allPosts = Object.entries(
+  import.meta.glob('../../content/posts/ja/*.md', { eager: true }) as Record<string, any>
+).map(([path, mod]) => ({
+  slug: path.split('/').pop()!.replace('.md', ''),
+  title: mod.frontmatter?.title ?? '',
+  date: mod.frontmatter?.date ?? '',
+  sources: (mod.frontmatter?.sources ?? []) as { name: string; url?: string }[],
+}))
+.filter(p => p.sources.length > 0)
+.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+const totalSources = allPosts.reduce((n, p) => n + p.sources.length, 0);
+---
+
+<BaseLayout
+  title="参考文献・エビデンスライブラリ | Dopamine Lab TV"
+  description="このサイトのすべての主張は、査読済み研究に基づいています。ドーパミン・集中力・神経科学に関する記事の参考文献を一覧で公開しています。"
+  lang="ja"
+  ogImage="/og/ja/research.png"
+>
+  <div class="research-page">
+    <div class="research-hero">
+      <p class="research-eyebrow">エビデンスライブラリ</p>
+      <h1 class="research-title" style="font-family: var(--font-jp)">参考文献・研究資料</h1>
+      <p class="research-subtitle" style="font-family: var(--font-jp)">
+        このサイトのすべての主張は、査読済みの科学研究に基づいています。
+        {allPosts.length}本の記事、{totalSources}件の参考文献。
+      </p>
+      <a href="/research" class="glossary-lang-switch">English →</a>
+    </div>
+
+    <div class="research-entries">
+      {allPosts.map(post => (
+        <div class="research-article">
+          <div class="research-article-header">
+            <a href={`/ja/posts/${post.slug}`} class="research-article-title" style="font-family: var(--font-jp)">{post.title}</a>
+            <span class="research-article-count">{post.sources.length}件</span>
+          </div>
+          <ul class="research-sources">
+            {post.sources.map(s => (
+              <li class="research-source">
+                {s.url
+                  ? <a href={s.url} target="_blank" rel="noopener noreferrer" class="research-source-link">{s.name}</a>
+                  : <span style="font-family: var(--font-jp)">{s.name}</span>
+                }
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="research-note">
+      <p style="font-family: var(--font-jp)">
+        参考文献は各記事での引用形式に準拠して掲載しています。可能な限り、論文アブストラクトまたは全文へのリンクを付記しています。
+      </p>
+    </div>
+  </div>
+</BaseLayout>

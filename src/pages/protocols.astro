@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const protocols = [
+  {
+    id: 'cold-shower',
+    kanji: '冷',
+    title: 'Cold Shower Protocol',
+    duration: '~3 min',
+    mechanism: 'Norepinephrine spike → parasympathetic rebound',
+    steps: [
+      'Finish your normal shower warm.',
+      'Switch to the coldest setting available.',
+      'Stay for 20–30 seconds. Do not brace — breathe through it.',
+      'The mental effort of choosing to stay is part of the mechanism.',
+      'Exit. Do not warm up immediately — let your body normalize.',
+    ],
+    note: 'The 15–30 min window after this protocol is your highest-clarity period of the day. Use it for deep work, not email.',
+    frequency: 'Daily or 3–5×/week',
+  },
+  {
+    id: 'exercise-stillness',
+    kanji: '動',
+    title: 'High-Intensity + Stillness',
+    duration: '30–35 min total',
+    mechanism: 'Sympathetic activation → deliberate parasympathetic recovery',
+    steps: [
+      '20 minutes of intense movement — running, cycling, or bodyweight circuits.',
+      'Stop completely. Lie flat on the floor or ground.',
+      'Stay completely still for 10 minutes. Eyes closed.',
+      'Do not check your phone. Do not half-rest.',
+      'The contrast between movement and stillness is the protocol.',
+    ],
+    note: 'Half-rest does not count. The nervous system completes the cycle only when deactivation is genuine.',
+    frequency: '3–5×/week',
+  },
+  {
+    id: 'breathing',
+    kanji: '息',
+    title: 'Breathing Contrast',
+    duration: '5–8 min',
+    mechanism: 'Autonomic shift toward parasympathetic without cold exposure',
+    steps: [
+      'Sit or lie in a quiet space.',
+      'Inhale for 4 counts. Hold for 4 counts.',
+      'Exhale for 4 counts. Hold for 4 counts.',
+      'Repeat for 5–8 minutes.',
+      'Accessible anywhere — no equipment, no specific location.',
+    ],
+    note: 'Less physiologically powerful than cold exposure, but available in any context. Useful for mid-day resets between deep work sessions.',
+    frequency: 'As needed — especially mid-day',
+  },
+  {
+    id: 'screen-free',
+    kanji: '間',
+    title: 'Screen-Free Recovery Window',
+    duration: '15–30 min',
+    mechanism: 'Completing the activation→deactivation cycle',
+    steps: [
+      'After a focused work session or high-stimulation period, stop.',
+      'No screens. No podcasts. No background noise.',
+      'Walk outside, sit without input, or lie down in silence.',
+      'The goal is full deactivation — not entertainment.',
+      'Notice when the urge to reach for your phone arises. Don\'t.',
+    ],
+    note: 'This is the least physiologically dramatic protocol — and the hardest to actually do. Modern design makes genuine stillness feel impossible. That difficulty is a signal, not a reason to skip.',
+    frequency: 'After every major focus block',
+  },
+];
+---
+
+<BaseLayout
+  title="Totonou Protocols — Practical Reset Methods | Dopamine Lab TV"
+  description="Four evidence-based protocols for resetting your dopamine baseline: cold shower, high-intensity + stillness, breathing contrast, and screen-free recovery. Based on the neuroscience of totonou."
+  lang="en"
+  ogImage="/og/protocols.png"
+>
+  <div class="protocols-page">
+    <div class="protocols-hero">
+      <p class="protocols-eyebrow">Totonou Protocols</p>
+      <h1 class="protocols-title">Practical Reset Methods</h1>
+      <p class="protocols-subtitle">
+        Four ways to trigger the sympathetic–parasympathetic contrast cycle
+        your dopamine baseline depends on.
+      </p>
+      <a href="/posts/totonou-what-your-brain-needs" class="protocols-source-link">
+        → The science behind these protocols
+      </a>
+    </div>
+
+    <div class="protocols-list">
+      {protocols.map((p, i) => (
+        <article class="protocol-card" id={p.id}>
+          <div class="protocol-header">
+            <span class="protocol-kanji">{p.kanji}</span>
+            <div class="protocol-meta">
+              <h2 class="protocol-title">{p.title}</h2>
+              <div class="protocol-tags">
+                <span class="protocol-tag">{p.duration}</span>
+                <span class="protocol-tag">{p.frequency}</span>
+              </div>
+            </div>
+          </div>
+          <p class="protocol-mechanism">
+            <span class="protocol-mechanism-label">Mechanism</span>
+            {p.mechanism}
+          </p>
+          <ol class="protocol-steps">
+            {p.steps.map(step => (
+              <li class="protocol-step">{step}</li>
+            ))}
+          </ol>
+          <div class="protocol-note">
+            <span class="protocol-note-label">Note</span>
+            <p>{p.note}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="protocols-print-cta">
+      <button onclick="window.print()" class="btn protocols-print-btn">
+        Print / Save as PDF
+      </button>
+    </div>
+
+    <div class="protocols-footer-links">
+      <a href="/totonou" class="protocols-footer-link">→ totonou app (coming soon)</a>
+      <a href="/glossary" class="protocols-footer-link">→ Zen Glossary</a>
+    </div>
+  </div>
+</BaseLayout>
