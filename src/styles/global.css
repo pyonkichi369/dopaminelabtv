@@ -1419,36 +1419,6 @@ footer::before {
 .toc-item--sub a::before {
   content: '—';
 }
-/* ── Back to Top ── */
-.back-to-top {
-  position: fixed;
-  bottom: 28px;
-  right: 24px;
-  width: 40px;
-  height: 40px;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.25s, transform 0.25s;
-  pointer-events: none;
-  z-index: 200;
-  box-shadow: 0 2px 12px rgba(180,72,64,0.3);
-}
-.back-to-top--visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-.back-to-top:hover {
-  background: #9a3830;
-}
 
 /* ── Heading anchor links ── */
 .heading-anchor {
@@ -1636,7 +1606,7 @@ h3:hover .heading-anchor {
 
 /* ── Print styles ── */
 @media print {
-  header, footer, .ap, .reading-progress, .back-to-top,
+  header, footer, .ap, .reading-progress,
   .breadcrumb, .article-share, .newsletter-cta, .related-posts,
   .toc, .cta-block, .skip-link, .mobile-nav {
     display: none !important;
