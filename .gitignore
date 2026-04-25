@@ -3,3 +3,11 @@ dist/
 .astro/
 .env
 .DS_Store
+
+# Internal system — not for public repo
+.claude/
+CLAUDE.md
+.mcp.json
+.aegis-submodule.json
+docs/dopamine-lab/
+pinterest-template/
