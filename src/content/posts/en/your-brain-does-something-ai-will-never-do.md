@@ -4,6 +4,9 @@ date: "2026-04-27"
 excerpt: "New neuroscience just proved what you suspected: human brains integrate reality in ways no AI can replicate. This changes how we should think about the age of AI anxiety."
 tags: ["AI anxiety", "neuroscience", "focus", "attention"]
 readTime: 6
+sources:
+  - name: "Only Brains Align with Brains: Cross-Region Alignment Patterns Expose AI's Lack of Human-Like Multisensory Integration"
+    url: "https://arxiv.org/abs/2604.21780v1"
 ---
 
 You've been told your brain is a computer.
@@ -45,6 +48,8 @@ Sit somewhere with ambient sound — a café, a park, even a busy room. Close yo
 That effortless integration is the thing the paper couldn't find in any AI system. It's not a quirk. It's the architecture of being alive.
 
 You're not competing with AI. You're operating in a different dimension entirely.
+
+To understand what's hijacking your attention in the first place, read [Why You Can't Focus Anymore](/posts/why-you-cant-focus-anymore).
 
 ---
 

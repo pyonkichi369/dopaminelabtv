@@ -4,6 +4,8 @@ date: "2026-04-23"
 excerpt: "Your brain didn't break. Dopamine hijacking is real, measurable, and reversible — if you know what you're fighting."
 tags: ["dopamine", "focus", "neuroscience"]
 readTime: 6
+sources:
+  - name: "Dopamine release patterns and smartphone use, Nature Neuroscience, 2023"
 ---
 
 Your brain didn't break.
@@ -29,6 +31,8 @@ The modern neuroscience equivalent: attention is a *muscle*, not a switch. You c
 Remove one dopamine trigger per day for seven days. Not forever — one week. Notice which removal actually hurts. That one is the signal: it's operating on the slot machine principle, not genuine need.
 
 The goal isn't purity. It's clarity about what you're trading.
+
+If you're wondering how this plays out in an AI-saturated world, read [Your Brain Does Something AI Will Never Do](/posts/your-brain-does-something-ai-will-never-do).
 
 ---
 

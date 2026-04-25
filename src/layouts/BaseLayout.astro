@@ -11,6 +11,7 @@ export interface Props {
   article?: {
     publishedTime: string;
     tags: string[];
+    sources?: { name: string; url?: string }[];
   };
 }
 
@@ -45,6 +46,13 @@ const jsonLD = isArticle ? {
   publisher: { '@type': 'Organization', name: siteName, url: Astro.site?.toString() },
   mainEntityOfPage: canonicalURL.toString(),
   keywords: article?.tags?.join(', '),
+  ...(article?.sources?.length ? {
+    isBasedOn: article.sources.map(s => ({
+      '@type': 'ScholarlyArticle',
+      name: s.name,
+      ...(s.url ? { url: s.url } : {}),
+    })),
+  } : {}),
 } : {
   '@context': 'https://schema.org',
   '@type': 'WebSite',

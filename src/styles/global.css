@@ -1664,3 +1664,55 @@ footer::before {
     padding: 24px 16px;
   }
 }
+
+/* ── Newsletter CTA Block ── */
+.newsletter-cta {
+  margin: 48px 0;
+  padding: 32px 36px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-accent);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.newsletter-cta-eyebrow {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.newsletter-cta-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.newsletter-cta-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.newsletter-cta-btn {
+  display: inline-block;
+  padding: 10px 24px;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 600px) {
+  .newsletter-cta {
+    padding: 24px 20px;
+  }
+  .newsletter-cta-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

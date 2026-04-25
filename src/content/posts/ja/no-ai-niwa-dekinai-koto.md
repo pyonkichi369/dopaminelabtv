@@ -4,6 +4,9 @@ date: "2026-04-27"
 excerpt: "人間の脳はAIが再現できない方法で現実を統合している——最新研究が証明したことが、AI不安を抱える私たちを変える。"
 tags: ["AI不安", "神経科学", "集中力", "注意"]
 readTime: 6
+sources:
+  - name: "Only Brains Align with Brains: Cross-Region Alignment Patterns Expose AI's Lack of Human-Like Multisensory Integration"
+    url: "https://arxiv.org/abs/2604.21780v1"
 ---
 
 脳はコンピュータだと言われてきた。
@@ -45,6 +48,8 @@ AIが自分の判断を置き換えてしまうかもしれないと不安にな
 その苦労のない統合こそ、論文がどんなAIシステムにも見つけられなかったものだ。これは偶然ではない。生きていることのアーキテクチャだ。
 
 あなたはAIと競争しているわけじゃない。まったく別の次元で動いている。
+
+まず、あなたの注意を乗っ取っているものを理解するところから——[なぜ集中できなくなったのか](/ja/posts/naze-shuchu-dekinai)。
 
 ---
 
