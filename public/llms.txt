@@ -10,11 +10,13 @@ Target audience: knowledge workers, adults experiencing AI anxiety, ADHD communi
 
 - [Why You Can't Focus Anymore](https://dopaminelabtv.com/posts/why-you-cant-focus-anymore/): Dopamine hijacking is real, measurable, and reversible. Covers variable ratio reinforcement, mu-shin (無心) and practical lab notes.
 - [Your Brain Does Something AI Will Never Do](https://dopaminelabtv.com/posts/your-brain-does-something-ai-will-never-do/): Human brains integrate reality in ways no AI can replicate. A reframe for AI anxiety using neuroscience and Japanese philosophy.
+- [Totonou: The Japanese Word for What Your Brain Has Been Missing](https://dopaminelabtv.com/posts/totonou-what-your-brain-needs/): The neuroscience of the reset state — cold exposure, norepinephrine, autonomic contrast, and the Japanese concept of ma (間).
 
 ## Articles (Japanese / 日本語)
 
 - [なぜ集中できなくなったのか](https://dopaminelabtv.com/ja/posts/naze-shuchu-dekinai/): ドーパミン・ハイジャックの神経科学的解説。禅の無心と現代的注意力研究の交差点。
 - [あなたの脳にできて、AIにできないこと](https://dopaminelabtv.com/ja/posts/no-ai-niwa-dekinai-koto/): 人間の脳がAIと本質的に異なる点を最新研究で解説。AI不安への科学的応答。
+- [整う（ととのう）——脳が本当に求めているものの正体](https://dopaminelabtv.com/ja/posts/totonou-no-kagaku/): 冷水暴露とノルエピネフリン、自律神経のコントラスト、間（ま）の哲学から読み解く神経系リセットの科学。
 
 ## Key Topics
 
