@@ -132,9 +132,16 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
             </div>
           </div>
 
-          <button class="check-retry" id="check-retry">
-            ← Take it again
-          </button>
+          <div class="check-share">
+            <a id="check-share-btn" class="check-share-btn" href="#" target="_blank" rel="noopener"
+               aria-label="Share on X (Twitter)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Share on X
+            </a>
+            <button class="check-retry" id="check-retry">
+              ← Take it again
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -169,8 +176,10 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
 <script is:inline>
 (function () {
   var answers = [null, null, null, null, null];
+  var started = false;
   var submitBtn = document.getElementById('check-submit');
   var retryBtn = document.getElementById('check-retry');
+  var shareBtnEl = document.getElementById('check-share-btn');
   var quizEl = document.getElementById('check-quiz');
   var resultEl = document.getElementById('check-result');
   var resultHigh = document.getElementById('check-result-high');
@@ -178,10 +187,16 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
 
   if (!submitBtn) return;
 
+  function ga(event, params) {
+    if (typeof window.gtag === 'function') window.gtag('event', event, params || {});
+  }
+
   document.querySelectorAll('.check-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var q = parseInt(btn.dataset.q);
       answers[q] = btn.dataset.val;
+
+      if (!started) { started = true; ga('quiz_start', { quiz_id: 'dopamine_check_en' }); }
 
       btn.closest('.check-q').querySelectorAll('.check-btn').forEach(function (b) {
         b.classList.remove('check-btn--active');
@@ -197,23 +212,44 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
 
   submitBtn.addEventListener('click', function () {
     var yesCount = answers.filter(function (a) { return a === 'yes'; }).length;
+    var resultType = yesCount >= 3 ? 'high' : 'low';
+
+    ga('quiz_complete', { quiz_id: 'dopamine_check_en', result_type: resultType, yes_count: yesCount });
+
     quizEl.hidden = true;
     resultEl.hidden = false;
-    if (yesCount >= 3) {
+    if (resultType === 'high') {
       resultHigh.hidden = false;
       resultLow.hidden = true;
     } else {
       resultHigh.hidden = true;
       resultLow.hidden = false;
     }
+
+    var shareText = resultType === 'high'
+      ? "I just found out my brain is in dopamine overload.\nNot lazy. Not broken. Just overstimulated.\n→ Check yours (3 min)\nhttps://dopaminelabtv.com/#check"
+      : "Checked my dopamine state.\nStill holding.\nAre you?\n→ 3-minute check\nhttps://dopaminelabtv.com/#check";
+    if (shareBtnEl) shareBtnEl.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
+
     resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  if (shareBtnEl) {
+    shareBtnEl.addEventListener('click', function () {
+      ga('cta_click', { quiz_id: 'dopamine_check_en', cta_target: 'x_share' });
+    });
+  }
+
+  document.querySelectorAll('.check-cta-link:not(.check-cta-link--soon)').forEach(function (link) {
+    link.addEventListener('click', function () {
+      ga('cta_click', { quiz_id: 'dopamine_check_en', cta_target: link.href });
+    });
   });
 
   retryBtn.addEventListener('click', function () {
     answers = [null, null, null, null, null];
-    document.querySelectorAll('.check-btn').forEach(function (b) {
-      b.classList.remove('check-btn--active');
-    });
+    started = false;
+    document.querySelectorAll('.check-btn').forEach(function (b) { b.classList.remove('check-btn--active'); });
     submitBtn.disabled = true;
     submitBtn.setAttribute('aria-disabled', 'true');
     quizEl.hidden = false;

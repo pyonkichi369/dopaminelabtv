@@ -32,4 +32,4 @@ readTime: 5
 
 ---
 
-*毎週日曜日に新しいリサーチを配信。[Substack](https://dopaminelab.substack.com) でフルレポートを受け取る。*
+*毎週日曜日に新しいリサーチを配信。[Substack](https://dopaminelabtv.substack.com) でフルレポートを受け取る。*

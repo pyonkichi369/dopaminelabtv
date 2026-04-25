@@ -37,9 +37,9 @@ const dateStr = new Date(frontmatter.date).toLocaleDateString(
       <slot />
 
       <div class="cta-block">
-        <p>{isJa ? '毎週、最新研究をわかりやすく届けます。' : 'New research → human language. Every week.'}</p>
-        <a class="btn" href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener">
-          {isJa ? 'Substackで購読する' : 'Subscribe on Substack'}
+        <p>{isJa ? 'あなたの脳は今、どの状態ですか？' : 'What state is your brain in right now?'}</p>
+        <a class="btn" href={isJa ? '/ja/#check' : '/#check'}>
+          {isJa ? '3分でチェックする →' : 'Check in 3 minutes →'}
         </a>
       </div>
     </div>
