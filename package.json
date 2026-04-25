@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/generate-og.mjs && astro build",
+    "build": "node scripts/generate-og.mjs && python3 scripts/generate-og-ja.py && astro build",
     "preview": "astro preview",
     "new-post": "node scripts/new-post.mjs"
   },
