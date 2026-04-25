@@ -77,6 +77,10 @@ const jsonLD = isArticle ? {
 <!doctype html>
 <html lang={lang}>
 <head>
+  <script is:inline>
+    /* Ma Mode default-on — runs before paint to avoid flash */
+    (function(){var k='ma-mode';if(localStorage.getItem(k)!=='0'){document.documentElement.classList.add('ma-mode');}})();
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{fullTitle}</title>
@@ -307,12 +311,15 @@ const jsonLD = isArticle ? {
       });
     })();
 
-    // Ma Mode — 間モード
+    // Ma Mode — 間モード (default ON)
     (function () {
       var btn = document.getElementById('ma-toggle');
       var html = document.documentElement;
       var KEY = 'ma-mode';
-      if (localStorage.getItem(KEY) === '1') { html.classList.add('ma-mode'); if (btn) btn.classList.add('ma-toggle--active'); }
+      // Default ON: active unless user explicitly turned off ('0')
+      var isOn = localStorage.getItem(KEY) !== '0';
+      if (isOn) { html.classList.add('ma-mode'); if (btn) btn.classList.add('ma-toggle--active'); }
+      else { html.classList.remove('ma-mode'); if (btn) btn.classList.remove('ma-toggle--active'); }
       if (!btn) return;
       btn.addEventListener('click', function () {
         var on = html.classList.toggle('ma-mode');
