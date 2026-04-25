@@ -14,7 +14,7 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
 function isNew(date: string) { return (new Date(date).getTime() + 14 * 86400000) > now; }
 function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-')}`; }
 ---
-<BaseLayout title="All Articles" description="All research dispatches from Dopamine Lab TV.">
+<BaseLayout title="All Articles" description="All research dispatches from Dopamine Lab TV. Neuroscience × Japanese philosophy for the AI age.">
   <div class="container">
     <section class="posts-section" style="padding-top: 52px;">
       <p class="section-label">All Articles — {posts.length} dispatches</p>
@@ -38,4 +38,20 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
       </div>
     </section>
   </div>
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'All Articles — Dopamine Lab TV',
+  description: 'All research dispatches. Neuroscience × Japanese philosophy for the AI age.',
+  url: 'https://dopaminelabtv.com/posts/',
+  hasPart: posts.map(post => ({
+    '@type': 'Article',
+    headline: post.frontmatter.title,
+    description: post.frontmatter.excerpt,
+    url: `https://dopaminelabtv.com/posts/${slug(post)}/`,
+    datePublished: post.frontmatter.date,
+    keywords: post.frontmatter.tags?.join(', '),
+  })),
+})} />
 </BaseLayout>

@@ -210,7 +210,7 @@ const related = allPosts
           {related.map(p => (
             <a href={p.url} class="related-card">
               <div class="related-card-tags">
-                {p.tags.slice(0, 2).map(t => <span class="tag">{t}</span>)}
+                {p.tags.slice(0, 2).map(t => <a href={tagHref(t)} class="tag">{t}</a>)}
               </div>
               <h3 class="related-card-title" style={isJa ? 'font-family: var(--font-jp)' : ''}>{p.title}</h3>
               {p.readTime && (

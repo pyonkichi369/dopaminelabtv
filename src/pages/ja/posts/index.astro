@@ -40,4 +40,22 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
       </div>
     </section>
   </div>
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: '全記事 — Dopamine Lab TV',
+  description: 'Dopamine Lab TVの全記事一覧。神経科学と日本哲学の交差点から。',
+  url: 'https://dopaminelabtv.com/ja/posts/',
+  inLanguage: 'ja',
+  hasPart: posts.map(post => ({
+    '@type': 'Article',
+    headline: post.frontmatter.title,
+    description: post.frontmatter.excerpt,
+    url: `https://dopaminelabtv.com/ja/posts/${slug(post)}/`,
+    datePublished: post.frontmatter.date,
+    inLanguage: 'ja',
+    keywords: post.frontmatter.tags?.join(', '),
+  })),
+})} />
 </BaseLayout>

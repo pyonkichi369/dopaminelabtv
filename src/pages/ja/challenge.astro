@@ -91,10 +91,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   ];
 
   var START = new Date('2026-04-28T00:00:00Z');
-  var weekIdx = Math.max(0, Math.min(
-    Math.floor((Date.now() - START.getTime()) / (7 * 86400000)),
-    MATCHUPS.length - 1
-  ));
+  var weekIdx = Math.floor((Date.now() - START.getTime()) / (7 * 86400000)) % MATCHUPS.length;
+  if (weekIdx < 0) weekIdx = 0;
   var M = MATCHUPS[weekIdx];
   var voteKey = 'dopamine-challenge-ja-' + M.week;
   var voted = localStorage.getItem(voteKey);
