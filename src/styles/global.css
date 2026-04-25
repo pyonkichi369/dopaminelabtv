@@ -16,8 +16,25 @@
   --max-w:     740px;
 }
 
+/* ── Dark mode — 墨染め ink wash ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:         #1a160e;
+    --bg-card:    #231e14;
+    --bg-hover:   #2c261a;
+    --text:       #e8dcc4;
+    --text-muted: #8a7a68;
+    --accent:     #cc5548;
+    --accent-dim: rgba(204,85,72,0.12);
+    --gold:       #c4a040;
+    --border:     rgba(232,220,196,0.1);
+    --border-accent: rgba(204,85,72,0.3);
+  }
+  body::before { opacity: 0.2; }
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; scroll-behavior: smooth; }
+html { font-size: 16px; scroll-behavior: smooth; color-scheme: light dark; }
 
 body {
   background: var(--bg);
@@ -1708,6 +1725,29 @@ footer::before {
 }
 h2:hover .heading-anchor,
 h3:hover .heading-anchor {
+  opacity: 1;
+}
+
+/* ── NEW badge ── */
+.tag-new {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--accent);
+  padding: 2px 6px;
+  border-radius: 1px;
+}
+
+/* ── Share button: LinkedIn ── */
+.article-share-btn--linkedin {
+  background: #0a66c2;
+  color: #fff;
+}
+.article-share-btn--linkedin:hover {
+  background: #084e96;
+  color: #fff;
   opacity: 1;
 }
 

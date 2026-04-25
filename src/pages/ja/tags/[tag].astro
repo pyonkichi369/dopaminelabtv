@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await Astro.glob('../../../content/posts/ja/*.md');
+  const tagMap = new Map<string, typeof posts>();
+  posts.forEach(p => {
+    (p.frontmatter.tags ?? []).forEach((t: string) => {
+      if (!tagMap.has(t)) tagMap.set(t, []);
+      tagMap.get(t)!.push(p);
+    });
+  });
+  return [...tagMap.entries()].map(([tag, tagPosts]) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: tagPosts.sort(
+        (a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
+      ),
+    },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+
+function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
+function formatDate(d: string) {
+  return new Date(d).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+function tagHref(t: string) { return `/ja/tags/${t}`; }
+---
+<BaseLayout
+  title={`#${tag} — Dopamine Lab TV`}
+  description={`「${tag}」タグの全記事一覧。Dopamine Lab TV — 神経科学と日本哲学。`}
+  lang="ja"
+>
+  <div class="container">
+    <section class="posts-section" style="padding-top:52px;">
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="/ja/">ホーム</a>
+        <span aria-hidden="true">›</span>
+        <a href="/ja/posts">記事</a>
+        <span aria-hidden="true">›</span>
+        <span class="breadcrumb-current" aria-current="page">#{tag}</span>
+      </nav>
+      <p class="section-label" style="margin-top:24px;">タグ · {posts.length}本</p>
+      <h1 style="margin:8px 0 32px;font-size:2rem;font-family:var(--font-jp);"># {tag}</h1>
+      <div class="posts-list">
+        {posts.map(post => (
+          <article class="post-card">
+            <div class="post-card-body">
+              <div class="post-tags">
+                {post.frontmatter.tags?.map((t: string) => (
+                  <a href={tagHref(t)} class="tag">{t}</a>
+                ))}
+              </div>
+              <h2 style="font-family:var(--font-jp)">
+                <a href={`/ja/posts/${slug(post)}`}>{post.frontmatter.title}</a>
+              </h2>
+              <p class="post-excerpt" style="font-family:var(--font-jp)">{post.frontmatter.excerpt}</p>
+            </div>
+            <div class="post-meta">
+              <span class="date">{formatDate(post.frontmatter.date)}</span>
+              {post.frontmatter.readTime && <span class="read-time">{post.frontmatter.readTime}分</span>}
+            </div>
+          </article>
+        ))}
+      </div>
+      <p style="margin-top:40px;font-size:0.9rem;"><a href="/ja/posts">← 全記事一覧</a></p>
+    </section>
+  </div>
+</BaseLayout>

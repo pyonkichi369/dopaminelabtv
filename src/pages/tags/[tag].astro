@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await Astro.glob('../../content/posts/en/*.md');
+  const tagMap = new Map<string, typeof posts>();
+  posts.forEach(p => {
+    (p.frontmatter.tags ?? []).forEach((t: string) => {
+      if (!tagMap.has(t)) tagMap.set(t, []);
+      tagMap.get(t)!.push(p);
+    });
+  });
+  return [...tagMap.entries()].map(([tag, tagPosts]) => ({
+    params: { tag: tag.toLowerCase().replace(/\s+/g, '-') },
+    props: {
+      tag,
+      posts: tagPosts.sort(
+        (a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
+      ),
+    },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+
+function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
+function formatDate(d: string) {
+  return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-')}`; }
+---
+<BaseLayout
+  title={`#${tag} — Dopamine Lab TV`}
+  description={`All articles tagged "${tag}" on Dopamine Lab TV. Neuroscience × Japanese philosophy for the AI age.`}
+>
+  <div class="container">
+    <section class="posts-section" style="padding-top:52px;">
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">›</span>
+        <a href="/posts">Articles</a>
+        <span aria-hidden="true">›</span>
+        <span class="breadcrumb-current" aria-current="page">#{tag}</span>
+      </nav>
+      <p class="section-label" style="margin-top:24px;">Tag · {posts.length} article{posts.length !== 1 ? 's' : ''}</p>
+      <h1 style="margin:8px 0 32px;font-size:2rem;"># {tag}</h1>
+      <div class="posts-list">
+        {posts.map(post => (
+          <article class="post-card">
+            <div class="post-card-body">
+              <div class="post-tags">
+                {post.frontmatter.tags?.map((t: string) => (
+                  <a href={tagHref(t)} class="tag">{t}</a>
+                ))}
+              </div>
+              <h2><a href={`/posts/${slug(post)}`}>{post.frontmatter.title}</a></h2>
+              <p class="post-excerpt">{post.frontmatter.excerpt}</p>
+            </div>
+            <div class="post-meta">
+              <span class="date">{formatDate(post.frontmatter.date)}</span>
+              {post.frontmatter.readTime && <span class="read-time">{post.frontmatter.readTime} min</span>}
+            </div>
+          </article>
+        ))}
+      </div>
+      <p style="margin-top:40px;font-size:0.9rem;"><a href="/posts">← All Articles</a></p>
+    </section>
+  </div>
+</BaseLayout>

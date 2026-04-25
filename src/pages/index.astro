@@ -6,10 +6,14 @@ const posts = allPosts
   .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
   .slice(0, 20);
 
+const buildNow = Date.now();
+
 function formatDate(d: string) {
   return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
+function isNew(date: string) { return (new Date(date).getTime() + 14 * 86400000) > buildNow; }
+function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-')}`; }
 ---
 <BaseLayout title="The Lab is Open">
   <div class="container">
@@ -158,7 +162,8 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
             <article class="post-card">
               <div class="post-card-body">
                 <div class="post-tags">
-                  {post.frontmatter.tags?.map((t: string) => <span class="tag">{t}</span>)}
+                  {isNew(post.frontmatter.date) && <span class="tag-new">NEW</span>}
+                  {post.frontmatter.tags?.map((t: string) => <a href={tagHref(t)} class="tag">{t}</a>)}
                 </div>
                 <h2><a href={`/posts/${slug(post)}`}>{post.frontmatter.title}</a></h2>
                 <p class="post-excerpt">{post.frontmatter.excerpt}</p>

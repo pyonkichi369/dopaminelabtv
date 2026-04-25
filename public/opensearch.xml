@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Dopamine Lab TV</ShortName>
+  <Description>Search neuroscience articles on Dopamine Lab TV</Description>
+  <Tags>dopamine neuroscience focus AI anxiety Japanese philosophy</Tags>
+  <Url type="text/html" template="https://dopaminelabtv.com/posts/?q={searchTerms}"/>
+  <Image width="16" height="16" type="image/png">https://dopaminelabtv.com/icon-brain.png</Image>
+</OpenSearchDescription>
