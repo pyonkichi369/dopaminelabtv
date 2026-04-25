@@ -82,6 +82,17 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
 
         <!-- Result (hidden until quiz completes) -->
         <div id="check-result" hidden>
+          <div id="check-result-critical" hidden>
+            <p class="check-badge check-badge--high">Critical: Dopamine Depletion</p>
+            <h3 class="check-result-h">
+              Your focus system<br>is running on empty
+            </h3>
+            <p class="check-result-body">
+              Five out of five signals. Your brain's reward circuit has been saturated by
+              constant stimulation to the point where ordinary life feels flat. This is a
+              recoverable state — but it requires deliberate reset, not more willpower.
+            </p>
+          </div>
           <div id="check-result-high" hidden>
             <p class="check-badge check-badge--high">Dopamine Overload State</p>
             <h3 class="check-result-h">
@@ -94,13 +105,23 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
             </p>
           </div>
           <div id="check-result-low" hidden>
-            <p class="check-badge check-badge--low">Brain State: Relatively Stable</p>
+            <p class="check-badge check-badge--low">Early Warning Signs</p>
             <h3 class="check-result-h">
-              Your balance is holding —<br>for now
+              Some signals —<br>worth paying attention to
             </h3>
             <p class="check-result-body">
-              The modern environment constantly tries to reset your dopamine baseline.
-              Prevention and deepening your understanding are key.
+              You're not in overload yet, but the patterns are forming.
+              The modern environment will keep pulling. Now is the easiest time to course-correct.
+            </p>
+          </div>
+          <div id="check-result-clear" hidden>
+            <p class="check-badge check-badge--low">Brain State: Clear</p>
+            <h3 class="check-result-h">
+              Your dopamine baseline<br>looks healthy
+            </h3>
+            <p class="check-result-body">
+              No significant warning signs. Your focus circuits are intact.
+              Keep protecting your attention — it's your most valuable resource.
             </p>
           </div>
 
@@ -187,8 +208,10 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
   var shareBtnEl = document.getElementById('check-share-btn');
   var quizEl = document.getElementById('check-quiz');
   var resultEl = document.getElementById('check-result');
+  var resultCritical = document.getElementById('check-result-critical');
   var resultHigh = document.getElementById('check-result-high');
   var resultLow = document.getElementById('check-result-low');
+  var resultClear = document.getElementById('check-result-clear');
 
   if (!submitBtn) return;
 
@@ -217,23 +240,24 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
 
   submitBtn.addEventListener('click', function () {
     var yesCount = answers.filter(function (a) { return a === 'yes'; }).length;
-    var resultType = yesCount >= 3 ? 'high' : 'low';
+    var resultType = yesCount === 5 ? 'critical' : yesCount >= 3 ? 'high' : yesCount >= 1 ? 'low' : 'clear';
 
     ga('quiz_complete', { quiz_id: 'dopamine_check_en', result_type: resultType, yes_count: yesCount });
 
     quizEl.hidden = true;
     resultEl.hidden = false;
-    if (resultType === 'high') {
-      resultHigh.hidden = false;
-      resultLow.hidden = true;
-    } else {
-      resultHigh.hidden = true;
-      resultLow.hidden = false;
-    }
+    resultCritical.hidden = resultType !== 'critical';
+    resultHigh.hidden = resultType !== 'high';
+    resultLow.hidden = resultType !== 'low';
+    resultClear.hidden = resultType !== 'clear';
 
-    var shareText = resultType === 'high'
+    var shareText = resultType === 'critical'
+      ? "My dopamine system is critically depleted.\nNot burnout. Not laziness. Neuroscience.\n→ Check yours (3 min)\nhttps://dopaminelabtv.com/#check\n#dopamine #focus #neuroscience"
+      : resultType === 'high'
       ? "I just found out my brain is in dopamine overload.\nNot lazy. Not broken. Just overstimulated.\n→ Check yours (3 min)\nhttps://dopaminelabtv.com/#check\n#dopamine #focus #neuroscience"
-      : "Checked my dopamine state.\nStill holding.\nAre you?\n→ 3-minute check\nhttps://dopaminelabtv.com/#check\n#dopamine #focus #neuroscience";
+      : resultType === 'low'
+      ? "Early warning signs in my dopamine check.\nWorth paying attention to.\n→ 3-minute check\nhttps://dopaminelabtv.com/#check\n#dopamine #focus #neuroscience"
+      : "Checked my dopamine state.\nAll clear.\nAre you?\n→ 3-minute check\nhttps://dopaminelabtv.com/#check\n#dopamine #focus #neuroscience";
     if (shareBtnEl) shareBtnEl.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
 
     resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -259,8 +283,10 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
     submitBtn.setAttribute('aria-disabled', 'true');
     quizEl.hidden = false;
     resultEl.hidden = true;
+    resultCritical.hidden = true;
     resultHigh.hidden = true;
     resultLow.hidden = true;
+    resultClear.hidden = true;
   });
 })();
 </script>

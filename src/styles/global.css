@@ -513,13 +513,14 @@ nav a:hover { color: var(--text); opacity: 1; }
   font-family: var(--font-jp);
 }
 .post-card h2 a { color: inherit; }
+.post-card h2 a::after { content: ''; position: absolute; inset: 0; z-index: 1; }
 
 .post-excerpt {
   font-size: 0.85rem;
   color: var(--text-muted);
   line-height: 1.6;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -1495,12 +1496,14 @@ h3:hover .heading-anchor {
 
 /* ── Share button: LinkedIn ── */
 .article-share-btn--linkedin {
-  background: #0a66c2;
-  color: #fff;
+  background: var(--bg-card);
+  color: var(--text-muted);
+  border-color: var(--border);
 }
 .article-share-btn--linkedin:hover {
-  background: #084e96;
+  background: #0a66c2;
   color: #fff;
+  border-color: #0a66c2;
   opacity: 1;
 }
 

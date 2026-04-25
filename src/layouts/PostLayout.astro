@@ -118,27 +118,6 @@ const related = allPosts
       </div>
     </div>
 
-    <!-- Newsletter CTA -->
-    <div class="newsletter-cta">
-      <span class="newsletter-cta-eyebrow">{isJa ? 'ラボレポート' : 'THE LAB REPORT'}</span>
-      <h3 class="newsletter-cta-title">
-        {isJa ? '毎週日曜、脳科学の新知見をお届け。' : 'New research dispatches, every Sunday.'}
-      </h3>
-      <p class="newsletter-cta-desc">
-        {isJa
-          ? '集中力・ドーパミン・AI時代の注意——無料、広告なし。'
-          : 'Dopamine, focus, attention in the AI age — free, no fluff.'}
-      </p>
-      <a
-        class="btn newsletter-cta-btn"
-        href="https://dopaminelabtv.substack.com"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {isJa ? 'Substackで購読する →' : 'Subscribe on Substack →'}
-      </a>
-    </div>
-
     <!-- Share -->
     <div class="article-share">
       <p class="article-share-label">{isJa ? 'この記事をシェアする' : 'Share this article'}</p>
@@ -221,6 +200,27 @@ const related = allPosts
         </div>
       </section>
     )}
+
+    <!-- Newsletter CTA -->
+    <div class="newsletter-cta">
+      <span class="newsletter-cta-eyebrow">{isJa ? 'ラボレポート' : 'THE LAB REPORT'}</span>
+      <h3 class="newsletter-cta-title">
+        {isJa ? '毎週日曜、脳科学の新知見をお届け。' : 'New research dispatches, every Sunday.'}
+      </h3>
+      <p class="newsletter-cta-desc">
+        {isJa
+          ? '集中力・ドーパミン・AI時代の注意——無料、広告なし。'
+          : 'Dopamine, focus, attention in the AI age — free, no fluff.'}
+      </p>
+      <a
+        class="btn newsletter-cta-btn"
+        href="https://dopaminelabtv.substack.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {isJa ? 'Substackで購読する →' : 'Subscribe on Substack →'}
+      </a>
+    </div>
   </div>
 
   <!-- Breadcrumb JSON-LD -->

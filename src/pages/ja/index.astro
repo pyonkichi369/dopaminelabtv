@@ -83,6 +83,16 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
 
         <!-- Result (hidden until quiz completes) -->
         <div id="check-result" hidden>
+          <div id="check-result-critical" hidden>
+            <p class="check-badge check-badge--high">臨界：ドーパミン枯渇状態</p>
+            <h3 class="check-result-h" style="font-family: var(--font-jp)">
+              集中システムが、<br>限界に達しています
+            </h3>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              5項目すべて該当。報酬回路が過飽和に達し、日常のことが無味乾燥に感じられる状態です。
+              これは回復できます——ただし、意志力ではなく、意図的なリセットが必要です。
+            </p>
+          </div>
           <div id="check-result-high" hidden>
             <p class="check-badge check-badge--high">ドーパミン過負荷状態</p>
             <h3 class="check-result-h" style="font-family: var(--font-jp)">
@@ -94,13 +104,23 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
             </p>
           </div>
           <div id="check-result-low" hidden>
-            <p class="check-badge check-badge--low">脳の状態：比較的安定</p>
+            <p class="check-badge check-badge--low">初期警戒サイン</p>
             <h3 class="check-result-h" style="font-family: var(--font-jp)">
-              今のところ、<br>バランスは保たれています
+              いくつかのサイン——<br>今のうちに気づけています
             </h3>
             <p class="check-result-body" style="font-family: var(--font-jp)">
-              ただし、現代環境は常にドーパミンをリセットしようとします。
-              予防と深化が鍵です。
+              まだ過負荷ではありませんが、パターンが形成されつつあります。
+              軌道修正が最も簡単なのは今です。
+            </p>
+          </div>
+          <div id="check-result-clear" hidden>
+            <p class="check-badge check-badge--low">脳の状態：クリア</p>
+            <h3 class="check-result-h" style="font-family: var(--font-jp)">
+              ドーパミンのベースラインは<br>健全な状態です
+            </h3>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              警戒サインはほぼありません。集中回路は機能しています。
+              注意力を守り続けてください——それがあなたの最も価値ある資源です。
             </p>
           </div>
 
@@ -189,8 +209,10 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
   var shareBtnEl = document.getElementById('check-share-btn');
   var quizEl = document.getElementById('check-quiz');
   var resultEl = document.getElementById('check-result');
+  var resultCritical = document.getElementById('check-result-critical');
   var resultHigh = document.getElementById('check-result-high');
   var resultLow = document.getElementById('check-result-low');
+  var resultClear = document.getElementById('check-result-clear');
 
   if (!submitBtn) return;
 
@@ -219,23 +241,24 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
 
   submitBtn.addEventListener('click', function () {
     var yesCount = answers.filter(function (a) { return a === 'yes'; }).length;
-    var resultType = yesCount >= 3 ? 'high' : 'low';
+    var resultType = yesCount === 5 ? 'critical' : yesCount >= 3 ? 'high' : yesCount >= 1 ? 'low' : 'clear';
 
     ga('quiz_complete', { quiz_id: 'dopamine_check_ja', result_type: resultType, yes_count: yesCount });
 
     quizEl.hidden = true;
     resultEl.hidden = false;
-    if (resultType === 'high') {
-      resultHigh.hidden = false;
-      resultLow.hidden = true;
-    } else {
-      resultHigh.hidden = true;
-      resultLow.hidden = false;
-    }
+    resultCritical.hidden = resultType !== 'critical';
+    resultHigh.hidden = resultType !== 'high';
+    resultLow.hidden = resultType !== 'low';
+    resultClear.hidden = resultType !== 'clear';
 
-    var shareText = resultType === 'high'
+    var shareText = resultType === 'critical'
+      ? '集中できないのは、\n脳が臨界状態だから。\n→ 3分でチェック\nhttps://dopaminelabtv.com/ja/#check\n#ドーパミン #集中力 #脳科学'
+      : resultType === 'high'
       ? 'やる気が出ないの、\nサボりじゃないです\n脳が壊れてるだけです\n→ 3分でチェック\nhttps://dopaminelabtv.com/ja/#check\n#ドーパミン #集中力 #脳科学'
-      : '脳の状態チェックしてみた。\nあなたは大丈夫？\n→ 3分でわかる\nhttps://dopaminelabtv.com/ja/#check\n#ドーパミン #集中力 #脳科学';
+      : resultType === 'low'
+      ? '初期警戒サインあり。\n今なら間に合う。\n→ 3分でわかる\nhttps://dopaminelabtv.com/ja/#check\n#ドーパミン #集中力 #脳科学'
+      : '脳の状態チェックしてみた。\n今のところクリア。\nあなたは？\n→ 3分でわかる\nhttps://dopaminelabtv.com/ja/#check\n#ドーパミン #集中力 #脳科学';
     if (shareBtnEl) shareBtnEl.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
 
     resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -261,8 +284,10 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
     submitBtn.setAttribute('aria-disabled', 'true');
     quizEl.hidden = false;
     resultEl.hidden = true;
+    resultCritical.hidden = true;
     resultHigh.hidden = true;
     resultLow.hidden = true;
+    resultClear.hidden = true;
   });
 })();
 </script>
