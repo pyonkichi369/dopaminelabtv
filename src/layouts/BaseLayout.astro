@@ -166,6 +166,9 @@ const jsonLD = isArticle ? {
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">
+    {lang === 'ja' ? 'メインコンテンツへスキップ' : 'Skip to main content'}
+  </a>
   <header>
     <div class="header-inner">
       <a class="logo" href="/">
@@ -241,9 +244,27 @@ const jsonLD = isArticle ? {
     <div class="footer-inner">
       <p class="footer-copy">© 2026 Dopamine Lab TV · The science of staying human.</p>
       <div class="footer-links">
-        <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTube</a>
-        <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-        <a href="/about">About</a>
+        {lang === 'ja' ? (
+          <>
+            <a href="/ja/posts">記事</a>
+            <a href="/ja/challenge">バトル</a>
+            <a href="/ja/tags/">タグ</a>
+            <a href="/ja/about">About</a>
+            <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+            <a href="/rss-ja.xml" aria-label="RSS Feed">RSS</a>
+          </>
+        ) : (
+          <>
+            <a href="/posts">Articles</a>
+            <a href="/challenge">Battle</a>
+            <a href="/tags/">Tags</a>
+            <a href="/about">About</a>
+            <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+            <a href="/rss.xml" aria-label="RSS Feed">RSS</a>
+          </>
+        )}
       </div>
     </div>
   </footer>

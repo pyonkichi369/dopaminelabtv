@@ -33,6 +33,37 @@
   body::before { opacity: 0.2; }
 }
 
+/* ── Skip link (a11y) ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  background: var(--accent);
+  color: #fff !important;
+  padding: 8px 20px;
+  border-radius: 0 0 var(--radius) var(--radius);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 0; }
+
+/* ── Focus styles ── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 /* ── Accessibility: reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
