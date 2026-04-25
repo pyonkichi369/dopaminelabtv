@@ -229,8 +229,8 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
     }
 
     var shareText = resultType === 'high'
-      ? 'やる気が出ないの、\nサボりじゃないです\n脳が壊れてるだけです\n→ 3分でチェック\nhttps://dopaminelabtv.com/ja/#check'
-      : '脳の状態チェックしてみた。\nあなたは大丈夫？\n→ 3分でわかる\nhttps://dopaminelabtv.com/ja/#check';
+      ? 'やる気が出ないの、\nサボりじゃないです\n脳が壊れてるだけです\n→ 3分でチェック\nhttps://dopaminelabtv.com/ja/#check\n#ドーパミン #集中力 #脳科学'
+      : '脳の状態チェックしてみた。\nあなたは大丈夫？\n→ 3分でわかる\nhttps://dopaminelabtv.com/ja/#check\n#ドーパミン #集中力 #脳科学';
     if (shareBtnEl) shareBtnEl.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
 
     resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });

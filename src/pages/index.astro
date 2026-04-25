@@ -227,8 +227,8 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
     }
 
     var shareText = resultType === 'high'
-      ? "I just found out my brain is in dopamine overload.\nNot lazy. Not broken. Just overstimulated.\n→ Check yours (3 min)\nhttps://dopaminelabtv.com/#check"
-      : "Checked my dopamine state.\nStill holding.\nAre you?\n→ 3-minute check\nhttps://dopaminelabtv.com/#check";
+      ? "I just found out my brain is in dopamine overload.\nNot lazy. Not broken. Just overstimulated.\n→ Check yours (3 min)\nhttps://dopaminelabtv.com/#check\n#dopamine #focus #neuroscience"
+      : "Checked my dopamine state.\nStill holding.\nAre you?\n→ 3-minute check\nhttps://dopaminelabtv.com/#check\n#dopamine #focus #neuroscience";
     if (shareBtnEl) shareBtnEl.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
 
     resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
