@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="404 — Page Not Found"
+  description="This page doesn't exist. Find your way back to the Lab."
+>
+  <div class="container">
+    <section class="error-section">
+      <p class="section-label" id="err-label">404</p>
+      <div class="error-kanji" aria-hidden="true">迷</div>
+      <h1 id="err-heading">Lost in the signal?</h1>
+      <p class="error-desc" id="err-desc">
+        This page doesn't exist — but your curiosity led you somewhere interesting.
+      </p>
+      <div class="error-actions">
+        <a class="btn" href="/" id="err-home">Back to the Lab →</a>
+        <a class="btn-ghost" href="/posts" id="err-posts">All Articles</a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+.error-section {
+  padding: 80px 0 100px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.error-kanji {
+  font-family: var(--font-jp);
+  font-size: 6rem;
+  color: var(--accent);
+  opacity: 0.15;
+  line-height: 1;
+  margin: -8px 0;
+  user-select: none;
+}
+.error-section h1 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+.error-desc {
+  color: var(--text-muted);
+  max-width: 380px;
+  margin: 0 auto;
+}
+.error-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+</style>
+
+<script is:inline>
+(function () {
+  var isJa = window.location.pathname.startsWith('/ja');
+  if (!isJa) return;
+  var el = function (id) { return document.getElementById(id); };
+  el('err-label') && (el('err-label').textContent = '404');
+  el('err-heading') && (el('err-heading').textContent = 'ページが見つかりません');
+  el('err-desc') && (el('err-desc').textContent = 'お探しのページは存在しません。ラボへ戻りましょう。');
+  el('err-home') && (el('err-home').textContent = 'ホームへ →') && (el('err-home').href = '/ja/');
+  el('err-posts') && (el('err-posts').textContent = '全記事') && (el('err-posts').href = '/ja/posts');
+})();
+</script>

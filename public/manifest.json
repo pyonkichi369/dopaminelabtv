@@ -1,0 +1,26 @@
+{
+  "name": "Dopamine Lab TV",
+  "short_name": "DopamineLab",
+  "description": "Neuroscience × Japanese philosophy for the AI age. Research on dopamine, attention, and staying focused.",
+  "start_url": "/",
+  "display": "minimal-ui",
+  "background_color": "#faf5ec",
+  "theme_color": "#b44840",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/icon-brain.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "education", "lifestyle"],
+  "screenshots": [
+    {
+      "src": "/og-default.png",
+      "sizes": "1200x630",
+      "type": "image/png"
+    }
+  ]
+}

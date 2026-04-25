@@ -64,6 +64,13 @@ const jsonLD = isArticle ? {
     target: `${Astro.site}posts/?q={search_term_string}`,
     'query-input': 'required name=search_term_string',
   },
+  sameAs: [
+    'https://www.youtube.com/@DopamineLabTV',
+    'https://dopaminelabtv.substack.com',
+    'https://twitter.com/DopamineLab',
+    'https://room.rakuten.co.jp/dopaminelabtv/items',
+  ],
+  logo: new URL('/icon-brain.png', Astro.site).toString(),
 };
 ---
 <!doctype html>
@@ -92,7 +99,6 @@ const jsonLD = isArticle ? {
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:url" content={canonicalURL} />
-  <meta property="og:locale" content="en_US" />
   {isArticle && <meta property="article:published_time" content={article!.publishedTime} />}
   {isArticle && article?.tags?.map(t => <meta property="article:tag" content={t} />)}
 
@@ -104,12 +110,19 @@ const jsonLD = isArticle ? {
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
 
-  <!-- Favicon -->
+  <!-- Favicon + PWA -->
   <link rel="icon" type="image/png" href="/icon-brain.png" />
   <link rel="apple-touch-icon" href="/icon-brain.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#b44840" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Dopamine Lab" />
+  <meta name="format-detection" content="telephone=no" />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/rss+xml" title="Dopamine Lab TV" href="/rss.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Dopamine Lab TV (EN)" href="/rss.xml" />
+  {lang === 'ja' && <link rel="alternate" type="application/rss+xml" title="Dopamine Lab TV（日本語）" href="/rss-ja.xml" />}
 
   <!-- AIO: LLM-readable meta -->
   <meta name="ai-content-type" content={isArticle ? 'research-article' : 'publication-home'} />
@@ -119,6 +132,15 @@ const jsonLD = isArticle ? {
   <!-- Pinterest -->
   <meta name="pinterest-rich-pin" content="true" />
   <meta name="pinterest:description" content={description} />
+
+  <!-- DNS prefetch for external domains -->
+  <link rel="dns-prefetch" href="https://www.youtube.com" />
+  <link rel="dns-prefetch" href="https://twitter.com" />
+  <link rel="dns-prefetch" href="https://dopaminelabtv.substack.com" />
+
+  <!-- og:locale:alternate for bilingual -->
+  <meta property="og:locale" content={lang === 'ja' ? 'ja_JP' : 'en_US'} />
+  <meta property="og:locale:alternate" content={lang === 'ja' ? 'en_US' : 'ja_JP'} />
 
   <!-- Fonts — preload for LCP -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
