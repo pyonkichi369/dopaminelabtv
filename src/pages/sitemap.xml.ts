@@ -42,6 +42,7 @@ export const GET: APIRoute = async ({ site }) => {
   <url><loc>${siteUrl}/ja/tags/</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>${siteUrl}/about/</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>${siteUrl}/ja/about/</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>${siteUrl}/privacy/</loc><lastmod>${today}</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 ${postUrls}
 ${tagUrls}
 </urlset>`;

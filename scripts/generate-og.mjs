@@ -64,11 +64,6 @@ function parseFrontmatter(content) {
 
 // ─── Shared decorative SVG elements ───────────────────────────────────────
 const DEFS = `  <defs>
-    <filter id="grain" x="0%" y="0%" width="100%" height="100%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch" result="noise"/>
-      <feColorMatrix in="noise" type="saturate" values="0" result="gray"/>
-      <feBlend in="SourceGraphic" in2="gray" mode="overlay"/>
-    </filter>
     <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#b44840" stop-opacity="0"/>
       <stop offset="25%" stop-color="#b44840" stop-opacity="0.5"/>
@@ -78,7 +73,6 @@ const DEFS = `  <defs>
   </defs>`;
 
 const BG = `  <rect width="${W}" height="${H}" fill="#faf5ec"/>
-  <rect width="${W}" height="${H}" fill="#1e1910" opacity="0.04" filter="url(#grain)"/>
   <rect x="0" y="0" width="3" height="${H}" fill="url(#lineGrad)"/>
   <circle cx="940" cy="315" r="240"
     stroke="#b44840" stroke-width="32" fill="none" stroke-linecap="round"
@@ -165,7 +159,7 @@ ${FOOTER}
 }
 
 const postsRoot = join(ROOT, 'src', 'content', 'posts');
-for (const lang of ['en', 'ja']) {
+for (const lang of ['en']) {
   const dir = join(postsRoot, lang);
   const files = readdirSync(dir).filter(f => f.endsWith('.md'));
   for (const file of files) {
