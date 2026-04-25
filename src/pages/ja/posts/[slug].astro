@@ -11,8 +11,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content, frontmatter } = post;
-const slug = Astro.params.slug;
 ---
-<PostLayout frontmatter={frontmatter} lang="ja" ogImage={`/og/${slug}.png`}>
+<PostLayout frontmatter={frontmatter} lang="ja">
   <Content />
 </PostLayout>

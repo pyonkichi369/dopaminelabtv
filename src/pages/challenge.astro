@@ -1,0 +1,203 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Dopamine Habit Battle"
+  description="Two focus habits. One round. Which one actually works? Vote in the weekly dopamine challenge and see what the community thinks."
+  lang="en"
+>
+  <div class="container">
+    <section class="challenge-section">
+      <div class="challenge-intro">
+        <p class="section-label">WEEKLY CHALLENGE</p>
+        <h1>Dopamine Habit <span style="color:var(--accent)">Battle</span></h1>
+        <p class="challenge-desc">
+          Two habits. One round. Which one actually moves the needle?<br />
+          Vote. See what the community thinks. Share.
+        </p>
+      </div>
+
+      <div id="challenge-week-label" class="challenge-week-label"></div>
+
+      <div class="challenge-card" id="challenge-card">
+        <div id="matchup-view"></div>
+        <div id="result-view" hidden></div>
+      </div>
+
+      <div class="challenge-archive" id="challenge-archive"></div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+(function () {
+  var MATCHUPS = [
+    {
+      week: 1,
+      title: 'Round 1',
+      a: { id: 'meditation',  name: 'Meditation',      emoji: '🧘', desc: '10 min daily — sit, breathe, return' },
+      b: { id: 'phone-detox', name: 'Phone Detox',     emoji: '📵', desc: 'First hour of the day, screen-free' },
+      split: [58, 42],
+    },
+    {
+      week: 2,
+      title: 'Round 2',
+      a: { id: 'exercise',     name: 'Morning Exercise', emoji: '🏃', desc: '30 min aerobic before 9am' },
+      b: { id: 'early-rising', name: 'Early Rising',     emoji: '🌅', desc: 'Up before 6am, no snooze' },
+      split: [63, 37],
+    },
+    {
+      week: 3,
+      title: 'Round 3',
+      a: { id: 'reading',     name: 'Deep Reading',  emoji: '📖', desc: '30 min physical book, no distractions' },
+      b: { id: 'nature-walk', name: 'Nature Walk',   emoji: '🌿', desc: '20 min outside, no headphones' },
+      split: [51, 49],
+    },
+    {
+      week: 4,
+      title: 'Round 4',
+      a: { id: 'cold-shower', name: 'Cold Shower',              emoji: '🚿', desc: '60 sec cold water at the end' },
+      b: { id: 'fasting',     name: 'Time-Restricted Eating',   emoji: '⏰', desc: '16:8 — eating window 12pm–8pm' },
+      split: [55, 45],
+    },
+  ];
+
+  var START = new Date('2026-04-28T00:00:00Z');
+  var weekIdx = Math.max(0, Math.min(
+    Math.floor((Date.now() - START.getTime()) / (7 * 86400000)),
+    MATCHUPS.length - 1
+  ));
+  var M = MATCHUPS[weekIdx];
+  var voteKey = 'dopamine-challenge-en-' + M.week;
+  var voted = localStorage.getItem(voteKey);
+
+  document.getElementById('challenge-week-label').textContent =
+    'Week ' + M.week + ' of ' + MATCHUPS.length + ' — ' + M.title;
+
+  // Archive links
+  var archiveEl = document.getElementById('challenge-archive');
+  var archiveLinks = MATCHUPS.filter(function(m) { return m.week !== M.week; })
+    .map(function(m) {
+      var storedChoice = localStorage.getItem('dopamine-challenge-en-' + m.week);
+      var label = m.a.emoji + ' ' + m.a.name + ' vs ' + m.b.emoji + ' ' + m.b.name;
+      var badge = storedChoice ? ' <span class="archive-voted">voted</span>' : '';
+      return '<button class="archive-item" data-week="' + m.week + '">' + label + badge + '</button>';
+    }).join('');
+  if (archiveLinks) {
+    archiveEl.innerHTML = '<p class="archive-label">Past rounds</p><div class="archive-list">' + archiveLinks + '</div>';
+    archiveEl.querySelectorAll('.archive-item').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var w = parseInt(btn.dataset.week);
+        var old = MATCHUPS.find(function(m) { return m.week === w; });
+        if (!old) return;
+        var c = localStorage.getItem('dopamine-challenge-en-' + w);
+        renderMatchup(old, document.getElementById('matchup-view'), document.getElementById('result-view'), 'en', 'dopamine-challenge-en-' + w, c);
+        document.getElementById('challenge-week-label').textContent =
+          'Week ' + old.week + ' of ' + MATCHUPS.length + ' — ' + old.title + ' (past)';
+      });
+    });
+  }
+
+  function ga(event, params) {
+    if (typeof window.gtag === 'function') window.gtag('event', event, params || {});
+  }
+
+  function renderMatchup(matchup, matchupView, resultView, lang, key, initialVote) {
+    if (initialVote) {
+      showResult(matchup, resultView, matchupView, lang, key, initialVote);
+    } else {
+      showMatchup(matchup, matchupView, resultView, lang, key);
+    }
+  }
+
+  function showMatchup(matchup, matchupView, resultView, lang, key) {
+    matchupView.innerHTML =
+      '<p class="challenge-prompt">Which one actually moves the needle for your focus?</p>' +
+      '<div class="challenge-vs">' +
+        '<button class="habit-btn" data-choice="a">' +
+          '<span class="habit-emoji">' + matchup.a.emoji + '</span>' +
+          '<strong class="habit-name">' + matchup.a.name + '</strong>' +
+          '<span class="habit-desc">' + matchup.a.desc + '</span>' +
+        '</button>' +
+        '<div class="vs-badge">VS</div>' +
+        '<button class="habit-btn" data-choice="b">' +
+          '<span class="habit-emoji">' + matchup.b.emoji + '</span>' +
+          '<strong class="habit-name">' + matchup.b.name + '</strong>' +
+          '<span class="habit-desc">' + matchup.b.desc + '</span>' +
+        '</button>' +
+      '</div>';
+    matchupView.hidden = false;
+    resultView.hidden = true;
+    matchupView.querySelectorAll('.habit-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var choice = btn.dataset.choice;
+        localStorage.setItem(key, choice);
+        ga('challenge_vote', { week: matchup.week, choice: choice, lang: lang });
+        showResult(matchup, resultView, matchupView, lang, key, choice);
+      });
+    });
+  }
+
+  function showResult(matchup, resultView, matchupView, lang, key, choice) {
+    var winner = choice === 'a' ? matchup.a : matchup.b;
+    var pctA = matchup.split[0], pctB = matchup.split[1];
+    var siteUrl = 'https://dopaminelabtv.com/challenge';
+    var shareText =
+      '"' + winner.name + '" wins my focus game.\n' +
+      'Community: ' + matchup.a.name + ' ' + pctA + '% vs ' + matchup.b.name + ' ' + pctB + '%\n' +
+      'Which side are you on?\n' +
+      siteUrl + '\n' +
+      '#dopamine #focus #neuroscience';
+    var xUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
+
+    resultView.innerHTML =
+      '<div class="result-header">' +
+        '<span class="result-badge">Your pick ' + winner.emoji + '</span>' +
+        '<h2 class="result-winner">' + winner.name + '</h2>' +
+      '</div>' +
+      '<div class="result-bars">' +
+        '<div class="result-bar' + (choice === 'a' ? ' result-bar--chosen' : '') + '">' +
+          '<div class="result-bar-labels">' +
+            '<span>' + matchup.a.emoji + ' ' + matchup.a.name + '</span>' +
+            '<strong>' + pctA + '%</strong>' +
+          '</div>' +
+          '<div class="result-bar-track">' +
+            '<div class="result-bar-fill" style="width:' + pctA + '%"></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="result-bar' + (choice === 'b' ? ' result-bar--chosen' : '') + '">' +
+          '<div class="result-bar-labels">' +
+            '<span>' + matchup.b.emoji + ' ' + matchup.b.name + '</span>' +
+            '<strong>' + pctB + '%</strong>' +
+          '</div>' +
+          '<div class="result-bar-track">' +
+            '<div class="result-bar-fill" style="width:' + pctB + '%"></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<p class="result-note">Community split · Week ' + matchup.week + '</p>' +
+      '<div class="result-actions">' +
+        '<a class="btn result-share" href="' + xUrl + '" target="_blank" rel="noopener">' +
+          '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0">' +
+            '<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>' +
+          '</svg>' +
+          'Share on X' +
+        '</a>' +
+        '<button class="btn-ghost result-retry">← Change vote</button>' +
+      '</div>';
+
+    resultView.querySelector('.result-share').addEventListener('click', function() {
+      ga('challenge_share', { week: matchup.week, choice: choice, lang: lang });
+    });
+    resultView.querySelector('.result-retry').addEventListener('click', function() {
+      localStorage.removeItem(key);
+      showMatchup(matchup, matchupView, resultView, lang, key);
+    });
+
+    matchupView.hidden = true;
+    resultView.hidden = false;
+  }
+
+  renderMatchup(M, document.getElementById('matchup-view'), document.getElementById('result-view'), 'en', voteKey, voted);
+})();
+</script>
