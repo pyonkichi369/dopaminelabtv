@@ -18,6 +18,17 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
   <div class="container">
     <section class="posts-section" style="padding-top: 52px;">
       <p class="section-label">All Articles — {posts.length} dispatches</p>
+      <div class="search-bar">
+        <input
+          type="search"
+          id="post-search"
+          class="search-input"
+          placeholder="Search articles…"
+          aria-label="Search articles"
+          autocomplete="off"
+        />
+      </div>
+      <p class="search-empty" id="search-empty" hidden>No articles found.</p>
       <div class="posts-list">
         {posts.map(post => (
           <article class="post-card">
@@ -38,6 +49,27 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
       </div>
     </section>
   </div>
+
+<script is:inline>
+(function () {
+  var input = document.getElementById('post-search');
+  var emptyMsg = document.getElementById('search-empty');
+  if (!input) return;
+  input.addEventListener('input', function () {
+    var q = input.value.toLowerCase().trim();
+    var cards = document.querySelectorAll('.posts-list .post-card');
+    var visible = 0;
+    cards.forEach(function (card) {
+      var title = (card.querySelector('h2') || {}).textContent || '';
+      var excerpt = (card.querySelector('.post-excerpt') || {}).textContent || '';
+      var show = !q || title.toLowerCase().includes(q) || excerpt.toLowerCase().includes(q);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (emptyMsg) emptyMsg.hidden = visible > 0;
+  });
+})();
+</script>
 
 <script type="application/ld+json" set:html={JSON.stringify({
   '@context': 'https://schema.org',

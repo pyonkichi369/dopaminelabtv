@@ -42,6 +42,7 @@ const jsonLD = isArticle ? {
   description,
   image: new URL(ogImage, Astro.site).toString(),
   datePublished: article?.publishedTime,
+  dateModified: article?.publishedTime,
   author: { '@type': 'Organization', name: siteName, url: Astro.site?.toString() },
   publisher: { '@type': 'Organization', name: siteName, url: Astro.site?.toString() },
   mainEntityOfPage: canonicalURL.toString(),
@@ -86,7 +87,7 @@ const jsonLD = isArticle ? {
   <link rel="alternate" hreflang="x-default" href={enURL} />
 
   <!-- SEO -->
-  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="author" content="Dopamine Lab TV" />
   <meta name="keywords" content="dopamine, ADHD, focus, neuroscience, Zen, Japanese philosophy, AI anxiety, attention, digital wellness, mindfulness" />
 

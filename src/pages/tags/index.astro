@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = await Astro.glob('../../content/posts/en/*.md');
+const tagMap = new Map<string, number>();
+posts.forEach(p => {
+  (p.frontmatter.tags ?? []).forEach((t: string) => {
+    tagMap.set(t, (tagMap.get(t) ?? 0) + 1);
+  });
+});
+const tags = [...tagMap.entries()].sort((a, b) => b[1] - a[1]);
+function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-')}`; }
+---
+<BaseLayout
+  title="All Tags — Dopamine Lab TV"
+  description="Browse all topic tags on Dopamine Lab TV. Dopamine, neuroscience, focus, AI anxiety, attention."
+>
+  <div class="container">
+    <section style="padding-top:52px;">
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">›</span>
+        <a href="/posts">Articles</a>
+        <span aria-hidden="true">›</span>
+        <span class="breadcrumb-current" aria-current="page">Tags</span>
+      </nav>
+      <p class="section-label" style="margin-top:24px;">All Topics</p>
+      <h1 style="margin:8px 0 32px;font-size:2rem;">Browse by tag</h1>
+      <div class="tags-cloud">
+        {tags.map(([tag, count]) => (
+          <a href={tagHref(tag)} class="tags-cloud-item">
+            <span class="tag">{tag}</span>
+            <span class="tags-cloud-count">{count}</span>
+          </a>
+        ))}
+      </div>
+      <p style="margin-top:48px;font-size:0.9rem;"><a href="/posts">← All Articles</a></p>
+    </section>
+  </div>
+</BaseLayout>

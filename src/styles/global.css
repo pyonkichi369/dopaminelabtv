@@ -1739,6 +1739,52 @@ h3:hover .heading-anchor {
   opacity: 1;
 }
 
+/* ── Search bar ── */
+.search-bar {
+  margin-bottom: 24px;
+}
+.search-input {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  font-family: var(--font-sans);
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.search-input:focus { border-color: var(--accent); }
+.search-input::placeholder { color: var(--text-muted); }
+.search-empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ── Tags cloud (index page) ── */
+.tags-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+.tags-cloud-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: inherit;
+  padding: 4px 10px 4px 0;
+}
+.tags-cloud-item:hover .tag { opacity: 0.75; }
+.tags-cloud-count {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
 /* ── NEW badge ── */
 .tag-new {
   font-size: 0.58rem;
