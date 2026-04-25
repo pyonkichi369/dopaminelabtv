@@ -259,4 +259,50 @@ function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
   });
 })();
 </script>
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do you open social media without deciding to?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Automatic social media checking is a sign of dopamine-conditioned behavior. Variable ratio reinforcement — the same mechanism that makes slot machines compulsive — trains your brain to seek unpredictable rewards from feeds automatically. This is not a willpower failure; it is a measurable neurological response to engineered stimulation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why can't I focus on anything for long?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Difficulty sustaining attention often signals a downregulated dopamine system. Chronic overstimulation from digital environments raises your brain's novelty threshold, making deep work feel unrewarding by comparison. Neuroscience research shows this state is reversible through structured dopamine reduction and attention training."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do I feel anxious but have no motivation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The combination of anxiety without motivation reflects a dopamine-cortisol imbalance. High cortisol keeps the threat-detection system active while depleted dopamine removes the drive to act. This paradox — feeling wired but unable to move — is a recognized neurological state, not a character flaw."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do I sleep but still feel tired?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evening screen exposure suppresses melatonin and disrupts dopamine cycling, degrading sleep architecture even when total sleep hours appear sufficient. The result is poor adenosine clearance and reduced REM restoration — leaving you cognitively fatigued regardless of time in bed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does time disappear without knowing where it went?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Passive digital consumption — scrolling, autoplay, algorithmic feeds — suppresses the prefrontal cortex's time-encoding function. When the brain enters low-agency, high-stimulation mode, episodic memory formation decreases significantly, creating the subjective experience of lost time."
+      }
+    }
+  ]
+})} />
 </BaseLayout>

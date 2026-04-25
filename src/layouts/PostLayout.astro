@@ -1,28 +1,88 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 
-const { frontmatter, lang = 'en' } = Astro.props;
+const { frontmatter, lang = 'en', ogImage } = Astro.props;
 
 const isJa = lang === 'ja';
 const dateStr = new Date(frontmatter.date).toLocaleDateString(
   isJa ? 'ja-JP' : 'en-US',
   { year: 'numeric', month: 'long', day: 'numeric' }
 );
+
+const tags: string[] = frontmatter.tags ?? [];
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// Share
+const shareHashtags = isJa ? '#ドーパミン #脳科学 #集中力' : '#dopamine #neuroscience #focus';
+const shareText = isJa
+  ? `「${frontmatter.title}」\n${shareHashtags}\n${canonicalURL}`
+  : `"${frontmatter.title}" — The science of staying human.\n${shareHashtags}\n${canonicalURL}`;
+const xShareURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+
+// Breadcrumb
+const homeLabel = isJa ? 'ホーム' : 'Home';
+const postsLabel = isJa ? '記事' : 'Posts';
+const homeURL = isJa ? `${Astro.site}ja/` : `${Astro.site}`;
+const postsURL = isJa ? `${Astro.site}ja/posts/` : `${Astro.site}posts/`;
+const breadcrumbLD = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: homeLabel, item: homeURL },
+    { '@type': 'ListItem', position: 2, name: postsLabel, item: postsURL },
+    { '@type': 'ListItem', position: 3, name: frontmatter.title, item: canonicalURL.toString() },
+  ],
+};
+
+// Related posts
+const allPosts = await Astro.glob('../content/posts/**/*.md');
+const currentSlug = Astro.url.pathname.split('/').filter(Boolean).pop() ?? '';
+const related = allPosts
+  .filter(p => {
+    const parts = p.file.split('/');
+    const postLang = parts[parts.length - 2];
+    const postSlug = parts[parts.length - 1].replace('.md', '');
+    return (
+      postLang === lang &&
+      postSlug !== currentSlug &&
+      p.frontmatter.tags?.some((t: string) => tags.includes(t))
+    );
+  })
+  .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
+  .slice(0, 3)
+  .map(p => {
+    const postSlug = p.file.split('/').pop()!.replace('.md', '');
+    return {
+      url: lang === 'ja' ? `/ja/posts/${postSlug}` : `/posts/${postSlug}`,
+      title: p.frontmatter.title as string,
+      excerpt: p.frontmatter.excerpt as string,
+      tags: (p.frontmatter.tags ?? []) as string[],
+      readTime: p.frontmatter.readTime as number | undefined,
+    };
+  });
 ---
 <BaseLayout
   title={frontmatter.title}
   description={frontmatter.excerpt}
+  ogImage={ogImage}
   lang={lang}
-  article={{ publishedTime: frontmatter.date, tags: frontmatter.tags ?? [] }}
+  article={{ publishedTime: frontmatter.date, tags }}
 >
   <div class="reading-progress" id="reading-progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={0}></div>
 
   <div class="container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="breadcrumb">
+      <a href={isJa ? '/ja/' : '/'}>{homeLabel}</a>
+      <span aria-hidden="true">›</span>
+      <a href={isJa ? '/ja/posts' : '/posts'}>{postsLabel}</a>
+      <span aria-hidden="true">›</span>
+      <span class="breadcrumb-current" aria-current="page">{frontmatter.title}</span>
+    </nav>
+
     <div class="article-header">
       <div class="post-tags">
-        {frontmatter.tags?.map((t: string) => (
-          <span class="tag">{t}</span>
-        ))}
+        {tags.map(t => <span class="tag">{t}</span>)}
       </div>
       <h1>{frontmatter.title}</h1>
       <div class="post-meta">
@@ -32,6 +92,12 @@ const dateStr = new Date(frontmatter.date).toLocaleDateString(
         )}
       </div>
     </div>
+
+    <!-- ToC — JS-populated, hidden until headings found -->
+    <nav class="toc" id="toc" style="display:none" aria-label={isJa ? '目次' : 'Table of contents'}>
+      <p class="toc-label">{isJa ? '目次' : 'Contents'}</p>
+      <ol class="toc-list" id="toc-list"></ol>
+    </nav>
 
     <div class="article-body" id="article-body">
       <slot />
@@ -43,25 +109,133 @@ const dateStr = new Date(frontmatter.date).toLocaleDateString(
         </a>
       </div>
     </div>
+
+    <!-- Share -->
+    <div class="article-share">
+      <p class="article-share-label">{isJa ? 'この記事をシェアする' : 'Share this article'}</p>
+      <div class="article-share-btns">
+        <a
+          class="article-share-btn article-share-btn--x"
+          href={xShareURL}
+          target="_blank"
+          rel="noopener"
+          aria-label="Share on X (Twitter)"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          {isJa ? 'Xでシェア' : 'Share on X'}
+        </a>
+        <button class="article-share-btn article-share-btn--copy" id="copy-link-btn" aria-label="Copy link">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <span id="copy-link-text">{isJa ? 'リンクをコピー' : 'Copy link'}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Related posts -->
+    {related.length > 0 && (
+      <section class="related-posts">
+        <p class="section-label">{isJa ? '関連記事' : 'Related'}</p>
+        <div class="related-grid">
+          {related.map(p => (
+            <a href={p.url} class="related-card">
+              <div class="related-card-tags">
+                {p.tags.slice(0, 2).map(t => <span class="tag">{t}</span>)}
+              </div>
+              <h3 class="related-card-title" style={isJa ? 'font-family: var(--font-jp)' : ''}>{p.title}</h3>
+              {p.readTime && (
+                <span class="related-card-meta">{p.readTime}{isJa ? ' 分' : ' min'}</span>
+              )}
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
   </div>
+
+  <!-- Breadcrumb JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLD)} />
 </BaseLayout>
 
 <script>
 (function () {
+  // Reading progress
   const bar = document.getElementById('reading-progress') as HTMLElement | null;
-  const body = document.getElementById('article-body') as HTMLElement | null;
-  if (!bar || !body) return;
-
-  function update() {
-    const rect = body.getBoundingClientRect();
-    const total = body.offsetHeight;
-    const scrolled = -rect.top;
-    const pct = Math.min(100, Math.max(0, (scrolled / total) * 100));
-    bar.style.width = pct + '%';
-    bar.setAttribute('aria-valuenow', String(Math.round(pct)));
+  const articleBody = document.getElementById('article-body') as HTMLElement | null;
+  if (bar && articleBody) {
+    function updateProgress() {
+      const rect = articleBody!.getBoundingClientRect();
+      const pct = Math.min(100, Math.max(0, (-rect.top / articleBody!.offsetHeight) * 100));
+      bar!.style.width = pct + '%';
+      bar!.setAttribute('aria-valuenow', String(Math.round(pct)));
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
   }
 
-  window.addEventListener('scroll', update, { passive: true });
-  update();
+  // Copy link
+  const copyBtn = document.getElementById('copy-link-btn');
+  const copyText = document.getElementById('copy-link-text');
+  if (copyBtn && copyText) {
+    const original = copyText.textContent ?? '';
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        copyText.textContent = original.includes('コピー') ? 'コピー完了!' : 'Copied!';
+        copyBtn.classList.add('article-share-btn--copied');
+        setTimeout(() => {
+          copyText.textContent = original;
+          copyBtn.classList.remove('article-share-btn--copied');
+        }, 2000);
+      } catch { /* clipboard not available */ }
+    });
+  }
+
+  // Table of Contents
+  const tocEl = document.getElementById('toc') as HTMLElement | null;
+  const tocList = document.getElementById('toc-list');
+  const body = document.getElementById('article-body');
+  if (tocEl && tocList && body) {
+    const headings = Array.from(body.querySelectorAll('h2, h3')) as HTMLElement[];
+    if (headings.length >= 2) {
+      headings.forEach((h, i) => {
+        if (!h.id) {
+          const slug = (h.textContent ?? '')
+            .toLowerCase()
+            .replace(/[^\w\s぀-ヿ一-鿿-]/g, '')
+            .replace(/\s+/g, '-')
+            .slice(0, 40);
+          h.id = 'h-' + i + '-' + slug;
+        }
+        const li = document.createElement('li');
+        li.className = h.tagName === 'H3' ? 'toc-item toc-item--sub' : 'toc-item';
+        const a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        li.appendChild(a);
+        tocList.appendChild(li);
+      });
+      tocEl.style.display = '';
+
+      // Scroll spy
+      const links = tocList.querySelectorAll('a');
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              links.forEach(l => l.classList.remove('toc-link--active'));
+              const active = tocList.querySelector(`a[href="#${entry.target.id}"]`);
+              if (active) active.classList.add('toc-link--active');
+            }
+          });
+        },
+        { rootMargin: '-20% 0px -70% 0px' }
+      );
+      headings.forEach(h => observer.observe(h));
+    }
+  }
 })();
 </script>

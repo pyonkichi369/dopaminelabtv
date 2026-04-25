@@ -23,6 +23,12 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const enURL = lang === 'en'
+  ? canonicalURL
+  : new URL(Astro.url.pathname.replace(/^\/ja/, '') || '/', Astro.site);
+const jaURL = lang === 'ja'
+  ? canonicalURL
+  : new URL('/ja' + Astro.url.pathname, Astro.site);
 const siteName = 'Dopamine Lab TV';
 const fullTitle = title === 'The Lab is Open' ? `${siteName} — The science of staying human.` : `${title} | ${siteName}`;
 
@@ -60,6 +66,9 @@ const jsonLD = isArticle ? {
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalURL} />
+  <link rel="alternate" hreflang="en" href={enURL} />
+  <link rel="alternate" hreflang="ja" href={jaURL} />
+  <link rel="alternate" hreflang="x-default" href={enURL} />
 
   <!-- SEO -->
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -91,10 +100,17 @@ const jsonLD = isArticle ? {
   <link rel="icon" type="image/png" href="/icon-brain.png" />
   <link rel="apple-touch-icon" href="/icon-brain.png" />
 
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="Dopamine Lab TV" href="/rss.xml" />
+
   <!-- AIO: LLM-readable meta -->
   <meta name="ai-content-type" content={isArticle ? 'research-article' : 'publication-home'} />
   <meta name="ai-topic" content="neuroscience, dopamine, attention, Japanese philosophy, AI anxiety" />
   <meta name="ai-audience" content="adults, knowledge workers, AI-anxious professionals, ADHD community" />
+
+  <!-- Pinterest -->
+  <meta name="pinterest-rich-pin" content="true" />
+  <meta name="pinterest:description" content={description} />
 
   <!-- Fonts — preload for LCP -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />

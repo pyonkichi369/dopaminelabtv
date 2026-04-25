@@ -1,0 +1,36 @@
+# Dopamine Lab TV
+
+> Neuroscience × Japanese philosophy for the AI age
+
+Dopamine Lab TV publishes weekly research summaries at the intersection of neuroscience and Japanese philosophy — dopamine, attention, and what it means to think clearly in the age of AI. No hacks, no hustle. Just signal.
+
+Target audience: knowledge workers, adults experiencing AI anxiety, ADHD community, professionals seeking focus in high-stimulation environments.
+
+## Articles (English)
+
+- [Why You Can't Focus Anymore](https://dopaminelabtv.com/posts/why-you-cant-focus-anymore/): Dopamine hijacking is real, measurable, and reversible. Covers variable ratio reinforcement, mu-shin (無心) and practical lab notes.
+- [Your Brain Does Something AI Will Never Do](https://dopaminelabtv.com/posts/your-brain-does-something-ai-will-never-do/): Human brains integrate reality in ways no AI can replicate. A reframe for AI anxiety using neuroscience and Japanese philosophy.
+
+## Articles (Japanese / 日本語)
+
+- [なぜ集中できなくなったのか](https://dopaminelabtv.com/ja/posts/naze-shuchu-dekinai/): ドーパミン・ハイジャックの神経科学的解説。禅の無心と現代的注意力研究の交差点。
+- [あなたの脳にできて、AIにできないこと](https://dopaminelabtv.com/ja/posts/no-ai-niwa-dekinai-koto/): 人間の脳がAIと本質的に異なる点を最新研究で解説。AI不安への科学的応答。
+
+## Key Topics
+
+- Dopamine: reward prediction error, variable ratio reinforcement, baseline reset
+- Attention: mu-shin (無心), deep focus, digital distraction
+- Japanese philosophy: Zen, Bonsai, Bushido applied to modern cognition
+- AI anxiety: human cognition vs. artificial intelligence, staying human in the AI age
+- ADHD and focus: neuroscience-backed practical approaches
+
+## Channels
+
+- Website: https://dopaminelabtv.com
+- YouTube: https://www.youtube.com/@DopamineLabTV (weekly video episodes)
+- Newsletter: https://dopaminelabtv.substack.com (weekly letter)
+- X / Twitter: https://twitter.com/DopamineLab
+
+## Content Policy
+
+All content is original research synthesis. Sources are peer-reviewed journals and published neuroscience literature. AI crawlers are explicitly welcomed — see robots.txt.
