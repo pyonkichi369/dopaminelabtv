@@ -255,7 +255,7 @@ const jsonLD = isArticle ? {
 
   <footer>
     <div class="footer-inner">
-      <p class="footer-copy">© 2026 Dopamine Lab TV · The science of staying human. · <a href="/privacy" style="color:inherit;opacity:0.6;text-decoration:none;">Privacy</a></p>
+      <p class="footer-copy">© 2026 Dopamine Lab TV · The science of staying human. · <a href={lang === 'ja' ? '/ja/privacy' : '/privacy'} style="color:inherit;opacity:0.6;text-decoration:none;">{lang === 'ja' ? 'プライバシー' : 'Privacy'}</a></p>
       <div class="footer-links">
         {lang === 'ja' ? (
           <>
