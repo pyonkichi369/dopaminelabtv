@@ -42,6 +42,14 @@ The following Japanese philosophical concepts are mapped to their neuroscience e
 - **jihi (慈悲)**: Loving-kindness and compassion. Oxytocin release; insula activation; self-compassion reduces cortisol.
 - **shonen (正念)**: Right mindfulness (samma sati). Thickens prefrontal cortex; reduces amygdala reactivity.
 - **muga (無我)**: No-self. DMN dissolution during deep meditation; transient hypofrontality in flow state.
+- **zazen (坐禅)**: Seated meditation. Reduces DMN activity; thickens prefrontal gray matter after 8 weeks.
+
+## Bushido Concepts (Glossary — Samurai Ethics)
+
+- **bushido (武士道)**: The way of the warrior. Pre-commitment to values reduces moral cognitive load under stress (Greene, 2001); basal ganglia encode practiced values as procedural habit.
+- **yū (勇)**: Courage. sgACC actively suppresses amygdala fear signals during courageous action — regulation, not fearlessness. A trainable circuit.
+- **kokki (克己)**: Self-mastery. DLPFC + ACC mediated self-control; values commitment (not willpower-as-fuel) strengthens prefrontal-striatal impulse regulation.
+- **rei (礼)**: Ritual respect/etiquette. Procedural ritual reduces limbic reactivity; TPJ activates for perspective-taking; genuine respect elevates oxytocin + testosterone simultaneously.
 
 ## Practical Protocols
 

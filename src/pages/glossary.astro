@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const title = 'Zen Glossary — Japanese Philosophy & Neuroscience | Dopamine Lab TV';
-const description = 'A glossary of Zen and Japanese philosophical concepts — each mapped to modern neuroscience. From totonou to mushin, wabi-sabi to ichigo ichie.';
+const title = 'Japanese Philosophy Glossary — Zen, Buddhism & Bushido | Dopamine Lab TV';
+const description = 'A glossary of Zen, Buddhist, and Bushido concepts — each mapped to modern neuroscience. From totonou to mushin, kokki to zazen.';
 
 const terms = [
   {
@@ -177,6 +177,42 @@ const terms = [
     neuro: 'Regular zazen measurably reduces default mode network activity at rest, thickens prefrontal cortex gray matter (executive control), and increases insula volume (interoceptive awareness). These structural changes begin to appear in brain scans after 8 weeks of consistent practice. Zazen does not suppress the wandering mind — it trains the return.',
     article: { href: '/posts/what-zen-knew-before-neuroscience', label: 'What Zen Knew Before Neuroscience' },
   },
+  {
+    id: 'bushido',
+    kanji: '武士道',
+    romaji: 'bushido',
+    literal: 'the way of the warrior',
+    philosophy: 'The ethical code of the samurai — a set of behavioral commitments centered on loyalty, courage, justice, and honor. Bushido is not a rulebook but an internalized standard of conduct: a framework that removes the cognitive cost of in-the-moment ethical decisions by committing to principles in advance. Miyamoto Musashi wrote: "Think lightly of yourself, and deeply of the world." The code turns character into automatic behavior.',
+    neuro: 'Pre-commitment devices offload moral decision-making from the resource-limited prefrontal deliberation system to automatized values. Research on moral cognition (Greene, 2001) shows that rule-based ethics reduces cognitive load during high-stress decisions, preserving prefrontal bandwidth for execution. Structured behavioral codes stabilize action under elevated cortisol — exactly the condition samurai were trained for. The basal ganglia encode practiced values as procedural habits; the code becomes the person.',
+    article: null,
+  },
+  {
+    id: 'yu',
+    kanji: '勇',
+    romaji: 'yū',
+    literal: 'courage; valor',
+    philosophy: 'For the samurai, courage was not the absence of fear but deliberate action in its presence. Musashi distinguished two forms: the courage of the moment — instinct and adrenaline — and the courage of deliberation, choosing to act rightly despite knowing the cost. Bushido cultivated the second. "Do not regret what you have done," he wrote. Action taken with full awareness of consequence is the only kind that counts.',
+    neuro: 'Courage is neurologically distinct from fearlessness. fMRI research shows that courageous action recruits the subgenual anterior cingulate cortex (sgACC), which actively suppresses amygdala fear signals rather than bypassing them. This is regulation, not absence — the amygdala still fires, but the sgACC allows forward movement despite it. The key finding: courage is a trainable circuit, not a fixed trait. The dopamine system motivates approach; the sgACC enables action against the amygdala\'s protest.',
+    article: null,
+  },
+  {
+    id: 'kokki',
+    kanji: '克己',
+    romaji: 'kokki',
+    literal: 'self-mastery; overcoming oneself',
+    philosophy: 'The samurai ideal of continuous self-discipline — not the suppression of desire but the ongoing practice of acting in accordance with one\'s values despite the pull of fear, comfort, or immediate reward. The enemy to overcome is not an opponent but the undisciplined self. The Hagakure states: "It is not difficult to attain a thing if the one is in earnest." The difficulty is not the act — it is the daily recommitment to the act.',
+    neuro: 'Self-control is mediated by the dorsolateral prefrontal cortex (DLPFC) and anterior cingulate cortex (ACC) — the same circuits that enable focused attention and resist reward-seeking impulses. Baumeister\'s ego depletion model describes self-control as a resource that weakens with use; but more recent research suggests the critical variable is values commitment rather than willpower as a fuel. Consistent kokki practice strengthens prefrontal-striatal circuits that regulate impulse, and may counteract the dopamine-driven pull toward immediate gratification.',
+    article: null,
+  },
+  {
+    id: 'rei',
+    kanji: '礼',
+    romaji: 'rei',
+    literal: 'respect; ritual courtesy; etiquette',
+    philosophy: 'One of the seven virtues of Bushido — the deliberate practice of courtesy and ritual respect. Rei is not mere politeness; it is the outward discipline that shapes the inner state. The samurai bowed not as performance but as the physical enactment of a philosophy: that how you treat others reflects and reinforces how you see them. Ceremony and form are not formalities — they are the practice of perspective.',
+    neuro: 'Ritual behavior activates the cerebellum and basal ganglia (procedural systems), reducing limbic reactivity by creating predictable structure. Perspective-taking and social cognition engage the temporoparietal junction (TPJ) and medial prefrontal cortex — the same circuits recruited in compassion meditation (jihi). Receiving genuine respect simultaneously elevates testosterone and oxytocin — what researchers call the "status-affiliation" state — linked to increased cooperation, reduced cortisol, and prosocial behavior.',
+    article: null,
+  },
 ];
 ---
 
@@ -191,7 +227,7 @@ const terms = [
       <p class="glossary-eyebrow">Zen Glossary</p>
       <h1 class="glossary-title">Japanese Philosophy<br>Meets Neuroscience</h1>
       <p class="glossary-subtitle">
-        Zen and Buddhist concepts that named what science is still measuring.
+        Zen, Buddhist, and Bushido concepts that named what science is still measuring.
         Each term mapped to its neurological counterpart.
       </p>
       <a href="/ja/glossary" class="glossary-lang-switch">日本語版 →</a>
