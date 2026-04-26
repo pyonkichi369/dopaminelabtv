@@ -4,7 +4,7 @@
   --bg-card:   #f3ead8;      /* 薄い和紙 */
   --bg-hover:  #ebe0c9;      /* hover */
   --text:      #1e1910;      /* 墨 ink */
-  --text-muted:#7e6e5a;      /* 薄墨 */
+  --text-muted:#5e5040;      /* 薄墨 — WCAG AA 4.5:1 on --bg */
   --accent:    #b44840;      /* 朱色 vermillion */
   --accent-dim:rgba(180,72,64,0.07);
   --gold:      #8a6f2e;      /* 金 gold (dark for light bg) */
