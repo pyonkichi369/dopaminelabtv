@@ -1747,6 +1747,7 @@ h3:hover .heading-anchor {
   border: 1px solid var(--border);
   border-left: 3px solid var(--gold);
   border-radius: var(--radius);
+  margin-top: 32px;
   margin-bottom: 20px;
   text-decoration: none;
   transition: background 0.2s;
