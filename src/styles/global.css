@@ -1333,6 +1333,89 @@ footer::before {
   color: var(--text-muted);
 }
 
+.related-all-link {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.related-all-link a {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+.related-all-link a:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+
+/* ── Sources ── */
+.article-sources {
+  margin: 48px 0 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+}
+
+.article-sources-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.article-sources-list {
+  list-style: decimal;
+  padding-left: 1.4em;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.article-source-item {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.article-source-item a {
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.article-source-item a:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+
+/* ── CTA dual buttons ── */
+.cta-block-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.btn--outline:hover {
+  background: var(--accent-dim);
+  color: var(--accent);
+  opacity: 1;
+}
+
+/* ── Posts all link ── */
+.posts-all-link {
+  text-align: center;
+  margin-top: 32px;
+}
+
 @media (min-width: 600px) {
   .related-grid {
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));

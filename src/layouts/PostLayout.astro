@@ -50,29 +50,31 @@ const seriesIndex = seriesInfo ? getSeriesIndex(seriesInfo, currentSlug, lang as
 
 // Related posts
 const allPosts = await Astro.glob('../content/posts/**/*.md');
+const mapPost = (p: any) => {
+  const postSlug = p.file.split('/').pop()!.replace('.md', '');
+  return {
+    url: lang === 'ja' ? `/ja/posts/${postSlug}` : `/posts/${postSlug}`,
+    title: p.frontmatter.title as string,
+    excerpt: p.frontmatter.excerpt as string,
+    tags: (p.frontmatter.tags ?? []) as string[],
+    readTime: p.frontmatter.readTime as number | undefined,
+  };
+};
+const sameLang = (p: any) => {
+  const parts = p.file.split('/');
+  return parts[parts.length - 2] === lang && parts[parts.length - 1].replace('.md', '') !== currentSlug;
+};
 const related = allPosts
-  .filter(p => {
-    const parts = p.file.split('/');
-    const postLang = parts[parts.length - 2];
-    const postSlug = parts[parts.length - 1].replace('.md', '');
-    return (
-      postLang === lang &&
-      postSlug !== currentSlug &&
-      p.frontmatter.tags?.some((t: string) => tags.includes(t))
-    );
-  })
+  .filter(p => sameLang(p) && p.frontmatter.tags?.some((t: string) => tags.includes(t)))
   .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
   .slice(0, 3)
-  .map(p => {
-    const postSlug = p.file.split('/').pop()!.replace('.md', '');
-    return {
-      url: lang === 'ja' ? `/ja/posts/${postSlug}` : `/posts/${postSlug}`,
-      title: p.frontmatter.title as string,
-      excerpt: p.frontmatter.excerpt as string,
-      tags: (p.frontmatter.tags ?? []) as string[],
-      readTime: p.frontmatter.readTime as number | undefined,
-    };
-  });
+  .map(mapPost);
+const relatedFallback = related.length > 0 ? [] : allPosts
+  .filter(sameLang)
+  .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
+  .slice(0, 2)
+  .map(mapPost);
+const displayRelated = related.length > 0 ? related : relatedFallback;
 ---
 <BaseLayout
   title={frontmatter.title}
@@ -135,11 +137,34 @@ const related = allPosts
 
       <div class="cta-block">
         <p>{isJa ? 'あなたの脳は今、どの状態ですか？' : 'What state is your brain in right now?'}</p>
-        <a class="btn" href={isJa ? '/ja/#check' : '/#check'}>
-          {isJa ? '3分でチェックする →' : 'Check in 3 minutes →'}
-        </a>
+        <div class="cta-block-btns">
+          <a class="btn" href={isJa ? '/ja/#check' : '/#check'}>
+            {isJa ? '3分でチェックする →' : 'Check in 3 minutes →'}
+          </a>
+          <a class="btn btn--outline" href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">
+            {isJa ? 'Substackで読む →' : 'Read on Substack →'}
+          </a>
+        </div>
       </div>
     </div>
+
+    <!-- Sources -->
+    {sources.length > 0 && (
+      <div class="article-sources">
+        <p class="article-sources-label">{isJa ? '参考文献' : 'Sources'}</p>
+        <ol class="article-sources-list">
+          {sources.map(s => (
+            <li class="article-source-item">
+              {s.url ? (
+                <a href={s.url} target="_blank" rel="noopener noreferrer">{s.name}</a>
+              ) : (
+                <span>{s.name}</span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </div>
+    )}
 
     <!-- Share -->
     <div class="article-share">
@@ -205,11 +230,11 @@ const related = allPosts
     </div>
 
     <!-- Related posts -->
-    {related.length > 0 && (
+    {displayRelated.length > 0 && (
       <section class="related-posts">
-        <p class="section-label">{isJa ? '関連記事' : 'Related'}</p>
+        <p class="section-label">{isJa ? (related.length > 0 ? '関連記事' : '最新記事') : (related.length > 0 ? 'Related' : 'More from the Lab')}</p>
         <div class="related-grid">
-          {related.map(p => (
+          {displayRelated.map(p => (
             <a href={p.url} class="related-card">
               <div class="related-card-tags">
                 {p.tags.slice(0, 2).map(t => <span class="tag">{t}</span>)}
@@ -220,6 +245,9 @@ const related = allPosts
               )}
             </a>
           ))}
+        </div>
+        <div class="related-all-link">
+          <a href={isJa ? '/ja/posts' : '/posts'}>{isJa ? 'すべての記事 →' : 'All articles →'}</a>
         </div>
       </section>
     )}
