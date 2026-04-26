@@ -10,8 +10,11 @@ tldr:
   - "8 weeks of daily practice produces measurable structural changes in the prefrontal cortex and insula."
 sources:
   - name: "Default mode network and long-term meditation, Yale School of Medicine, 2011"
+    url: "https://pubmed.ncbi.nlm.nih.gov/22114193/"
   - name: "Structural brain changes after 8 weeks of mindfulness, Psychiatry Research: Neuroimaging, 2011"
+    url: "https://pubmed.ncbi.nlm.nih.gov/21071182/"
   - name: "Mind-wandering and unhappiness, Harvard University, 2010"
+    url: "https://pubmed.ncbi.nlm.nih.gov/21071660/"
 ---
 
 Your distracted mind isn't broken.

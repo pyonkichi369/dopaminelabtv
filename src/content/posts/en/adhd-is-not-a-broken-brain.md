@@ -9,10 +9,14 @@ tldr:
   - "The same mechanism explains why high-stimulation environments temporarily 'fix' ADHD symptoms."
   - "Environment design and deliberate recovery practices rebuild the baseline without requiring medication."
 sources:
-  - name: "Dopamine D2 receptor availability in ADHD, Volkow et al., JAMA Psychiatry, 2009"
+  - name: "Dopamine D2 receptor availability in ADHD, Volkow et al., JAMA, 2009"
+    url: "https://pubmed.ncbi.nlm.nih.gov/19826025/"
   - name: "Mindfulness training for ADHD adults, Zylowska et al., Journal of Attention Disorders, 2008"
-  - name: "Tonic and phasic dopamine in reward and attention, Schultz, Annual Review of Neuroscience, 2007"
-  - name: "Structural brain differences in ADHD, Shaw et al., PNAS, 2007"
+    url: "https://pubmed.ncbi.nlm.nih.gov/18025249/"
+  - name: "Multiple dopamine functions at different time courses, Schultz, Annual Review of Neuroscience, 2007"
+    url: "https://pubmed.ncbi.nlm.nih.gov/17600522/"
+  - name: "Cortical maturation delay in ADHD, Shaw et al., PNAS, 2007"
+    url: "https://pubmed.ncbi.nlm.nih.gov/17563363/"
 ---
 
 ADHD is not a broken brain.

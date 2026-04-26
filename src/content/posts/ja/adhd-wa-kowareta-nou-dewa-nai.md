@@ -9,9 +9,14 @@ tldr:
   - "高刺激環境がADHD症状を一時的に「修正」するのも、同じ神経学的メカニズムで説明できる。"
   - "環境設計と意図的な回復実践は、薬物療法なしにベースラインを再構築できる。"
 sources:
-  - name: "ADHDにおけるドーパミンD2受容体の利用可能性, Volkow et al., JAMA Psychiatry, 2009"
+  - name: "ADHDにおけるドーパミンD2受容体の利用可能性, Volkow et al., JAMA, 2009"
+    url: "https://pubmed.ncbi.nlm.nih.gov/19826025/"
   - name: "ADHD成人へのマインドフルネス訓練, Zylowska et al., Journal of Attention Disorders, 2008"
-  - name: "報酬と注意におけるトニック・フェイジックドーパミン, Schultz, Annual Review of Neuroscience, 2007"
+    url: "https://pubmed.ncbi.nlm.nih.gov/18025249/"
+  - name: "複数のタイムコースにおけるドーパミンの機能, Schultz, Annual Review of Neuroscience, 2007"
+    url: "https://pubmed.ncbi.nlm.nih.gov/17600522/"
+  - name: "ADHDにおける大脳皮質成熟の遅延, Shaw et al., PNAS, 2007"
+    url: "https://pubmed.ncbi.nlm.nih.gov/17563363/"
   - name: "ADHDの脳構造的差異, Shaw et al., PNAS, 2007"
 ---
 

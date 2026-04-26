@@ -82,7 +82,13 @@ const displayRelated = related.length > 0 ? related : relatedFallback;
   description={frontmatter.excerpt}
   ogImage={ogImage}
   lang={lang}
-  article={{ publishedTime: frontmatter.date, tags, sources }}
+  article={{
+    publishedTime: frontmatter.date,
+    updatedDate: frontmatter.updatedDate,
+    wordCount: frontmatter.wordCount ?? (frontmatter.readTime ? frontmatter.readTime * 200 : undefined),
+    tags,
+    sources,
+  }}
 >
   <div class="reading-progress" id="reading-progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={0}></div>
 
@@ -298,7 +304,7 @@ const displayRelated = related.length > 0 ? related : relatedFallback;
     name: frontmatter.title,
     speakable: {
       '@type': 'SpeakableSpecification',
-      cssSelector: ['.article-header h1', '.article-body > p:first-child'],
+      cssSelector: ['.article-header h1', '.tldr-list'],
     },
     url: canonicalURL.toString(),
   })} />

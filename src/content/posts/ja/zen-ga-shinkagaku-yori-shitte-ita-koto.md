@@ -10,8 +10,11 @@ tldr:
   - "毎日8週間の実践後、前頭前皮質と島皮質に計測可能な構造的変化が現れる。"
 sources:
   - name: "デフォルトモードネットワークと長期瞑想, イェール大学医学部, 2011"
+    url: "https://pubmed.ncbi.nlm.nih.gov/22114193/"
   - name: "マインドフルネス8週間後の脳構造変化, Psychiatry Research: Neuroimaging, 2011"
+    url: "https://pubmed.ncbi.nlm.nih.gov/21071182/"
   - name: "心の彷徨と不幸, ハーバード大学, 2010"
+    url: "https://pubmed.ncbi.nlm.nih.gov/21071660/"
 ---
 
 集中できない心は壊れていない。

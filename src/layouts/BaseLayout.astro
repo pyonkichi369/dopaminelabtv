@@ -10,6 +10,8 @@ export interface Props {
   lang?: 'en' | 'ja';
   article?: {
     publishedTime: string;
+    updatedDate?: string;
+    wordCount?: number;
     tags: string[];
     sources?: { name: string; url?: string }[];
   };
@@ -33,8 +35,28 @@ const jaURL = lang === 'ja'
 const siteName = 'Dopamine Lab TV';
 const fullTitle = title === 'The Lab is Open' ? `${siteName} — The science of staying human.` : `${title} | ${siteName}`;
 
-// JSON-LD
+// JSON-LD — tag → Wikipedia entity for `mentions`
+const tagEntityMap: Record<string, { name: string; url: string }> = {
+  'dopamine': { name: 'Dopamine', url: 'https://en.wikipedia.org/wiki/Dopamine' },
+  'ドーパミン': { name: 'ドーパミン', url: 'https://ja.wikipedia.org/wiki/%E3%83%89%E3%83%BC%E3%83%91%E3%83%9F%E3%83%B3' },
+  'neuroscience': { name: 'Neuroscience', url: 'https://en.wikipedia.org/wiki/Neuroscience' },
+  '神経科学': { name: '神経科学', url: 'https://ja.wikipedia.org/wiki/%E7%A5%9E%E7%B5%8C%E7%A7%91%E5%AD%A6' },
+  'focus': { name: 'Attention', url: 'https://en.wikipedia.org/wiki/Attention' },
+  '集中力': { name: '注意', url: 'https://ja.wikipedia.org/wiki/%E6%B3%A8%E6%84%8F' },
+  'ADHD': { name: 'Attention deficit hyperactivity disorder', url: 'https://en.wikipedia.org/wiki/Attention_deficit_hyperactivity_disorder' },
+  'Japanese philosophy': { name: 'Japanese philosophy', url: 'https://en.wikipedia.org/wiki/Japanese_philosophy' },
+  '日本哲学': { name: '日本の哲学', url: 'https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E3%81%AE%E5%93%B2%E5%AD%A6' },
+  'stress': { name: 'Psychological stress', url: 'https://en.wikipedia.org/wiki/Stress_(psychology)' },
+  'ストレス': { name: 'ストレス', url: 'https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%88%E3%83%AC%E3%82%B9' },
+  'attention': { name: 'Attention', url: 'https://en.wikipedia.org/wiki/Attention' },
+  '注意': { name: '注意', url: 'https://ja.wikipedia.org/wiki/%E6%B3%A8%E6%84%8F' },
+  'AI anxiety': { name: 'Artificial intelligence', url: 'https://en.wikipedia.org/wiki/Artificial_intelligence' },
+  'AI不安': { name: '人工知能', url: 'https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD' },
+};
 const isArticle = !!article;
+const articleMentions = isArticle
+  ? (article?.tags ?? []).map(t => tagEntityMap[t]).filter(Boolean).map(e => ({ '@type': 'Thing', name: e!.name, url: e!.url }))
+  : [];
 const jsonLD = isArticle ? {
   '@context': 'https://schema.org',
   '@type': 'Article',
@@ -42,11 +64,14 @@ const jsonLD = isArticle ? {
   description,
   image: new URL(ogImage, Astro.site).toString(),
   datePublished: article?.publishedTime,
-  dateModified: article?.publishedTime,
+  dateModified: article?.updatedDate ?? article?.publishedTime,
+  inLanguage: lang === 'ja' ? 'ja-JP' : 'en-US',
+  ...(article?.wordCount ? { wordCount: article.wordCount } : {}),
   author: { '@type': 'Organization', name: siteName, url: Astro.site?.toString() },
   publisher: { '@type': 'Organization', name: siteName, url: Astro.site?.toString() },
   mainEntityOfPage: canonicalURL.toString(),
   keywords: article?.tags?.join(', '),
+  ...(articleMentions.length ? { mentions: articleMentions } : {}),
   ...(article?.sources?.length ? {
     isBasedOn: article.sources.map(s => ({
       '@type': 'ScholarlyArticle',
@@ -105,6 +130,8 @@ const jsonLD = isArticle ? {
   <meta property="og:image:height" content="630" />
   <meta property="og:url" content={canonicalURL} />
   {isArticle && <meta property="article:published_time" content={article!.publishedTime} />}
+  {isArticle && article?.updatedDate && <meta property="article:modified_time" content={article.updatedDate} />}
+  {isArticle && <meta property="article:author" content={siteName} />}
   {isArticle && article?.tags?.map(t => <meta property="article:tag" content={t} />)}
 
   <!-- Twitter / X -->

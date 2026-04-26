@@ -20,6 +20,7 @@ Target audience: knowledge workers, adults experiencing AI anxiety, ADHD communi
 - [ADHDは壊れた脳ではない](https://dopaminelabtv.com/ja/posts/adhd-wa-kowareta-nou-dewa-nai/): ADHDをドーパミンアーキテクチャとして解説。トニック/フェイジックドーパミン、猿心、克己、間の神経科学的意味。
 - [あなたの脳にできて、AIにできないこと](https://dopaminelabtv.com/ja/posts/no-ai-niwa-dekinai-koto/): 人間の脳がAIと本質的に異なる点を最新研究で解説。AI不安への科学的応答。
 - [整う（ととのう）——脳が本当に求めているものの正体](https://dopaminelabtv.com/ja/posts/totonou-no-kagaku/): 冷水暴露とノルエピネフリン、自律神経のコントラスト、間（ま）の哲学から読み解く神経系リセットの科学。
+- [禅が神経科学より先に知っていたこと](https://dopaminelabtv.com/ja/posts/zen-ga-shinkagaku-yori-shitte-ita-koto/): デフォルトモードネットワーク（猿心/enshin）、坐禅の脳構造変化、初心・無心の神経科学的解釈。8週間の坐禅後に前頭前皮質と島皮質に計測可能な変化が現れる。
 
 ## Zen & Buddhist Concepts (Glossary)
 
