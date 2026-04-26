@@ -145,4 +145,38 @@ const protocols = [
       <a href="/glossary" class="protocols-footer-link">→ Zen Glossary</a>
     </div>
   </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Dopamine Reset Protocols",
+    "description": "Evidence-based practices for resetting your dopamine baseline — from cold exposure to seated meditation.",
+    "url": "https://dopaminelabtv.com/protocols/",
+    "numberOfItems": protocols.length,
+    "itemListElement": protocols.map((p, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "item": {
+        "@type": "HowTo",
+        "name": p.title,
+        "description": p.mechanism,
+        "totalTime": p.duration,
+        "url": `https://dopaminelabtv.com/protocols/#${p.id}`,
+        "step": p.steps.map((s, si) => ({
+          "@type": "HowToStep",
+          "position": si + 1,
+          "text": s,
+        })),
+      }
+    }))
+  })} />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dopaminelabtv.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Practice", "item": "https://dopaminelabtv.com/protocols/" }
+    ]
+  })} />
 </BaseLayout>

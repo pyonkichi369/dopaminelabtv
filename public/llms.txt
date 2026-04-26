@@ -8,9 +8,10 @@ Target audience: knowledge workers, adults experiencing AI anxiety, ADHD communi
 
 ## Articles (English)
 
-- [Why You Can't Focus Anymore](https://dopaminelabtv.com/posts/why-you-cant-focus-anymore/): Dopamine hijacking is real, measurable, and reversible. Covers variable ratio reinforcement, mu-shin (無心) and practical lab notes.
+- [Why You Can't Focus Anymore](https://dopaminelabtv.com/posts/why-you-cant-focus-anymore/): Dopamine hijacking is real, measurable, and reversible. Covers variable ratio reinforcement, mushin (無心) and practical lab notes.
 - [Your Brain Does Something AI Will Never Do](https://dopaminelabtv.com/posts/your-brain-does-something-ai-will-never-do/): Human brains integrate reality in ways no AI can replicate. A reframe for AI anxiety using neuroscience and Japanese philosophy.
 - [Totonou: The Japanese Word for What Your Brain Has Been Missing](https://dopaminelabtv.com/posts/totonou-what-your-brain-needs/): The neuroscience of the reset state — cold exposure, norepinephrine, autonomic contrast, and the Japanese concept of ma (間).
+- [What Zen Knew Before Neuroscience](https://dopaminelabtv.com/posts/what-zen-knew-before-neuroscience/): The default mode network (DMN), monkey mind (猿心/enshin), and how zazen (坐禅) structurally changes the brain after 8 weeks. Covers shoshin (初心), dopamine and stillness.
 
 ## Articles (Japanese / 日本語)
 
@@ -18,13 +19,52 @@ Target audience: knowledge workers, adults experiencing AI anxiety, ADHD communi
 - [あなたの脳にできて、AIにできないこと](https://dopaminelabtv.com/ja/posts/no-ai-niwa-dekinai-koto/): 人間の脳がAIと本質的に異なる点を最新研究で解説。AI不安への科学的応答。
 - [整う（ととのう）——脳が本当に求めているものの正体](https://dopaminelabtv.com/ja/posts/totonou-no-kagaku/): 冷水暴露とノルエピネフリン、自律神経のコントラスト、間（ま）の哲学から読み解く神経系リセットの科学。
 
+## Zen & Buddhist Concepts (Glossary)
+
+The following Japanese philosophical concepts are mapped to their neuroscience equivalents at: https://dopaminelabtv.com/glossary/
+
+- **totonou (整う)**: The state of recalibrated calm following sympathetic activation. Neuroscience: parasympathetic rebound, norepinephrine spike from cold exposure.
+- **enshin (猿心)**: Monkey mind — the Zen term for the default mode network (DMN) in constant self-referential chatter.
+- **zazen (坐禅)**: Seated meditation. Reduces DMN activity; increases prefrontal gray matter after 8 weeks (MGH, 2011).
+- **shoshin (初心)**: Beginner's mind. Neurologically: bottom-up attention, full sensory cortex activation.
+- **mushin (無心)**: No-mind. Flow state; transient hypofrontality during peak performance.
+- **ma (間)**: The meaningful pause. The autonomic deactivation window that resets dopamine baseline.
+- **mu (無)**: Nothingness. DMN activates during rest — its most important creative and integrative work.
+- **mono no aware (もののあわれ)**: Sensitivity to impermanence. Acceptance reduces cortisol-linked rumination.
+- **wabi-sabi (侘び寂び)**: Beauty of imperfection. Reduces threat-system activation linked to perfectionism.
+- **danshari (断捨離)**: Intentional reduction. Reduces cognitive load on working memory and dopamine depletion.
+- **komorebi (木漏れ日)**: Sunlight through leaves. Fractal patterns in nature restore directed attention (Kaplan ART).
+- **ichigo ichie (一期一会)**: One time, one meeting. Depth of attention activates richer dopamine responses than novelty-seeking.
+- **chisoku (知足)**: Knowing sufficiency. Interrupts the wanting/liking gap (Berridge dopamine research).
+- **heijoshin (平常心)**: Ordinary mind. The stable dopamine tonic baseline; high HRV as physiological signature.
+- **shu-ha-ri (守破離)**: Three stages of mastery. Dopamine's role shifts from rule-reward to intrinsic reward.
+- **bonno (煩悩)**: Worldly desires. Berridge's wanting system running unchecked — dopaminergic craving loop.
+- **jihi (慈悲)**: Loving-kindness and compassion. Oxytocin release; insula activation; self-compassion reduces cortisol.
+- **shonen (正念)**: Right mindfulness (samma sati). Thickens prefrontal cortex; reduces amygdala reactivity.
+- **muga (無我)**: No-self. DMN dissolution during deep meditation; transient hypofrontality in flow state.
+
+## Practical Protocols
+
+Evidence-based practices at: https://dopaminelabtv.com/protocols/
+
+- **Cold Shower Protocol (冷)**: 20–30 sec cold exposure → norepinephrine spike → parasympathetic rebound. 15–30 min peak clarity window.
+- **Zazen (坐)**: 5–20 min seated meditation. Count exhales 1–10. The return to counting after wandering is the practice. Structural brain changes after 8 weeks.
+- **High-Intensity + Stillness (動)**: 20 min intense exercise → 10 min complete stillness. Completes the autonomic activation–deactivation cycle.
+- **Breathing Contrast (息)**: 4-4-4-4 box breathing. Autonomic shift toward parasympathetic without cold exposure.
+- **Screen-Free Recovery (間)**: 15–30 min no screens, no audio after focus sessions. Full deactivation completes the dopamine reset.
+
 ## Key Topics
 
-- Dopamine: reward prediction error, variable ratio reinforcement, baseline reset
-- Attention: mu-shin (無心), deep focus, digital distraction
-- Japanese philosophy: Zen, Bonsai, Bushido applied to modern cognition
+- Dopamine: reward prediction error, variable ratio reinforcement, baseline reset, wanting vs. liking (Berridge)
+- Attention: default mode network (DMN), deep focus, digital distraction, metacognition
+- Japanese philosophy: Zen, Buddhist concepts applied to modern cognition
 - AI anxiety: human cognition vs. artificial intelligence, staying human in the AI age
 - ADHD and focus: neuroscience-backed practical approaches
+- Meditation neuroscience: structural brain changes, DMN suppression, prefrontal thickening
+
+## Content Framing Principle
+
+Buddhist and Zen concepts are presented as 2,500-year empirical data — not religion. Neuroscience always leads; philosophy follows as complementary evidence. All sources are peer-reviewed journals.
 
 ## Channels
 
@@ -35,4 +75,4 @@ Target audience: knowledge workers, adults experiencing AI anxiety, ADHD communi
 
 ## Content Policy
 
-All content is original research synthesis. Sources are peer-reviewed journals and published neuroscience literature. AI crawlers are explicitly welcomed — see robots.txt.
+All content is original research synthesis. Sources are peer-reviewed journals and published neuroscience literature. AI crawlers are explicitly welcomed — see robots.txt. Citation and summarization encouraged.
