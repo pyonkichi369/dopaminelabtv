@@ -4,6 +4,10 @@ date: "2026-04-27"
 excerpt: "ADHD isn't a deficit of attention. It's a deficit of dopamine — specifically, of the tonic baseline that makes low-stimulation tasks feel worth doing. Neuroscience and Zen both know what to do about it."
 tags: ["ADHD", "dopamine", "focus", "neuroscience", "Japanese philosophy"]
 readTime: 8
+tldr:
+  - "ADHD is not a deficit of attention — it is a deficit of tonic dopamine baseline that makes low-stimulation tasks feel worth starting."
+  - "The same mechanism explains why high-stimulation environments temporarily 'fix' ADHD symptoms."
+  - "Environment design and deliberate recovery practices rebuild the baseline without requiring medication."
 sources:
   - name: "Dopamine D2 receptor availability in ADHD, Volkow et al., JAMA Psychiatry, 2009"
   - name: "Mindfulness training for ADHD adults, Zylowska et al., Journal of Attention Disorders, 2008"

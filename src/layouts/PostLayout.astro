@@ -4,6 +4,7 @@ import { getSeriesForSlug, getSeriesIndex } from '../data/series';
 
 const { frontmatter, lang = 'en', ogImage } = Astro.props;
 const sources: { name: string; url?: string }[] = frontmatter.sources ?? [];
+const tldr: string[] = frontmatter.tldr ?? [];
 
 const isJa = lang === 'ja';
 const dateStr = new Date(frontmatter.date).toLocaleDateString(
@@ -125,6 +126,18 @@ const displayRelated = related.length > 0 ? related : relatedFallback;
         )}
       </div>
     </div>
+
+    <!-- TL;DR -->
+    {tldr.length > 0 && (
+      <div class="tldr-box" role="note" aria-label={isJa ? 'この記事のポイント' : 'Key takeaways'}>
+        <p class="tldr-label">{isJa ? 'この記事のポイント' : 'TL;DR'}</p>
+        <ul class="tldr-list">
+          {tldr.map(point => (
+            <li class="tldr-item" style={isJa ? 'font-family: var(--font-jp)' : ''}>{point}</li>
+          ))}
+        </ul>
+      </div>
+    )}
 
     <!-- ToC — JS-populated, hidden until headings found -->
     <nav class="toc" id="toc" style="display:none" aria-label={isJa ? '目次' : 'Table of contents'}>

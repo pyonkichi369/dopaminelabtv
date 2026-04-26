@@ -4,6 +4,10 @@ date: "2026-04-23"
 excerpt: "Your brain didn't break. Dopamine hijacking is real, measurable, and reversible — if you know what you're fighting."
 tags: ["dopamine", "focus", "neuroscience"]
 readTime: 6
+tldr:
+  - "Smartphones produce dopamine release patterns indistinguishable from early-stage addiction — by design."
+  - "This is not a willpower problem. It is a neuroscientific state caused by variable ratio reinforcement."
+  - "Remove one dopamine trigger per day for 7 days. The one that hurts most is operating like a slot machine."
 sources:
   - name: "Dopamine release patterns and smartphone use, Nature Neuroscience, 2023"
 ---
@@ -33,6 +37,10 @@ Remove one dopamine trigger per day for seven days. Not forever — one week. No
 The goal isn't purity. It's clarity about what you're trading.
 
 If you're wondering how this plays out in an AI-saturated world, read [Your Brain Does Something AI Will Never Do](/posts/your-brain-does-something-ai-will-never-do).
+
+If this pattern sounds like your baseline — not just occasional distraction but persistent inability to activate on low-stimulation tasks — read [ADHD Is Not a Broken Brain](/posts/adhd-is-not-a-broken-brain). The mechanism is the same; the intensity is different.
+
+For the practical reset protocol, [What Zen Knew Before Neuroscience](/posts/what-zen-knew-before-neuroscience) covers the attention-training practice that produces measurable brain changes in 8 weeks.
 
 ---
 

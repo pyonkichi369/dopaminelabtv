@@ -92,6 +92,10 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
               constant stimulation to the point where ordinary life feels flat. This is a
               recoverable state — but it requires deliberate reset, not more willpower.
             </p>
+            <a href="/posts/totonou-what-your-brain-needs" class="check-rec-link">
+              <span class="check-rec-label">Read first</span>
+              <span class="check-rec-title">Totonou: The Japanese Word for What Your Brain Has Been Missing →</span>
+            </a>
           </div>
           <div id="check-result-high" hidden>
             <p class="check-badge check-badge--high">Dopamine Overload State</p>
@@ -103,6 +107,10 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
               rewards that deep focus has become difficult. This isn't a character flaw —
               it's a neuroscientific state.
             </p>
+            <a href="/posts/why-you-cant-focus-anymore" class="check-rec-link">
+              <span class="check-rec-label">Read first</span>
+              <span class="check-rec-title">Why You Can't Focus Anymore →</span>
+            </a>
           </div>
           <div id="check-result-low" hidden>
             <p class="check-badge check-badge--low">Early Warning Signs</p>
@@ -113,6 +121,10 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
               You're not in overload yet, but the patterns are forming.
               The modern environment will keep pulling. Now is the easiest time to course-correct.
             </p>
+            <a href="/posts/what-zen-knew-before-neuroscience" class="check-rec-link">
+              <span class="check-rec-label">Read first</span>
+              <span class="check-rec-title">What Zen Knew Before Neuroscience →</span>
+            </a>
           </div>
           <div id="check-result-clear" hidden>
             <p class="check-badge check-badge--low">Brain State: Clear</p>
@@ -123,6 +135,10 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
               No significant warning signs. Your focus circuits are intact.
               Keep protecting your attention — it's your most valuable resource.
             </p>
+            <a href="/posts/your-brain-does-something-ai-will-never-do" class="check-rec-link">
+              <span class="check-rec-label">Read next</span>
+              <span class="check-rec-title">Your Brain Does Something AI Will Never Do →</span>
+            </a>
           </div>
 
           <div class="check-cta">
@@ -275,6 +291,12 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
   document.querySelectorAll('.check-cta-link:not(.check-cta-link--soon)').forEach(function (link) {
     link.addEventListener('click', function () {
       ga('cta_click', { quiz_id: 'dopamine_check_en', cta_target: link.href });
+    });
+  });
+
+  document.querySelectorAll('.check-rec-link').forEach(function (link) {
+    link.addEventListener('click', function () {
+      ga('quiz_rec_click', { quiz_id: 'dopamine_check_en', link_url: link.href });
     });
   });
 

@@ -4,6 +4,10 @@ date: "2026-04-26"
 excerpt: "Your distracted mind isn't broken — it's default. Modern neuroscience has a name for it. Zen had a cure 2,500 years ago."
 tags: ["neuroscience", "Japanese philosophy", "focus", "dopamine", "attention"]
 readTime: 7
+tldr:
+  - "Zen identified the wandering mind — the default mode network — 2,500 years before neuroscience named it."
+  - "Zazen trains the return to attention, not the absence of thought. Each return strengthens the circuit."
+  - "8 weeks of daily practice produces measurable structural changes in the prefrontal cortex and insula."
 sources:
   - name: "Default mode network and long-term meditation, Yale School of Medicine, 2011"
   - name: "Structural brain changes after 8 weeks of mindfulness, Psychiatry Research: Neuroimaging, 2011"

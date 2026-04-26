@@ -4,6 +4,10 @@ date: "2026-04-25"
 excerpt: "There's a word in Japanese that describes the exact neurological state modern life has stolen from you — and a science behind how to get it back."
 tags: ["neuroscience", "Japanese philosophy", "dopamine", "focus", "stress"]
 readTime: 7
+tldr:
+  - "Totonou is the neurological sweet spot after high activation + full recovery: calm clarity, not sleepy or wired."
+  - "Modern life eliminated the recovery half of the cycle. Your dopamine baseline degrades without it."
+  - "Cold exposure, high-intensity + stillness, and zazen are the three fastest evidence-based paths back."
 sources:
   - name: "Norepinephrine and cold exposure, Journal of Physiology, 2022"
   - name: "Autonomic nervous system recovery and cognitive performance, Frontiers in Neuroscience, 2023"

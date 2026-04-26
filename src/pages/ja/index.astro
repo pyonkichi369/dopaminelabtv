@@ -92,6 +92,10 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
               5項目すべて該当。報酬回路が過飽和に達し、日常のことが無味乾燥に感じられる状態です。
               これは回復できます——ただし、意志力ではなく、意図的なリセットが必要です。
             </p>
+            <a href="/ja/posts/totonou-no-kagaku" class="check-rec-link">
+              <span class="check-rec-label">まず読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">整う（ととのう）——脳が本当に求めているものの正体 →</span>
+            </a>
           </div>
           <div id="check-result-high" hidden>
             <p class="check-badge check-badge--high">ドーパミン過負荷状態</p>
@@ -102,6 +106,10 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
               SNS・動画・通知。脳が快楽に慣れすぎて、長期集中が機能しにくい状態です。
               これは意志の問題ではなく、神経科学的な現象です。
             </p>
+            <a href="/ja/posts/naze-shuchu-dekinai" class="check-rec-link">
+              <span class="check-rec-label">まず読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">なぜ集中できなくなったのか →</span>
+            </a>
           </div>
           <div id="check-result-low" hidden>
             <p class="check-badge check-badge--low">初期警戒サイン</p>
@@ -112,6 +120,10 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
               まだ過負荷ではありませんが、パターンが形成されつつあります。
               軌道修正が最も簡単なのは今です。
             </p>
+            <a href="/ja/posts/zen-ga-shinkagaku-yori-shitte-ita-koto" class="check-rec-link">
+              <span class="check-rec-label">まず読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">禅が神経科学より先に知っていたこと →</span>
+            </a>
           </div>
           <div id="check-result-clear" hidden>
             <p class="check-badge check-badge--low">脳の状態：クリア</p>
@@ -122,6 +134,10 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
               警戒サインはほぼありません。集中回路は機能しています。
               注意力を守り続けてください——それがあなたの最も価値ある資源です。
             </p>
+            <a href="/ja/posts/no-ai-niwa-dekinai-koto" class="check-rec-link">
+              <span class="check-rec-label">次に読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">あなたの脳にできて、AIにできないこと →</span>
+            </a>
           </div>
 
           <div class="check-cta">
@@ -276,6 +292,12 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
   document.querySelectorAll('.check-cta-link:not(.check-cta-link--soon)').forEach(function (link) {
     link.addEventListener('click', function () {
       ga('cta_click', { quiz_id: 'dopamine_check_ja', cta_target: link.href });
+    });
+  });
+
+  document.querySelectorAll('.check-rec-link').forEach(function (link) {
+    link.addEventListener('click', function () {
+      ga('quiz_rec_click', { quiz_id: 'dopamine_check_ja', link_url: link.href });
     });
   });
 

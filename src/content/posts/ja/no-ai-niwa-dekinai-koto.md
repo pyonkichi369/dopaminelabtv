@@ -4,6 +4,10 @@ date: "2026-04-24"
 excerpt: "人間の脳はAIが再現できない方法で現実を統合している——最新研究が証明したことが、AI不安を抱える私たちを変える。"
 tags: ["AI不安", "神経科学", "集中力", "注意"]
 readTime: 6
+tldr:
+  - "新しい神経科学は、人間の脳が構造的レベルでAIには複製できない方法で多感覚的現実を統合することを証明した。"
+  - "AIは情報を処理する。人間の脳は体験・感情・身体的文脈を通じて意味を割り当てる。"
+  - "AI時代に最も防御可能なスキルは、真に、取り替えのきかない「人間であること」だ。"
 sources:
   - name: "Only Brains Align with Brains: Cross-Region Alignment Patterns Expose AI's Lack of Human-Like Multisensory Integration"
     url: "https://arxiv.org/abs/2604.21780v1"

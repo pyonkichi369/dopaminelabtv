@@ -4,6 +4,10 @@ date: "2026-04-24"
 excerpt: "New neuroscience just proved what you suspected: human brains integrate reality in ways no AI can replicate. This changes how we should think about the age of AI anxiety."
 tags: ["AI anxiety", "neuroscience", "focus", "attention"]
 readTime: 6
+tldr:
+  - "New neuroscience proves human brains integrate multisensory reality in ways AI cannot replicate — at a structural level."
+  - "AI processes information. Human brains assign meaning through felt experience, emotion, and embodied context."
+  - "In the AI age, your most defensible skill is being genuinely, irreducibly human."
 sources:
   - name: "Only Brains Align with Brains: Cross-Region Alignment Patterns Expose AI's Lack of Human-Like Multisensory Integration"
     url: "https://arxiv.org/abs/2604.21780v1"

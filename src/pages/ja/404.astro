@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="404 — ページが見つかりません | Dopamine Lab TV"
+  description="お探しのページは存在しません。ラボへ戻りましょう。"
+  lang="ja"
+>
+  <div class="container">
+    <section class="error-section">
+      <p class="section-label">404</p>
+      <div class="error-kanji" aria-hidden="true">迷</div>
+      <h1 style="font-family: var(--font-jp)">ページが見つかりません</h1>
+      <p class="error-desc" style="font-family: var(--font-jp)">
+        お探しのページは存在しません。好奇心がここまで連れてきてくれました——ラボへ戻りましょう。
+      </p>
+      <div class="error-actions">
+        <a class="btn" href="/ja/" style="font-family: var(--font-jp)">ホームへ →</a>
+        <a class="btn-ghost" href="/ja/posts" style="font-family: var(--font-jp)">全記事</a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+.error-section {
+  padding: 80px 0 100px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.error-kanji {
+  font-family: var(--font-jp);
+  font-size: 6rem;
+  color: var(--accent);
+  opacity: 0.15;
+  line-height: 1;
+  margin: -8px 0;
+  user-select: none;
+}
+.error-section h1 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+.error-desc {
+  color: var(--text-muted);
+  max-width: 380px;
+  margin: 0 auto;
+}
+.error-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+</style>

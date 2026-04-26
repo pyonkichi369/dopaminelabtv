@@ -606,6 +606,36 @@ nav a:hover { color: var(--text); opacity: 1; }
 }
 .tldr p { margin-bottom: 0 !important; color: var(--text) !important; font-size: 0.95rem !important; }
 
+/* ── TL;DR box (PostLayout structured) ── */
+.tldr-box {
+  background: var(--accent-dim);
+  border: 1px solid var(--border-accent);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 18px 22px;
+  margin: 0 0 2rem;
+}
+.tldr-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+.tldr-list {
+  margin: 0;
+  padding-left: 1.2em;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tldr-item {
+  font-size: 0.93rem;
+  color: var(--text);
+  line-height: 1.55;
+}
+
 /* ── Callout ── */
 .callout {
   background: rgba(138,111,46,0.07);
@@ -985,8 +1015,36 @@ footer::before {
   font-size: 0.88rem;
   color: var(--text-muted);
   line-height: 1.9;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
   max-width: 52ch;
+}
+
+/* Result-specific article recommendation */
+.check-rec-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 16px;
+  background: var(--accent-dim);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 28px;
+  transition: background 0.15s;
+}
+.check-rec-link:hover { background: rgba(180,72,64,0.12); }
+.check-rec-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+.check-rec-title {
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.45;
 }
 
 .check-cta { margin-top: 28px; }

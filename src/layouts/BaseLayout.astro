@@ -319,7 +319,27 @@ const jsonLD = isArticle ? {
       });
     })();
 
-    // Ma Mode — 間モード (default ON)
+    // Global click tracking — affiliate / Substack / outbound
+  (function () {
+    function ga(event, params) {
+      if (typeof window.gtag === 'function') window.gtag('event', event, params || {});
+    }
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href]');
+      if (!link) return;
+      var href = link.href || '';
+      var text = (link.textContent || '').trim().slice(0, 80);
+      if (href.indexOf('a8.net') !== -1 || href.indexOf('px.a8') !== -1) {
+        ga('affiliate_click', { link_url: href, link_text: text, page: window.location.pathname });
+      } else if (href.indexOf('dopaminelabtv.substack.com') !== -1) {
+        ga('substack_click', { link_text: text, page: window.location.pathname });
+      } else if (href.indexOf('room.rakuten.co.jp') !== -1) {
+        ga('rakuten_click', { link_url: href, page: window.location.pathname });
+      }
+    }, true);
+  })();
+
+  // Ma Mode — 間モード (default ON)
     (function () {
       var btn = document.getElementById('ma-toggle');
       var html = document.documentElement;
