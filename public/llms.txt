@@ -12,10 +12,12 @@ Target audience: knowledge workers, adults experiencing AI anxiety, ADHD communi
 - [Your Brain Does Something AI Will Never Do](https://dopaminelabtv.com/posts/your-brain-does-something-ai-will-never-do/): Human brains integrate reality in ways no AI can replicate. A reframe for AI anxiety using neuroscience and Japanese philosophy.
 - [Totonou: The Japanese Word for What Your Brain Has Been Missing](https://dopaminelabtv.com/posts/totonou-what-your-brain-needs/): The neuroscience of the reset state — cold exposure, norepinephrine, autonomic contrast, and the Japanese concept of ma (間).
 - [What Zen Knew Before Neuroscience](https://dopaminelabtv.com/posts/what-zen-knew-before-neuroscience/): The default mode network (DMN), monkey mind (猿心/enshin), and how zazen (坐禅) structurally changes the brain after 8 weeks. Covers shoshin (初心), dopamine and stillness.
+- [ADHD Is Not a Broken Brain](https://dopaminelabtv.com/posts/adhd-is-not-a-broken-brain/): ADHD as dopamine architecture, not character flaw. Covers tonic/phasic dopamine, Volkow 2009, Zylowska mindfulness RCT 2008, enshin (猿心), kokki (克己), and ma (間) as recovery mechanism.
 
 ## Articles (Japanese / 日本語)
 
 - [なぜ集中できなくなったのか](https://dopaminelabtv.com/ja/posts/naze-shuchu-dekinai/): ドーパミン・ハイジャックの神経科学的解説。禅の無心と現代的注意力研究の交差点。
+- [ADHDは壊れた脳ではない](https://dopaminelabtv.com/ja/posts/adhd-wa-kowareta-nou-dewa-nai/): ADHDをドーパミンアーキテクチャとして解説。トニック/フェイジックドーパミン、猿心、克己、間の神経科学的意味。
 - [あなたの脳にできて、AIにできないこと](https://dopaminelabtv.com/ja/posts/no-ai-niwa-dekinai-koto/): 人間の脳がAIと本質的に異なる点を最新研究で解説。AI不安への科学的応答。
 - [整う（ととのう）——脳が本当に求めているものの正体](https://dopaminelabtv.com/ja/posts/totonou-no-kagaku/): 冷水暴露とノルエピネフリン、自律神経のコントラスト、間（ま）の哲学から読み解く神経系リセットの科学。
 
