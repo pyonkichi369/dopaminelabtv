@@ -2114,6 +2114,49 @@ h3:hover .heading-anchor {
   margin-bottom: 6px;
 }
 .protocol-note p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; margin: 0; }
+.protocols-tool-rec {
+  margin: 48px 0 0;
+  padding: 28px 32px;
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius);
+  background: var(--accent-dim);
+}
+
+.protocols-tool-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.protocols-tool-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 16px !important;
+}
+
+.protocols-tool-link {
+  display: inline-block;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.protocols-tool-link:hover {
+  text-decoration: underline;
+  opacity: 1;
+}
+
+.protocols-tool-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 20px 0;
+}
+
 .protocols-print-cta { text-align: center; padding: 40px 0 24px; }
 .protocols-print-btn { font-size: 0.85rem; padding: 11px 24px; }
 .protocols-footer-links {
