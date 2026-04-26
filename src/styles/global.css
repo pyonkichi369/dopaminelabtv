@@ -111,9 +111,9 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: var(--max-w);
+  max-width: min(100%, 1080px);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 32px;
 }
 
 .logo {
@@ -123,8 +123,9 @@ header {
   color: var(--text);
   font-family: var(--font-jp);
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 1.05rem;
   letter-spacing: 0.06em;
+  flex-shrink: 0;
 }
 
 .logo img {
@@ -1110,6 +1111,14 @@ footer::before {
 .check-retry:hover { color: var(--text); }
 
 /* ── Responsive ── */
+
+/* Medium: 769–1080px — nav items start to crowd */
+@media (min-width: 601px) and (max-width: 1080px) {
+  .header-inner { padding: 0 24px; }
+  nav { gap: 18px; }
+  nav a { font-size: 0.75rem; }
+}
+
 @media (max-width: 768px) {
   .container { padding: 0 20px; }
   .header-inner { padding: 0 20px; }
