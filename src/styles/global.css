@@ -791,10 +791,10 @@ footer::before {
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   gap: 16px;
-  flex-wrap: wrap;
+  text-align: center;
 }
 
 .footer-copy {
@@ -804,7 +804,7 @@ footer::before {
   letter-spacing: 0.03em;
 }
 
-.footer-links { display: flex; gap: 20px; align-items: center; }
+.footer-links { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; justify-content: center; }
 .footer-links a {
   font-size: 0.75rem;
   color: var(--text-muted);
