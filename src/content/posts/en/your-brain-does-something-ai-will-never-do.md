@@ -1,6 +1,6 @@
 ---
 title: "Your Brain Does Something AI Will Never Do"
-date: "2026-04-27"
+date: "2026-04-24"
 excerpt: "New neuroscience just proved what you suspected: human brains integrate reality in ways no AI can replicate. This changes how we should think about the age of AI anxiety."
 tags: ["AI anxiety", "neuroscience", "focus", "attention"]
 readTime: 6
