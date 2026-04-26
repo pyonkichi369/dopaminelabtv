@@ -9,9 +9,12 @@ tldr:
   - "Modern life eliminated the recovery half of the cycle. Your dopamine baseline degrades without it."
   - "Cold exposure, high-intensity + stillness, and zazen are the three fastest evidence-based paths back."
 sources:
-  - name: "Norepinephrine and cold exposure, Journal of Physiology, 2022"
-  - name: "Autonomic nervous system recovery and cognitive performance, Frontiers in Neuroscience, 2023"
-  - name: "Hormetic stress and neuroplasticity, Nature Reviews Neuroscience, 2021"
+  - name: "Human physiological responses to immersion into water of different temperatures, Šrámek et al., European Journal of Applied Physiology, 2000"
+    url: "https://pubmed.ncbi.nlm.nih.gov/10751106/"
+  - name: "Heart rate variability, neurological health, and cognition, Arakaki et al., Frontiers in Neuroscience, 2023"
+    url: "https://pubmed.ncbi.nlm.nih.gov/36937689/"
+  - name: "Intermittent metabolic switching, neuroplasticity and brain health, Mattson et al., Nature Reviews Neuroscience, 2018"
+    url: "https://pubmed.ncbi.nlm.nih.gov/29321682/"
 ---
 
 There is a word in Japanese — **整う** (*totonou*) — that has no clean English translation.

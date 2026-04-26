@@ -9,18 +9,21 @@ tldr:
   - "This is not a willpower problem. It is a neuroscientific state caused by variable ratio reinforcement."
   - "Remove one dopamine trigger per day for 7 days. The one that hurts most is operating like a slot machine."
 sources:
-  - name: "Dopamine release patterns and smartphone use, Nature Neuroscience, 2023"
+  - name: "Striatal dopamine synthesis capacity reflects smartphone social activity, Leming & Suckling, iScience, 2021"
+    url: "https://pubmed.ncbi.nlm.nih.gov/34113831/"
+  - name: "Liking, wanting, and the incentive-sensitization theory of addiction, Berridge & Robinson, American Psychologist, 2016"
+    url: "https://pubmed.ncbi.nlm.nih.gov/27977239/"
 ---
 
 Your brain didn't break.
 
 What changed is the environment it's operating in. Dopamine — the neurotransmitter behind motivation, attention, and drive — evolved to keep you alive on the savanna. It spikes on *novelty* and *unpredictability*. Every scroll, every notification, every autoplay is engineered to trigger exactly that spike.
 
-## The Paper
+## The Research
 
-A 2023 study in *Nature Neuroscience* found that modern smartphones produce dopamine release patterns statistically indistinguishable from early-stage addiction pathways. The key variable: **variable ratio reinforcement** — the same mechanism that makes slot machines impossible to put down.
+Neuroimaging studies show that striatal dopamine activity tracks directly with smartphone social engagement. The mechanism: **variable ratio reinforcement** — the same principle that makes slot machines impossible to put down.
 
-You check your phone not because there's something there. You check because there *might* be.
+Kent Berridge's incentive salience research at Michigan explains why. Dopamine encodes *wanting* (anticipation) far more than *liking* (reward). The spike fires in expectation — not on delivery. So you check your phone not because there's something there. You check because there *might* be.
 
 ## The Japanese Lens
 

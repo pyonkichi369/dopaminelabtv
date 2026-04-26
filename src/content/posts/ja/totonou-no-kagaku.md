@@ -9,9 +9,12 @@ tldr:
   - "現代生活はサイクルの回復後半を消去した。ドーパミンのベースラインはこれなしに劣化する。"
   - "冷水暴露・高強度運動＋静止・坐禅が、エビデンスに基づく最速の回復経路だ。"
 sources:
-  - name: "冷水暴露とノルエピネフリン分泌, Journal of Physiology, 2022"
-  - name: "自律神経系回復と認知パフォーマンス, Frontiers in Neuroscience, 2023"
-  - name: "ホルミーシスストレスと神経可塑性, Nature Reviews Neuroscience, 2021"
+  - name: "異なる水温への身体的反応, Šrámek et al., European Journal of Applied Physiology, 2000"
+    url: "https://pubmed.ncbi.nlm.nih.gov/10751106/"
+  - name: "心拍変動・神経学的健康・認知, Arakaki et al., Frontiers in Neuroscience, 2023"
+    url: "https://pubmed.ncbi.nlm.nih.gov/36937689/"
+  - name: "間欠的代謝スイッチング・神経可塑性・脳の健康, Mattson et al., Nature Reviews Neuroscience, 2018"
+    url: "https://pubmed.ncbi.nlm.nih.gov/29321682/"
 ---
 
 **整う**——この言葉に対応する英語は存在しない。
