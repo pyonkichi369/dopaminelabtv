@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const protocols = [
+  {
+    id: 'cold-shower',
+    kanji: '冷',
+    title: '冷水シャワー・プロトコル',
+    duration: '約3分',
+    mechanism: 'ノルエピネフリンスパイク → 副交感神経リバウンド',
+    steps: [
+      '通常のシャワーを温かいまま終える。',
+      '最も冷たい設定に切り替える。',
+      '20〜30秒間そのままでいる。身構えない——息を通してやり過ごす。',
+      'そこに留まることを選ぶ精神的努力が、メカニズムの一部だ。',
+      '出る。すぐに温めない——身体が自然に体温を戻すまで待つ。',
+    ],
+    note: 'このプロトコルの後の15〜30分が、その日の最も高い明晰さの時間だ。深い作業に使え——メールではなく。',
+    frequency: '毎日または週3〜5回',
+  },
+  {
+    id: 'exercise-stillness',
+    kanji: '動',
+    title: '高強度運動＋静止',
+    duration: '合計30〜35分',
+    mechanism: '交感神経の活性化 → 意図的な副交感神経回復',
+    steps: [
+      '激しい動き20分——ランニング、サイクリング、または自重サーキット。',
+      '完全に停止する。床または地面に仰向けになる。',
+      '10分間完全に静止したままでいる。目を閉じる。',
+      'スマートフォンを触らない。半分だけ休まない。',
+      '動きと静止のコントラストがプロトコルだ。',
+    ],
+    note: '半分の休息はカウントされない。非活性化が本物のときにのみ、神経系はサイクルを完了する。',
+    frequency: '週3〜5回',
+  },
+  {
+    id: 'breathing',
+    kanji: '息',
+    title: '呼吸コントラスト',
+    duration: '5〜8分',
+    mechanism: '冷水暴露なしで副交感神経への自律神経シフト',
+    steps: [
+      '静かな場所に座るか横になる。',
+      '4カウント吸う。4カウント止める。',
+      '4カウント吐く。4カウント止める。',
+      '5〜8分間繰り返す。',
+      'どこでも実践できる——器具も特定の場所も不要。',
+    ],
+    note: '冷水暴露より生理学的には弱いが、どんな状況でも使える。深い作業セッションの合間の昼間のリセットに有効。',
+    frequency: '必要に応じて——特に昼間',
+  },
+  {
+    id: 'zazen',
+    kanji: '坐',
+    title: '坐禅——ただ座ること',
+    duration: '5〜20分',
+    mechanism: '持続的注意の戻りによるデフォルトモードネットワーク抑制',
+    steps: [
+      '安定した座り方を見つける——座布団・椅子・ベンチ。背筋は伸ばすが、硬くならない。',
+      'タイマーを5分にセットする。目を閉じるか、柔らかく下方に視線を向ける。',
+      '自然に呼吸する。各呼気を1から10まで数え、また1に戻る。',
+      '心が彷徨ったとき（必ずそうなる）、ただ気づいて、数に戻る。',
+      '戻ること——静止ではなく——が実践だ。戻るたびに回路が強化される。',
+    ],
+    note: '心を空にしようとしているのではない。気づきを訓練している。毎日8週間の実践後、前頭前皮質と島皮質に計測可能な構造的変化が現れる。変わるのは、戻り続ける脳だ。',
+    frequency: '毎日——同じ時間・同じ場所が習慣のアンカーを作る',
+  },
+  {
+    id: 'screen-free',
+    kanji: '間',
+    title: 'スクリーンフリー回復窓',
+    duration: '15〜30分',
+    mechanism: '活性化→非活性化サイクルの完了',
+    steps: [
+      '集中した作業セッションや高刺激期間の後、停止する。',
+      'スクリーンなし。ポッドキャストなし。バックグラウンドノイズなし。',
+      '外を歩く、入力なしに座る、または静かに横になる。',
+      '目標は完全な非活性化——娯楽ではない。',
+      'スマートフォンに手を伸ばしたくなる衝動が生じたら気づく。やめる。',
+    ],
+    note: 'これは生理学的に最も地味なプロトコルであり、実際に実践するのが最も難しい。現代のデザインは、本物の静止を不可能に感じさせる。その難しさはシグナルであり、スキップする理由ではない。',
+    frequency: '主要な集中ブロックの後に毎回',
+  },
+];
+---
+
+<BaseLayout
+  title="ととのうプロトコル — 実践的リセット法 | Dopamine Lab TV"
+  description="ドーパミンベースラインをリセットするための5つの実証済みプロトコル：冷水シャワー・高強度運動＋静止・呼吸コントラスト・坐禅・スクリーンフリー回復。ととのうの神経科学に基づく。"
+  lang="ja"
+  ogImage="/og/protocols.png"
+>
+  <div class="protocols-page">
+    <div class="protocols-hero">
+      <p class="protocols-eyebrow">ととのうプロトコル</p>
+      <h1 class="protocols-title" style="font-family: var(--font-jp)">実践的リセット法</h1>
+      <p class="protocols-subtitle" style="font-family: var(--font-jp)">
+        ドーパミンベースラインをリセットするための実証済みの実践——
+        冷水暴露から坐禅まで。
+      </p>
+      <a href="/ja/posts/totonou-no-kagaku" class="protocols-source-link">
+        → これらのプロトコルの科学的根拠
+      </a>
+    </div>
+
+    <div class="protocols-list">
+      {protocols.map((p) => (
+        <article class="protocol-card" id={p.id}>
+          <div class="protocol-header">
+            <span class="protocol-kanji">{p.kanji}</span>
+            <div class="protocol-meta">
+              <h2 class="protocol-title" style="font-family: var(--font-jp)">{p.title}</h2>
+              <div class="protocol-tags">
+                <span class="protocol-tag">{p.duration}</span>
+                <span class="protocol-tag">{p.frequency}</span>
+              </div>
+            </div>
+          </div>
+          <p class="protocol-mechanism">
+            <span class="protocol-mechanism-label">メカニズム</span>
+            {p.mechanism}
+          </p>
+          <ol class="protocol-steps">
+            {p.steps.map(step => (
+              <li class="protocol-step" style="font-family: var(--font-jp)">{step}</li>
+            ))}
+          </ol>
+          <div class="protocol-note">
+            <span class="protocol-note-label">注記</span>
+            <p style="font-family: var(--font-jp)">{p.note}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="protocols-print-cta">
+      <button onclick="window.print()" class="btn protocols-print-btn">
+        印刷 / PDFとして保存
+      </button>
+    </div>
+
+    <div class="protocols-footer-links">
+      <a href="/ja/posts/totonou-no-kagaku" class="protocols-footer-link">→ ととのうの科学（記事）</a>
+      <a href="/ja/glossary" class="protocols-footer-link">→ 禅語辞典</a>
+    </div>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "ドーパミンリセット・プロトコル",
+    "description": "ドーパミンベースラインをリセットするための実証済みの実践——冷水暴露から坐禅まで。",
+    "url": "https://dopaminelabtv.com/ja/protocols/",
+    "inLanguage": "ja",
+    "numberOfItems": protocols.length,
+    "itemListElement": protocols.map((p, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "item": {
+        "@type": "HowTo",
+        "name": p.title,
+        "description": p.mechanism,
+        "totalTime": p.duration,
+        "url": `https://dopaminelabtv.com/ja/protocols/#${p.id}`,
+        "step": p.steps.map((s, si) => ({
+          "@type": "HowToStep",
+          "position": si + 1,
+          "text": s,
+        })),
+      }
+    }))
+  })} />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://dopaminelabtv.com/ja/" },
+      { "@type": "ListItem", "position": 2, "name": "実践", "item": "https://dopaminelabtv.com/ja/protocols/" }
+    ]
+  })} />
+</BaseLayout>
