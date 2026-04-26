@@ -1,6 +1,6 @@
 ---
 title: "ADHD Is Not a Broken Brain"
-date: "2026-04-30"
+date: "2026-04-26"
 excerpt: "ADHD isn't a deficit of attention. It's a deficit of dopamine — specifically, of the tonic baseline that makes low-stimulation tasks feel worth doing. Neuroscience and Zen both know what to do about it."
 tags: ["ADHD", "dopamine", "focus", "neuroscience", "Japanese philosophy"]
 readTime: 8

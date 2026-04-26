@@ -1,6 +1,6 @@
 ---
 title: "What Zen Knew Before Neuroscience"
-date: "2026-04-27"
+date: "2026-04-26"
 excerpt: "Your distracted mind isn't broken — it's default. Modern neuroscience has a name for it. Zen had a cure 2,500 years ago."
 tags: ["neuroscience", "Japanese philosophy", "focus", "dopamine", "attention"]
 readTime: 7
