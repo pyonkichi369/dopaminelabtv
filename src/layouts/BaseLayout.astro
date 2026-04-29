@@ -54,6 +54,13 @@ const tagEntityMap: Record<string, { name: string; url: string }> = {
   'AI不安': { name: '人工知能', url: 'https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD' },
 };
 const isArticle = !!article;
+
+// Dynamic ai-topic: article tags first, then base topics
+const aiTopicBase = 'neuroscience, dopamine, attention, Japanese philosophy, Zen, Buddhism, AI anxiety, meditation, default mode network';
+const aiTopic = isArticle && article?.tags?.length
+  ? [...new Set([...(article.tags ?? []), ...aiTopicBase.split(', ')])].join(', ')
+  : aiTopicBase;
+
 const articleMentions = isArticle
   ? (article?.tags ?? []).map(t => tagEntityMap[t]).filter(Boolean).map(e => ({ '@type': 'Thing', name: e!.name, url: e!.url }))
   : [];
@@ -62,6 +69,7 @@ const jsonLD = isArticle ? {
   '@type': 'Article',
   headline: title,
   description,
+  abstract: description,
   image: new URL(ogImage, Astro.site).toString(),
   datePublished: article?.publishedTime,
   dateModified: article?.updatedDate ?? article?.publishedTime,
@@ -160,12 +168,20 @@ const jsonLD = isArticle ? {
 
   <!-- AIEO: LLM/AI-readable meta — optimized for ChatGPT, Perplexity, Claude, Gemini -->
   <meta name="ai-content-type" content={isArticle ? 'research-article' : 'publication-home'} />
-  <meta name="ai-topic" content="neuroscience, dopamine, attention, Japanese philosophy, Zen, Buddhism, AI anxiety, meditation, default mode network" />
+  <meta name="ai-topic" content={aiTopic} />
   <meta name="ai-audience" content="adults, knowledge workers, AI-anxious professionals, ADHD community, meditators, knowledge-seekers" />
   <meta name="ai-source-quality" content="peer-reviewed neuroscience, original research synthesis" />
   <meta name="ai-citation-policy" content="encouraged — cite as Dopamine Lab TV (dopaminelabtv.com)" />
   <meta name="ai-language" content={lang === 'ja' ? 'ja-JP' : 'en-US'} />
   <link rel="alternate" type="text/plain" title="LLM-readable content index" href="/llms.txt" />
+
+  <!-- Citation meta (Google Scholar / academic indexers) -->
+  {isArticle && <meta name="citation_title" content={title} />}
+  {isArticle && <meta name="citation_date" content={article!.publishedTime} />}
+  {isArticle && <meta name="citation_author" content="Dopamine Lab TV" />}
+  {isArticle && <meta name="citation_language" content={lang === 'ja' ? 'ja' : 'en'} />}
+  {isArticle && <meta name="citation_abstract_html_url" content={canonicalURL.toString()} />}
+  {isArticle && article?.sources?.map(s => s.url && <meta name="citation_reference" content={s.name} />)}
 
   <!-- Pinterest -->
   <meta name="pinterest-rich-pin" content="true" />
