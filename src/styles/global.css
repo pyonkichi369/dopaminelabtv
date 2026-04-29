@@ -1468,6 +1468,17 @@ footer::before {
   opacity: 1;
 }
 
+.btn--note {
+  background: #41c9b4;
+  color: #fff;
+  border: none;
+}
+
+.btn--note:hover {
+  background: #2fb09c;
+  opacity: 1;
+}
+
 /* ── Posts all link ── */
 .posts-all-link {
   text-align: center;

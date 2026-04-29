@@ -160,6 +160,11 @@ const displayRelated = related.length > 0 ? related : relatedFallback;
           <a class="btn" href={isJa ? '/ja/#check' : '/#check'}>
             {isJa ? '3分でチェックする →' : 'Check in 3 minutes →'}
           </a>
+          {isJa && (
+            <a class="btn btn--note" href={frontmatter.noteUrl ?? 'https://note.com/th19930828'} target="_blank" rel="noopener noreferrer">
+              noteで読む →
+            </a>
+          )}
           <a class="btn btn--outline" href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">
             {isJa ? 'Substackで読む →' : 'Read on Substack →'}
           </a>
