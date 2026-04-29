@@ -55,7 +55,7 @@ dopaminelabtv.com
 - **フレームワーク**: Astro (静的サイト生成)
 - **スタイル**: Vanilla CSS (デザイントークンベース)
 - **言語**: TypeScript / Markdown
-- **デプロイ**: GitHub → GitHub Pages (Enterprise — private repo)
+- **デプロイ**: GitHub Pages (private repo — requires GitHub Enterprise or Team)
 
 ---
 
