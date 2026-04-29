@@ -1,0 +1,66 @@
+{
+  "last_updated": "2026-04-28",
+  "links": [
+    {
+      "id": "soelu-totonou",
+      "product": "SOELU",
+      "network": "A8.net",
+      "material_id": "023",
+      "placement_type": "text",
+      "article": "src/content/posts/ja/totonou-no-kagaku.md",
+      "section": "実際にできること — 高強度運動＋静止",
+      "link_text": "フィットネスSOELU",
+      "tracking_url_placeholder": "https://px.a8.net/svt/ejp?a8mat=4B1U9X+EIQY9E+4EPM+639IQ",
+      "utm_campaign": "totonou-no-kagaku",
+      "status": "PLACEHOLDER — replace SOELU_TRACKING_ID with A8.net tracking ID",
+      "added": "2026-04-28"
+    },
+    {
+      "id": "soelu-kyuka",
+      "product": "SOELU",
+      "network": "A8.net",
+      "material_id": "023",
+      "placement_type": "text",
+      "article": "src/content/posts/ja/kyuka-ga-nou-wo-kaifuku-shinai-riyu.md",
+      "section": "実際に何が機能するか",
+      "link_text": "フィットネスSOELU",
+      "tracking_url_placeholder": "https://px.a8.net/svt/ejp?a8mat=4B1U9X+EIQY9E+4EPM+639IQ",
+      "utm_campaign": "kyuka-ga-nou-wo-kaifuku-shinai-riyu",
+      "status": "PLACEHOLDER — replace SOELU_TRACKING_ID with A8.net tracking ID",
+      "added": "2026-04-28"
+    },
+    {
+      "id": "kimochi-kyuka",
+      "product": "Kimochi",
+      "network": "A8.net",
+      "material_id": "001",
+      "placement_type": "text",
+      "article": "src/content/posts/ja/kyuka-ga-nou-wo-kaifuku-shinai-riyu.md",
+      "section": "ラボノート",
+      "link_text": "Kimochi",
+      "tracking_url_placeholder": "https://px.a8.net/svt/ejp?a8mat=45IJST+DRD0FM+5OI8+5YJRM",
+      "utm_campaign": "kyuka-ga-nou-wo-kaifuku-shinai-riyu",
+      "status": "PLACEHOLDER — replace KIMOCHI_TRACKING_ID with A8.net tracking ID",
+      "added": "2026-04-28"
+    },
+    {
+      "id": "kimochi-adhd",
+      "product": "Kimochi",
+      "network": "A8.net",
+      "material_id": "001",
+      "placement_type": "text",
+      "article": "src/content/posts/ja/adhd-wa-kowareta-nou-dewa-nai.md",
+      "section": "ラボノート",
+      "link_text": "Kimochi",
+      "tracking_url_placeholder": "https://px.a8.net/svt/ejp?a8mat=45IJST+DRD0FM+5OI8+5YJRM",
+      "utm_campaign": "adhd-wa-kowareta-nou-dewa-nai",
+      "status": "PLACEHOLDER — replace KIMOCHI_TRACKING_ID with A8.net tracking ID",
+      "added": "2026-04-28"
+    }
+  ],
+  "performance_benchmarks": {
+    "SOELU": { "material_id": "023", "ctr": 3.91, "epc": 10.87 },
+    "SOELU_banner": { "material_id": "025", "ctr": 5.0, "epc": 9.42 },
+    "Kimochi": { "material_id": "001", "ctr": 3.99, "epc": 9.98 }
+  }
+}
