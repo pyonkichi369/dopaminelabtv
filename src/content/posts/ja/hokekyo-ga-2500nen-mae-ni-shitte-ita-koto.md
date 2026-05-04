@@ -15,6 +15,8 @@ sources:
     url: "https://pubmed.ncbi.nlm.nih.gov/27977239/"
   - name: "The Lotus Sutra, Burton Watson訳, Columbia University Press, 1993"
     url: "https://cup.columbia.edu/book/the-lotus-sutra/9780231081610"
+  - name: "Emotion suppression and mortality risk over a 12-year follow-up, Chapman et al., Journal of Psychosomatic Research, 2013"
+    url: "https://pubmed.ncbi.nlm.nih.gov/24119947/"
 ---
 
 「もうちょっとだけ、あとで」と思いながら、また今日も動けなかった。
@@ -97,6 +99,8 @@ sources:
 罵倒されても、石を投げられても、その言葉をやめなかった。
 
 神経科学的に見ると、自己批判はコルチゾールを増加させ、ドーパミンベースラインを消耗させる。「どうせ自分は無理だ」という思考が、行動を起こす前にドーパミン回路を止めてしまう。
+
+これは行動への影響だけにとどまらない。Chapman らが2013年に発表した12年追跡研究では、感情を抑え込む傾向が強い人ほど全死因死亡リスクが35%高く、がん死亡リスクは70%高いという**相関**が観察された（n=729）。観察研究なので因果関係ではないが、感情を押さえ込み続けることが身体にも何かを刻んでいる、という示唆だ。
 
 逆に、自分への小さな肯定は、ドーパミンの位相的反応を回復させる入り口になる。
 

@@ -15,6 +15,8 @@ sources:
     url: "https://pubmed.ncbi.nlm.nih.gov/27977239/"
   - name: "The Lotus Sutra, translated by Burton Watson, Columbia University Press, 1993"
     url: "https://cup.columbia.edu/book/the-lotus-sutra/9780231081610"
+  - name: "Emotion suppression and mortality risk over a 12-year follow-up, Chapman et al., Journal of Psychosomatic Research, 2013"
+    url: "https://pubmed.ncbi.nlm.nih.gov/24119947/"
 ---
 
 "Just a little later," I kept telling myself — and once again, I didn't move.
@@ -97,6 +99,8 @@ To everyone he met, he said:
 He kept saying it even when people insulted him, even when they threw stones. He never stopped.
 
 In neuroscience terms, self-criticism elevates cortisol and depletes the tonic dopamine baseline. The thought *"I can't do this anyway"* shuts the dopamine circuit before any action begins.
+
+The effect doesn't stop at behavior. A 12-year follow-up by Chapman and colleagues (2013) observed that people scoring higher on emotion suppression had a 35% higher risk of all-cause mortality and a 70% higher risk of cancer mortality (n=729). It is an observational finding, not a causal one — but a suggestion that the long habit of pushing emotion down leaves a mark on the body too.
 
 Small acts of self-affirmation, by contrast, become entry points where phasic dopamine responses can recover.
 
