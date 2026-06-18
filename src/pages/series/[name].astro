@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SERIES } from '../../data/series';
+
+export function getStaticPaths() {
+  return SERIES.map(s => ({ params: { name: s.id }, props: { series: s } }));
+}
+
+const { series } = Astro.props;
+
+const allPosts = Object.entries(
+  import.meta.glob('../../content/posts/en/*.md', { eager: true }) as Record<string, any>
+).reduce((acc, [path, mod]) => {
+  const slug = path.split('/').pop()!.replace('.md', '');
+  acc[slug] = mod;
+  return acc;
+}, {} as Record<string, any>);
+
+const seriesPosts = series.slugs.en.map((slug: string) => ({
+  slug,
+  frontmatter: allPosts[slug]?.frontmatter ?? {},
+}));
+---
+
+<BaseLayout
+  title={`${series.title} | Dopamine Lab TV`}
+  description={series.description}
+  lang="en"
+>
+  <div class="series-page">
+    <div class="series-hero">
+      <p class="series-eyebrow">Series</p>
+      <h1 class="series-title">{series.title}</h1>
+      <p class="series-desc">{series.description}</p>
+      <a href={`/ja/series/${series.id}`} class="glossary-lang-switch">日本語版 →</a>
+    </div>
+
+    <div class="series-posts">
+      {seriesPosts.map((p: { slug: string; frontmatter: any }, i: number) => (
+        <a href={`/posts/${p.slug}`} class="series-post-card">
+          <span class="series-post-num">0{i + 1}</span>
+          <div class="series-post-body">
+            <h2 class="series-post-title">{p.frontmatter.title}</h2>
+            <p class="series-post-excerpt">{p.frontmatter.excerpt}</p>
+            <span class="series-post-meta">
+              {p.frontmatter.readTime && `${p.frontmatter.readTime} min`}
+            </span>
+          </div>
+        </a>
+      ))}
+      {series.slugs.en.length < 3 && (
+        <div class="series-post-card series-post-card--upcoming">
+          <span class="series-post-num">0{series.slugs.en.length + 1}</span>
+          <div class="series-post-body">
+            <h2 class="series-post-title series-post-title--upcoming">Next article — coming soon</h2>
+            <p class="series-post-excerpt">Subscribe on Substack to be notified.</p>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</BaseLayout>

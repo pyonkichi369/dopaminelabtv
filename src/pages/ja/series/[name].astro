@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { SERIES } from '../../../data/series';
+
+export function getStaticPaths() {
+  return SERIES.map(s => ({ params: { name: s.id }, props: { series: s } }));
+}
+
+const { series } = Astro.props;
+
+const allPosts = Object.entries(
+  import.meta.glob('../../../content/posts/ja/*.md', { eager: true }) as Record<string, any>
+).reduce((acc, [path, mod]) => {
+  const slug = path.split('/').pop()!.replace('.md', '');
+  acc[slug] = mod;
+  return acc;
+}, {} as Record<string, any>);
+
+const seriesPosts = series.slugs.ja.map((slug: string) => ({
+  slug,
+  frontmatter: allPosts[slug]?.frontmatter ?? {},
+}));
+---
+
+<BaseLayout
+  title={`${series.titleJa} | Dopamine Lab TV`}
+  description={series.descriptionJa}
+  lang="ja"
+>
+  <div class="series-page">
+    <div class="series-hero">
+      <p class="series-eyebrow">シリーズ</p>
+      <h1 class="series-title" style="font-family: var(--font-jp)">{series.titleJa}</h1>
+      <p class="series-desc" style="font-family: var(--font-jp)">{series.descriptionJa}</p>
+      <a href={`/series/${series.id}`} class="glossary-lang-switch">English →</a>
+    </div>
+
+    <div class="series-posts">
+      {seriesPosts.map((p: { slug: string; frontmatter: any }, i: number) => (
+        <a href={`/ja/posts/${p.slug}`} class="series-post-card">
+          <span class="series-post-num">0{i + 1}</span>
+          <div class="series-post-body">
+            <h2 class="series-post-title" style="font-family: var(--font-jp)">{p.frontmatter.title}</h2>
+            <p class="series-post-excerpt" style="font-family: var(--font-jp)">{p.frontmatter.excerpt}</p>
+            <span class="series-post-meta">
+              {p.frontmatter.readTime && `${p.frontmatter.readTime}分`}
+            </span>
+          </div>
+        </a>
+      ))}
+      {series.slugs.ja.length < 3 && (
+        <div class="series-post-card series-post-card--upcoming">
+          <span class="series-post-num">0{series.slugs.ja.length + 1}</span>
+          <div class="series-post-body">
+            <h2 class="series-post-title series-post-title--upcoming" style="font-family: var(--font-jp)">次の記事——近日公開</h2>
+            <p class="series-post-excerpt" style="font-family: var(--font-jp)">Substackで通知を受け取る。</p>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</BaseLayout>

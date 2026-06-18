@@ -1,0 +1,353 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Japanese Philosophy Glossary — Zen, Buddhism, Shinto & Bushido | Dopamine Lab TV';
+const description = 'A glossary of Zen, Buddhist, Shinto, and Bushido concepts — each mapped to modern neuroscience. From totonou to hare/ke, mushin to zazen.';
+
+const terms = [
+  {
+    id: 'totonou',
+    kanji: '整う',
+    romaji: 'totonou',
+    literal: 'to be arranged; to be put in order',
+    philosophy: 'The state of simultaneous calm and clarity reached after moving through acute stress — not relaxation, but recalibration. The nervous system completes a full cycle and lands at a higher baseline than where it started.',
+    neuro: 'Parasympathetic rebound following sympathetic activation. Brief cold exposure drives norepinephrine up to 300%, sharpening prefrontal focus. A 15–30 minute window of elevated cognitive performance follows.',
+    article: { href: '/posts/totonou-what-your-brain-needs', label: 'Totonou: The Japanese Word for What Your Brain Has Been Missing' },
+    featured: true,
+  },
+  {
+    id: 'danshari',
+    kanji: '断捨離',
+    romaji: 'danshari',
+    literal: 'refuse · discard · separate',
+    philosophy: 'A practice of intentional reduction — refusing what you don\'t need (断), discarding excess (捨), and detaching from attachment to things (離). Applied not just to objects but to habits, commitments, and mental clutter.',
+    neuro: 'Every owned object and open commitment occupies working memory bandwidth. Decision fatigue depletes the same prefrontal resources as focus. Reducing cognitive load directly preserves dopamine for what matters.',
+    article: null,
+  },
+  {
+    id: 'enshin',
+    kanji: '猿心',
+    romaji: 'enshin',
+    literal: 'monkey mind',
+    philosophy: 'The Zen metaphor for the untrained mind — perpetually swinging from thought to thought, branch to branch, never settling. Not a moral failing; simply the mind\'s natural state before deliberate practice. The first step of Zen is not to silence the monkey, but to notice it.',
+    neuro: 'Mind-wandering is the default mode network (DMN) in action — the brain\'s self-referential processing loop. Research shows the untrained mind wanders roughly 47% of waking hours. The neuroscience of meditation is largely the science of noticing when the monkey has taken over — and choosing to return.',
+    article: { href: '/posts/what-zen-knew-before-neuroscience', label: 'What Zen Knew Before Neuroscience' },
+  },
+  {
+    id: 'heijoshin',
+    kanji: '平常心',
+    romaji: 'heijoshin',
+    literal: 'ordinary mind; everyday mind',
+    philosophy: 'The Zen ideal of equanimity — a stable, undisturbed baseline from which action flows naturally. Not emotional flatness, but a settled quality of presence that doesn\'t spike with praise or collapse with criticism.',
+    neuro: 'The target dopamine tonic baseline — the resting level from which phasic reward responses become meaningful. High HRV (heart rate variability) is the physiological signature of heijoshin. Totonou is one way to reach it.',
+    article: null,
+  },
+  {
+    id: 'ichigo-ichie',
+    kanji: '一期一会',
+    romaji: 'ichigo ichie',
+    literal: 'one time, one meeting',
+    philosophy: 'Treasure each encounter as unique and unrepeatable. This moment — this conversation, this meal, this light — will never exist in exactly this configuration again. The appropriate response is full presence.',
+    neuro: 'Depth of attention produces qualitatively different dopamine responses than breadth. Scroll culture provides constant novelty — but the brain registers it as structurally identical stimulation, blunting reward. Genuine presence activates a richer, longer-lasting signal.',
+    article: null,
+  },
+  {
+    id: 'chisoku',
+    kanji: '知足',
+    romaji: 'chisoku',
+    literal: 'knowing sufficiency; knowing enough',
+    philosophy: 'From the Tao Te Ching: "One who knows contentment is wealthy." Not passive resignation, but the active recognition that the appetite for more is a trap — and that enough is already present.',
+    neuro: 'Berridge\'s distinction between "wanting" (dopamine-driven craving) and "liking" (opioid-mediated pleasure). Modern design exploits the wanting system without satisfying the liking system. Chisoku is the cognitive reframe that interrupts the loop.',
+    article: null,
+  },
+  {
+    id: 'komorebi',
+    kanji: '木漏れ日',
+    romaji: 'komorebi',
+    literal: 'sunlight filtering through leaves',
+    philosophy: 'A word for a phenomenon that exists everywhere but most languages don\'t name — dappled light through tree canopy. Naming it is an invitation to notice the unremarkable. Japanese aesthetics builds a vocabulary for attending to what others skip past.',
+    neuro: 'Attention Restoration Theory (Kaplan & Kaplan): natural environments with fractal patterns replenish directed-attention resources depleted by digital work. Even brief exposure to natural light patterns reduces cortisol and restores cognitive capacity.',
+    article: null,
+  },
+  {
+    id: 'ma',
+    kanji: '間',
+    romaji: 'ma',
+    literal: 'gap; interval; space between',
+    philosophy: 'The meaningful pause — the structural silence that makes sound possible, the space between breaths, the interval between notes. Ma is not emptiness. It is the architecture that gives form to everything around it.',
+    neuro: 'The recovery half of the autonomic cycle that modern life eliminates. Without genuine deactivation after activation, the dopamine baseline cannot reset. Ma is not wasted time — it is the mechanism by which effort becomes sustainable.',
+    article: { href: '/posts/totonou-what-your-brain-needs', label: 'Totonou: The Japanese Word for What Your Brain Has Been Missing' },
+  },
+  {
+    id: 'mono-no-aware',
+    kanji: 'もののあわれ',
+    romaji: 'mono no aware',
+    literal: 'the pathos of things; an empathy with things',
+    philosophy: 'A bittersweet sensitivity to impermanence — moved by beauty precisely because it will not last. Cherry blossoms matter because they fall. The feeling is not sadness; it is a sharpened aliveness to the present.',
+    neuro: 'Acceptance of impermanence reduces rumination — the repetitive, self-referential thinking that correlates with elevated cortisol and suppressed dopamine. Emotional processing of loss, when completed rather than avoided, restores prefrontal flexibility.',
+    article: null,
+  },
+  {
+    id: 'mu',
+    kanji: '無',
+    romaji: 'mu',
+    literal: 'nothing; nothingness; without',
+    philosophy: 'The Zen concept of emptiness — not nihilistic absence but fertile void. The famous koan "Mu!" is not a question about existence but an instruction to release the framing that makes the question seem real.',
+    neuro: 'The Default Mode Network activates during mental rest — integrating memory, generating creative insight, processing emotion. Constant stimulation suppresses DMN activity. Doing nothing is when the brain does some of its most important work.',
+    article: null,
+  },
+  {
+    id: 'mushin',
+    kanji: '無心',
+    romaji: 'mushin',
+    literal: 'no-mind; empty mind',
+    philosophy: 'The state prized in Zen martial arts: a mind free from distraction, ego, and deliberate calculation — responding fluidly to what is present without the interference of the self-monitoring observer.',
+    neuro: 'Flow state (Csikszentmihalyi). The transient hypofrontality hypothesis: during peak performance, the prefrontal cortex\'s self-referential processing quiets, allowing subcortical pattern-recognition to operate without interference. Dopamine is steady and high.',
+    article: null,
+  },
+  {
+    id: 'shoshin',
+    kanji: '初心',
+    romaji: 'shoshin',
+    literal: 'beginner\'s mind',
+    philosophy: '"In the beginner\'s mind there are many possibilities, in the expert\'s mind there are few." — Shunryu Suzuki. Approaching even familiar territory with openness, as if for the first time, without the filter of assumed knowledge.',
+    neuro: 'Genuine curiosity and neuroplasticity are linked. Novel environments and genuine uncertainty drive dopamine responses that strengthen synaptic connections. Jaded familiarity suppresses them. Shoshin is the cognitive posture that keeps learning alive.',
+    article: { href: '/posts/what-zen-knew-before-neuroscience', label: 'What Zen Knew Before Neuroscience' },
+  },
+  {
+    id: 'shu-ha-ri',
+    kanji: '守破離',
+    romaji: 'shu-ha-ri',
+    literal: 'protect · break · separate',
+    philosophy: 'The three stages of mastery: follow the rules faithfully (守), break them with understanding (破), transcend them entirely (離). Each stage requires leaving behind what made the previous one safe.',
+    neuro: 'Skill acquisition shifts dopamine\'s role at each stage. In 守, dopamine rewards rule-following. In 破, it rewards creative risk. In 離, the reward is intrinsic — the activity becomes the reward. The prefrontal cortex progressively offloads learned patterns to basal ganglia.',
+    article: null,
+  },
+  {
+    id: 'wabi-sabi',
+    kanji: '侘び寂び',
+    romaji: 'wabi-sabi',
+    literal: 'wabi: quiet simplicity · sabi: beauty of age and patina',
+    philosophy: 'The beauty found in imperfection, incompleteness, and impermanence. A tea bowl with an irregular rim. A weathered wooden gate. The crack in the glaze filled with gold (kintsugi). Wabi-sabi refuses the premise that things should be otherwise.',
+    neuro: 'Perfectionism activates the threat-detection system — cortisol rises, dopamine depletes, and the prefrontal cortex narrows to error-correction mode. Accepting imperfection as inherent reduces this load. Cognitive flexibility and creative capacity return.',
+    article: null,
+  },
+  {
+    id: 'bonno',
+    kanji: '煩悩',
+    romaji: 'bonno',
+    literal: 'worldly desires; afflictions; defilements',
+    philosophy: 'The 108 mental formations that perpetuate suffering — craving, aversion, and delusion at their root. Buddhism doesn\'t ask you to destroy bonno. It asks you to see through them: to recognize desire as desire, rather than as a directive that must be followed.',
+    neuro: 'Berridge\'s distinction between "wanting" (dopaminergic craving) and "liking" (opioid-mediated satisfaction). Bonno is the wanting system running unchecked — dopamine firing in anticipation of rewards that never fully satisfy. Mindfulness practice increases the gap between impulse and action, activating prefrontal inhibition of the dopamine-driven craving loop.',
+    article: null,
+  },
+  {
+    id: 'jihi',
+    kanji: '慈悲',
+    romaji: 'jihi',
+    literal: 'loving-kindness and compassion',
+    philosophy: 'Two inseparable qualities in Buddhist ethics: 慈 (ji, metta) — the wish for all beings to be happy; 悲 (hi, karuna) — the wish to relieve their suffering. Jihi is not sentiment. It is trained attention directed toward others — beginning with oneself, expanding outward.',
+    neuro: 'Compassion meditation activates the insula and anterior cingulate cortex — the same circuits that register one\'s own pain when witnessing another\'s. Oxytocin release increases prosocial behavior and reduces cortisol. Self-compassion specifically — treating oneself with jihi — reduces the self-criticism loop that depletes prefrontal resources and suppresses dopamine baseline.',
+    article: null,
+  },
+  {
+    id: 'shonen',
+    kanji: '正念',
+    romaji: 'shonen',
+    literal: 'right mindfulness; samma sati',
+    philosophy: 'The seventh element of the Noble Eightfold Path. Not mindfulness as relaxation, but mindfulness as clear, sustained attention — to the body, to sensation, to mental events, to the nature of phenomena. Shonen is the faculty that notices without grasping and observes without condemning.',
+    neuro: 'Regular mindfulness practice thickens gray matter in the prefrontal cortex (executive attention), insula (interoceptive awareness), and hippocampus (memory integration). It reduces amygdala reactivity — the threat-detection circuit that drives impulsive responses. In attention research, sustained attention and metacognitive monitoring are precisely the capacities shonen develops.',
+    article: { href: '/posts/what-zen-knew-before-neuroscience', label: 'What Zen Knew Before Neuroscience' },
+  },
+  {
+    id: 'muga',
+    kanji: '無我',
+    romaji: 'muga',
+    literal: 'no-self; non-ego; anatta',
+    philosophy: 'One of the three marks of existence in Buddhist teaching. Muga does not mean the self doesn\'t exist — it means the self is not a fixed, independent entity. What we call "I" is a constantly changing process: thoughts, sensations, memories assembled in real time. The suffering that arises from defending and inflating this construction is what Buddhist practice aims to dissolve.',
+    neuro: 'During deep meditation, the default mode network — the brain\'s self-referential processing system — shows dramatic reductions in activity. This correlates with reported experiences of ego dissolution. The transient hypofrontality hypothesis links peak performance states (flow) with reduced self-monitoring in the prefrontal cortex. Both muga and flow describe the same territory: action without the friction of self-observation.',
+    article: null,
+  },
+  {
+    id: 'zazen',
+    kanji: '坐禅',
+    romaji: 'zazen',
+    literal: 'seated meditation; just sitting',
+    philosophy: 'The core practice of Soto Zen — simply sitting, with complete attention to posture, breath, and presence. Not to achieve a state. Not to empty the mind. The Zen teacher Dogen described it as 只管打坐 (shikantaza): "just wholeheartedly sitting." The sitting is the practice. The practice is the point.',
+    neuro: 'Regular zazen measurably reduces default mode network activity at rest, thickens prefrontal cortex gray matter (executive control), and increases insula volume (interoceptive awareness). These structural changes begin to appear in brain scans after 8 weeks of consistent practice. Zazen does not suppress the wandering mind — it trains the return.',
+    article: { href: '/posts/what-zen-knew-before-neuroscience', label: 'What Zen Knew Before Neuroscience' },
+  },
+  {
+    id: 'bushido',
+    kanji: '武士道',
+    romaji: 'bushido',
+    literal: 'the way of the warrior',
+    philosophy: 'The ethical code of the samurai — a set of behavioral commitments centered on loyalty, courage, justice, and honor. Bushido is not a rulebook but an internalized standard of conduct: a framework that removes the cognitive cost of in-the-moment ethical decisions by committing to principles in advance. Miyamoto Musashi wrote: "Think lightly of yourself, and deeply of the world." The code turns character into automatic behavior.',
+    neuro: 'Pre-commitment devices offload moral decision-making from the resource-limited prefrontal deliberation system to automatized values. Research on moral cognition (Greene, 2001) shows that rule-based ethics reduces cognitive load during high-stress decisions, preserving prefrontal bandwidth for execution. Structured behavioral codes stabilize action under elevated cortisol — exactly the condition samurai were trained for. The basal ganglia encode practiced values as procedural habits; the code becomes the person.',
+    article: null,
+  },
+  {
+    id: 'yu',
+    kanji: '勇',
+    romaji: 'yū',
+    literal: 'courage; valor',
+    philosophy: 'For the samurai, courage was not the absence of fear but deliberate action in its presence. Musashi distinguished two forms: the courage of the moment — instinct and adrenaline — and the courage of deliberation, choosing to act rightly despite knowing the cost. Bushido cultivated the second. "Do not regret what you have done," he wrote. Action taken with full awareness of consequence is the only kind that counts.',
+    neuro: 'Courage is neurologically distinct from fearlessness. fMRI research shows that courageous action recruits the subgenual anterior cingulate cortex (sgACC), which actively suppresses amygdala fear signals rather than bypassing them. This is regulation, not absence — the amygdala still fires, but the sgACC allows forward movement despite it. The key finding: courage is a trainable circuit, not a fixed trait. The dopamine system motivates approach; the sgACC enables action against the amygdala\'s protest.',
+    article: null,
+  },
+  {
+    id: 'kokki',
+    kanji: '克己',
+    romaji: 'kokki',
+    literal: 'self-mastery; overcoming oneself',
+    philosophy: 'The samurai ideal of continuous self-discipline — not the suppression of desire but the ongoing practice of acting in accordance with one\'s values despite the pull of fear, comfort, or immediate reward. The enemy to overcome is not an opponent but the undisciplined self. The Hagakure states: "It is not difficult to attain a thing if the one is in earnest." The difficulty is not the act — it is the daily recommitment to the act.',
+    neuro: 'Self-control is mediated by the dorsolateral prefrontal cortex (DLPFC) and anterior cingulate cortex (ACC) — the same circuits that enable focused attention and resist reward-seeking impulses. Baumeister\'s ego depletion model describes self-control as a resource that weakens with use; but more recent research suggests the critical variable is values commitment rather than willpower as a fuel. Consistent kokki practice strengthens prefrontal-striatal circuits that regulate impulse, and may counteract the dopamine-driven pull toward immediate gratification.',
+    article: null,
+  },
+  {
+    id: 'rei',
+    kanji: '礼',
+    romaji: 'rei',
+    literal: 'respect; ritual courtesy; etiquette',
+    philosophy: 'One of the seven virtues of Bushido — the deliberate practice of courtesy and ritual respect. Rei is not mere politeness; it is the outward discipline that shapes the inner state. The samurai bowed not as performance but as the physical enactment of a philosophy: that how you treat others reflects and reinforces how you see them. Ceremony and form are not formalities — they are the practice of perspective.',
+    neuro: 'Ritual behavior activates the cerebellum and basal ganglia (procedural systems), reducing limbic reactivity by creating predictable structure. Perspective-taking and social cognition engage the temporoparietal junction (TPJ) and medial prefrontal cortex — the same circuits recruited in compassion meditation (jihi). Receiving genuine respect simultaneously elevates testosterone and oxytocin — what researchers call the "status-affiliation" state — linked to increased cooperation, reduced cortisol, and prosocial behavior.',
+    article: null,
+  },
+  {
+    id: 'houben',
+    kanji: '方便',
+    romaji: 'hōben',
+    literal: 'skillful means; upāya',
+    philosophy: 'A central concept of the Lotus Sutra. Not the direct delivery of ultimate truth, but a gentle entry point designed so the listener can actually move. The archetype is the Parable of the Burning House: a father saves his children by promising "wonderful carriages outside," because shouting "the house is burning" cannot reach them. Hōben is not a lie — it is the bridge of compassion that carries someone toward a truth they cannot yet receive directly. Buddhism frames it not as a compromise but as the very expression of a Buddha\'s wisdom.',
+    neuro: 'Structurally identical to dopamine reward prediction error. Schultz and colleagues showed dopamine neurons fire not on the arrival of reward, but on the gap between expectation and reality. The brain runs on anticipation, not arrival. What moved the children out of the burning house was not the carriages themselves but the anticipation of them. The reward does not need to be perfect — it needs to be near, concrete, and sensory enough to start the circuit. Hōben is, in modern terms, a 2,500-year-old description of neurologically sound behavioral design.',
+    article: { href: '/posts/what-the-lotus-sutra-knew-2500-years-ago', label: 'What the Lotus Sutra Knew 2,500 Years Ago' },
+  },
+  {
+    id: 'hare',
+    kanji: 'ハレ',
+    romaji: 'hare',
+    literal: 'sacred time; non-ordinary occasion; festive brightness',
+    philosophy: 'In Shinto thought, time is not uniform. Hare marks the extraordinary: festivals, rites of passage, ceremonies — moments deliberately set apart from the everyday. Hare doesn\'t happen by accident. It is constructed through ritual, anticipation, and collective participation. The boundary between ordinary time and hare time is itself part of the experience.',
+    neuro: 'Dopamine fires most powerfully not on delivery, but on anticipated arrival. Hare events — ritually distinct, temporally bounded, socially marked — create exactly the conditions for maximum reward prediction error. The brain codes them as genuinely novel even when they repeat annually. This is why festivals feel different from holidays you simply take off work: the ceremony signals to the dopamine system that something real is coming.',
+    article: { href: '/posts/hare-and-ke-dopamine-reset', label: 'Hare and Ke: The 2,000-Year Japanese Blueprint for Dopamine Reset' },
+  },
+  {
+    id: 'ke',
+    kanji: '褻',
+    romaji: 'ke',
+    literal: 'everyday life; the ordinary; the mundane',
+    philosophy: 'The counterpart to hare — the vast, unadorned texture of ordinary days. In Shinto, ke is not inferior to hare. It is the ground that makes hare possible. The sequence matters: ke depletes, hare replenishes. Without genuine ke — days without ceremony, without peak stimulation — the brain loses its capacity to experience hare as extraordinary. The cycle is the system.',
+    neuro: 'Hedonic adaptation: repeated exposure to any stimulus, regardless of its initial intensity, causes the dopamine response to diminish. Modern life has inverted the ke/hare structure — every hour carries low-level novelty (notifications, feeds, ambient entertainment). The result is a baseline so stimulated it cannot register genuine peaks. The neuroscience of ke is the neuroscience of deliberate under-stimulation: protecting the dopamine sensitivity that makes reward possible.',
+    article: { href: '/posts/hare-and-ke-dopamine-reset', label: 'Hare and Ke: The 2,000-Year Japanese Blueprint for Dopamine Reset' },
+  },
+  {
+    id: 'misogi',
+    kanji: '禊',
+    romaji: 'misogi',
+    literal: 'ritual purification; cleansing through water',
+    philosophy: 'A Shinto purification practice involving immersion in cold, moving water — rivers, waterfalls, the sea. Misogi is not punishment. It is preparation: the act of crossing a threshold, shedding accumulated impurity, and arriving at something new. The cold water is not the point. The transition is. What you become on the other side is the practice.',
+    neuro: 'Cold water immersion triggers a 200–300% increase in norepinephrine, sharpening prefrontal attention. It activates the vagus nerve, elevating heart rate variability (HRV) — the physiological signature of autonomic flexibility. The brief acute stress followed by recovery mirrors the mechanism of totonou: the nervous system completes a cycle and lands at a higher baseline. This is the same mechanism as ice baths, cold showers, and open-water swimming — practices rediscovered by modern biohackers that Shinto codified into ritual 2,000 years ago.',
+    article: null,
+  },
+  {
+    id: 'joufukyou',
+    kanji: '常不軽',
+    romaji: 'jōfukyō',
+    literal: 'never disrespecting; Sadāparibhūta',
+    philosophy: 'A bodhisattva from the Lotus Sutra who said to everyone he met: "I do not look down on you. You will all become Buddhas." He continued saying it even when insulted, even when stones were thrown. The practice of jōfukyō is to bow toward another\'s potential rather than their present state — and the same posture, turned inward, becomes a form of skillful means directed at oneself.',
+    neuro: 'Self-criticism elevates cortisol and depletes the tonic dopamine baseline. The thought "I can\'t do this" shuts the dopamine circuit before any action begins. Small acts of self-affirmation, by contrast, recover phasic dopamine responses. Self-compassion research (Neff and others) shows that reducing the self-critical loop frees prefrontal resources and restores motivation for action. Jōfukyō\'s words are a classical description of a neurologically effective self-intervention.',
+    article: { href: '/posts/what-the-lotus-sutra-knew-2500-years-ago', label: 'What the Lotus Sutra Knew 2,500 Years Ago' },
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  lang="en"
+  ogImage="/og/glossary.png"
+>
+  <div class="glossary-page">
+    <div class="glossary-hero">
+      <p class="glossary-eyebrow">Zen Glossary</p>
+      <h1 class="glossary-title">Japanese Philosophy<br>Meets Neuroscience</h1>
+      <p class="glossary-subtitle">
+        Zen, Buddhist, and Bushido concepts that named what science is still measuring.
+        Each term mapped to its neurological counterpart.
+      </p>
+      <a href="/ja/glossary" class="glossary-lang-switch">日本語版 →</a>
+    </div>
+
+    <nav class="glossary-index" aria-label="Jump to term">
+      {terms.map(t => (
+        <a href={`#${t.id}`} class={`glossary-index-link${t.featured ? ' glossary-index-link--featured' : ''}`}>
+          <span class="glossary-index-kanji">{t.kanji}</span>
+          <span class="glossary-index-romaji">{t.romaji}</span>
+        </a>
+      ))}
+    </nav>
+
+    <div class="glossary-entries">
+      {terms.map(t => (
+        <article class={`glossary-entry${t.featured ? ' glossary-entry--featured' : ''}`} id={t.id}>
+          <div class="glossary-entry-header">
+            <span class="glossary-kanji">{t.kanji}</span>
+            <div class="glossary-meta">
+              <span class="glossary-romaji">{t.romaji}</span>
+              <span class="glossary-literal">"{t.literal}"</span>
+            </div>
+          </div>
+          <div class="glossary-body">
+            <p class="glossary-philosophy">{t.philosophy}</p>
+            <div class="glossary-neuro">
+              <span class="glossary-neuro-label">Neuroscience</span>
+              <p>{t.neuro}</p>
+            </div>
+            {t.article && (
+              <a href={t.article.href} class="glossary-article-link">
+                → {t.article.label}
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "name": "Zen Glossary — Japanese Philosophy & Neuroscience",
+    "description": description,
+    "url": "https://dopaminelabtv.com/glossary/",
+    "inLanguage": "en",
+    "hasDefinedTerm": terms.map(t => ({
+      "@type": "DefinedTerm",
+      "name": `${t.kanji} (${t.romaji})`,
+      "description": t.philosophy,
+      "url": `https://dopaminelabtv.com/glossary/#${t.id}`,
+    }))
+  })} />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": terms.map(t => ({
+      "@type": "Question",
+      "name": `What is ${t.romaji} (${t.kanji})?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `${t.romaji} (${t.kanji}) literally means "${t.literal}". ${t.philosophy} From a neuroscience perspective: ${t.neuro}`,
+      }
+    }))
+  })} />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dopaminelabtv.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Zen Glossary", "item": "https://dopaminelabtv.com/glossary/" }
+    ]
+  })} />
+</BaseLayout>

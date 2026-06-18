@@ -1,0 +1,364 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const allPosts = await Astro.glob('../content/posts/en/*.md');
+const posts = allPosts
+  .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
+  .slice(0, 20);
+
+const buildNow = Date.now();
+
+function formatDate(d: string) {
+  return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
+function isNew(date: string) { return (new Date(date).getTime() + 14 * 86400000) > buildNow; }
+function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-')}`; }
+---
+<BaseLayout title="The Lab is Open">
+  <div class="container">
+    <section class="hero">
+      <svg class="hero-enso" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <filter id="enso-ink" x="-15%" y="-15%" width="130%" height="130%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="2" seed="12" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+        </defs>
+        <circle cx="200" cy="200" r="158"
+          stroke="currentColor" stroke-width="20" stroke-linecap="round"
+          pathLength="100" stroke-dasharray="92 8" stroke-dashoffset="4"
+          filter="url(#enso-ink)"
+        />
+      </svg>
+      <span class="hero-tate" aria-hidden="true">神経科学・日本哲学</span>
+      <p class="hero-eyebrow">Dopamine Lab TV</p>
+      <h1>The science of<br />staying human.</h1>
+      <p class="hero-sub">
+        Research on dopamine, attention, and what it means to think clearly in the age of AI.
+        Neuroscience × Japanese philosophy — no hacks, no hustle. Just signal.
+      </p>
+      <p class="hero-tagline">神経科学 × 日本哲学 for the AI age · <a href="/ja/">日本語版</a></p>
+    </section>
+
+    <!-- Diagnostic Check -->
+    <section class="check-section" id="check">
+      <p class="section-label">Brain State Check</p>
+      <div class="check-card">
+        <!-- Quiz -->
+        <div id="check-quiz">
+          <div class="check-intro">
+            <h2 class="check-heading">
+              To everyone running on fumes —<br>
+              <span class="check-heading-accent">it's not willpower. it's your brain.</span>
+            </h2>
+            <p class="check-sub">Check which ones apply (5 questions)</p>
+          </div>
+
+          <div class="check-questions">
+            {[
+              'You open social media without deciding to',
+              'You can\'t focus on anything for long',
+              'You feel anxious but have no motivation',
+              'You sleep but still feel tired',
+              'Time disappears and you\'re not sure where it went',
+            ].map((q, i) => (
+              <div class="check-q">
+                <p class="check-q-text">
+                  <span class="check-q-num">Q{i + 1}</span>{q}
+                </p>
+                <div class="check-q-btns">
+                  <button class="check-btn" data-q={i} data-val="yes">YES</button>
+                  <button class="check-btn" data-q={i} data-val="no">NO</button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button class="btn check-submit" id="check-submit" disabled aria-disabled="true">
+            See your result →
+          </button>
+        </div>
+
+        <!-- Result (hidden until quiz completes) -->
+        <div id="check-result" hidden>
+          <div id="check-result-critical" hidden>
+            <p class="check-badge check-badge--high">Critical: Dopamine Depletion</p>
+            <h3 class="check-result-h">
+              Your focus system<br>is running on empty
+            </h3>
+            <p class="check-result-body">
+              Five out of five signals. Your brain's reward circuit has been saturated by
+              constant stimulation to the point where ordinary life feels flat. This is a
+              recoverable state — but it requires deliberate reset, not more willpower.
+            </p>
+            <a href="/posts/totonou-what-your-brain-needs" class="check-rec-link">
+              <span class="check-rec-label">Read first</span>
+              <span class="check-rec-title">Totonou: The Japanese Word for What Your Brain Has Been Missing →</span>
+            </a>
+          </div>
+          <div id="check-result-high" hidden>
+            <p class="check-badge check-badge--high">Dopamine Overload State</p>
+            <h3 class="check-result-h">
+              Your brain is hooked<br>on short-term stimulation
+            </h3>
+            <p class="check-result-body">
+              Social media. Videos. Notifications. Your brain has grown so accustomed to quick
+              rewards that deep focus has become difficult. This isn't a character flaw —
+              it's a neuroscientific state.
+            </p>
+            <a href="/posts/why-you-cant-focus-anymore" class="check-rec-link">
+              <span class="check-rec-label">Read first</span>
+              <span class="check-rec-title">Why You Can't Focus Anymore →</span>
+            </a>
+          </div>
+          <div id="check-result-low" hidden>
+            <p class="check-badge check-badge--low">Early Warning Signs</p>
+            <h3 class="check-result-h">
+              Some signals —<br>worth paying attention to
+            </h3>
+            <p class="check-result-body">
+              You're not in overload yet, but the patterns are forming.
+              The modern environment will keep pulling. Now is the easiest time to course-correct.
+            </p>
+            <a href="/posts/what-zen-knew-before-neuroscience" class="check-rec-link">
+              <span class="check-rec-label">Read first</span>
+              <span class="check-rec-title">What Zen Knew Before Neuroscience →</span>
+            </a>
+          </div>
+          <div id="check-result-clear" hidden>
+            <p class="check-badge check-badge--low">Brain State: Clear</p>
+            <h3 class="check-result-h">
+              Your dopamine baseline<br>looks healthy
+            </h3>
+            <p class="check-result-body">
+              No significant warning signs. Your focus circuits are intact.
+              Keep protecting your attention — it's your most valuable resource.
+            </p>
+            <a href="/posts/your-brain-does-something-ai-will-never-do" class="check-rec-link">
+              <span class="check-rec-label">Read next</span>
+              <span class="check-rec-title">Your Brain Does Something AI Will Never Do →</span>
+            </a>
+          </div>
+
+          <div class="check-cta">
+            <p class="check-cta-label">Start here</p>
+            <div class="check-cta-links">
+              <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer"
+                 class="check-cta-link">
+                <span class="check-cta-num">01</span>
+                <span class="check-cta-text">
+                  <strong>Go deeper</strong>
+                  <span>Substack — weekly letter</span>
+                </span>
+                <span class="check-cta-arrow">→</span>
+              </a>
+              <a href="https://room.rakuten.co.jp/dopaminelabtv/items" target="_blank" rel="noopener noreferrer"
+                 class="check-cta-link">
+                <span class="check-cta-num">02</span>
+                <span class="check-cta-text">
+                  <strong>Recommended tools</strong>
+                  <span>Rakuten ROOM — researcher picks</span>
+                </span>
+                <span class="check-cta-arrow">→</span>
+              </a>
+              <div class="check-cta-link check-cta-link--soon">
+                <span class="check-cta-num">03</span>
+                <span class="check-cta-text">
+                  <strong>totonou — Focus & Reset</strong>
+                  <span>App Store / Google Play · coming soon</span>
+                </span>
+                <span class="check-cta-soon">整う</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="check-share">
+            <a id="check-share-btn" class="check-share-btn" href="#" target="_blank" rel="noopener noreferrer"
+               aria-label="Share on X (Twitter)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Share on X
+            </a>
+            <button class="check-retry" id="check-retry">
+              ← Take it again
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="posts-section">
+      <div class="wa-divider">Latest from the Lab</div>
+      {posts.length === 0 ? (
+        <div class="post-card" style="justify-content: center; color: var(--text-muted); font-size: 0.9rem;">
+          First episode dropping soon.
+        </div>
+      ) : (
+        <div class="posts-list">
+          {posts.map(post => (
+            <article class="post-card">
+              <div class="post-card-body">
+                <div class="post-tags">
+                  {isNew(post.frontmatter.date) && <span class="tag-new">NEW</span>}
+                  {post.frontmatter.tags?.map((t: string) => <a href={tagHref(t)} class="tag">{t}</a>)}
+                </div>
+                <h2><a href={`/posts/${slug(post)}`}>{post.frontmatter.title}</a></h2>
+                <p class="post-excerpt">{post.frontmatter.excerpt}</p>
+              </div>
+              <div class="post-meta">
+                <span class="date">{formatDate(post.frontmatter.date)}</span>
+                {post.frontmatter.readTime && <span class="read-time">{post.frontmatter.readTime} min</span>}
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+      <div class="posts-all-link">
+        <a href="/posts" class="btn btn--outline">All articles →</a>
+      </div>
+    </section>
+  </div>
+<script is:inline>
+(function () {
+  var answers = [null, null, null, null, null];
+  var started = false;
+  var submitBtn = document.getElementById('check-submit');
+  var retryBtn = document.getElementById('check-retry');
+  var shareBtnEl = document.getElementById('check-share-btn');
+  var quizEl = document.getElementById('check-quiz');
+  var resultEl = document.getElementById('check-result');
+  var resultCritical = document.getElementById('check-result-critical');
+  var resultHigh = document.getElementById('check-result-high');
+  var resultLow = document.getElementById('check-result-low');
+  var resultClear = document.getElementById('check-result-clear');
+
+  if (!submitBtn) return;
+
+  function ga(event, params) {
+    if (typeof window.gtag === 'function') window.gtag('event', event, params || {});
+  }
+
+  document.querySelectorAll('.check-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var q = parseInt(btn.dataset.q);
+      answers[q] = btn.dataset.val;
+
+      if (!started) { started = true; ga('quiz_start', { quiz_id: 'dopamine_check_en' }); }
+
+      btn.closest('.check-q').querySelectorAll('.check-btn').forEach(function (b) {
+        b.classList.remove('check-btn--active');
+      });
+      btn.classList.add('check-btn--active');
+
+      if (answers.every(function (a) { return a !== null; })) {
+        submitBtn.disabled = false;
+        submitBtn.removeAttribute('aria-disabled');
+      }
+    });
+  });
+
+  submitBtn.addEventListener('click', function () {
+    var yesCount = answers.filter(function (a) { return a === 'yes'; }).length;
+    var resultType = yesCount === 5 ? 'critical' : yesCount >= 3 ? 'high' : yesCount >= 1 ? 'low' : 'clear';
+
+    ga('quiz_complete', { quiz_id: 'dopamine_check_en', result_type: resultType, yes_count: yesCount });
+
+    quizEl.hidden = true;
+    resultEl.hidden = false;
+    resultCritical.hidden = resultType !== 'critical';
+    resultHigh.hidden = resultType !== 'high';
+    resultLow.hidden = resultType !== 'low';
+    resultClear.hidden = resultType !== 'clear';
+
+    var shareText = resultType === 'critical'
+      ? "My dopamine system is critically depleted.\nNot burnout. Not laziness. Neuroscience.\n→ Check yours (3 min)\nhttps://dopaminelabtv.com/#check\n#dopamine #focus #neuroscience"
+      : resultType === 'high'
+      ? "I just found out my brain is in dopamine overload.\nNot lazy. Not broken. Just overstimulated.\n→ Check yours (3 min)\nhttps://dopaminelabtv.com/#check\n#dopamine #focus #neuroscience"
+      : resultType === 'low'
+      ? "Early warning signs in my dopamine check.\nWorth paying attention to.\n→ 3-minute check\nhttps://dopaminelabtv.com/#check\n#dopamine #focus #neuroscience"
+      : "Checked my dopamine state.\nAll clear.\nAre you?\n→ 3-minute check\nhttps://dopaminelabtv.com/#check\n#dopamine #focus #neuroscience";
+    if (shareBtnEl) shareBtnEl.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
+
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  if (shareBtnEl) {
+    shareBtnEl.addEventListener('click', function () {
+      ga('cta_click', { quiz_id: 'dopamine_check_en', cta_target: 'x_share' });
+    });
+  }
+
+  document.querySelectorAll('.check-cta-link:not(.check-cta-link--soon)').forEach(function (link) {
+    link.addEventListener('click', function () {
+      ga('cta_click', { quiz_id: 'dopamine_check_en', cta_target: link.href });
+    });
+  });
+
+  document.querySelectorAll('.check-rec-link').forEach(function (link) {
+    link.addEventListener('click', function () {
+      ga('quiz_rec_click', { quiz_id: 'dopamine_check_en', link_url: link.href });
+    });
+  });
+
+  retryBtn.addEventListener('click', function () {
+    answers = [null, null, null, null, null];
+    started = false;
+    document.querySelectorAll('.check-btn').forEach(function (b) { b.classList.remove('check-btn--active'); });
+    submitBtn.disabled = true;
+    submitBtn.setAttribute('aria-disabled', 'true');
+    quizEl.hidden = false;
+    resultEl.hidden = true;
+    resultCritical.hidden = true;
+    resultHigh.hidden = true;
+    resultLow.hidden = true;
+    resultClear.hidden = true;
+  });
+})();
+</script>
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do you open social media without deciding to?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Automatic social media checking is a sign of dopamine-conditioned behavior. Variable ratio reinforcement — the same mechanism that makes slot machines compulsive — trains your brain to seek unpredictable rewards from feeds automatically. This is not a willpower failure; it is a measurable neurological response to engineered stimulation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why can't I focus on anything for long?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Difficulty sustaining attention often signals a downregulated dopamine system. Chronic overstimulation from digital environments raises your brain's novelty threshold, making deep work feel unrewarding by comparison. Neuroscience research shows this state is reversible through structured dopamine reduction and attention training."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do I feel anxious but have no motivation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The combination of anxiety without motivation reflects a dopamine-cortisol imbalance. High cortisol keeps the threat-detection system active while depleted dopamine removes the drive to act. This paradox — feeling wired but unable to move — is a recognized neurological state, not a character flaw."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do I sleep but still feel tired?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evening screen exposure suppresses melatonin and disrupts dopamine cycling, degrading sleep architecture even when total sleep hours appear sufficient. The result is poor adenosine clearance and reduced REM restoration — leaving you cognitively fatigued regardless of time in bed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does time disappear without knowing where it went?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Passive digital consumption — scrolling, autoplay, algorithmic feeds — suppresses the prefrontal cortex's time-encoding function. When the brain enters low-agency, high-stimulation mode, episodic memory formation decreases significantly, creating the subjective experience of lost time."
+      }
+    }
+  ]
+})} />
+</BaseLayout>
