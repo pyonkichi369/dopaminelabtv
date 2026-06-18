@@ -1,0 +1,388 @@
+---
+import '../styles/global.css';
+import AudioPlayer from '../components/AudioPlayer.astro';
+import { ViewTransitions } from 'astro:transitions';
+
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  lang?: 'en' | 'ja';
+  article?: {
+    publishedTime: string;
+    updatedDate?: string;
+    wordCount?: number;
+    tags: string[];
+    sources?: { name: string; url?: string }[];
+  };
+}
+
+const {
+  title,
+  description = 'Neuroscience × Japanese philosophy for the AI age. Research on dopamine, attention, and staying focused in the era of AI.',
+  ogImage = '/og-default.png',
+  lang = 'en',
+  article,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const enURL = lang === 'en'
+  ? canonicalURL
+  : new URL(Astro.url.pathname.replace(/^\/ja/, '') || '/', Astro.site);
+const jaURL = lang === 'ja'
+  ? canonicalURL
+  : new URL('/ja' + Astro.url.pathname, Astro.site);
+const siteName = 'Dopamine Lab TV';
+const fullTitle = title === 'The Lab is Open' ? `${siteName} — The science of staying human.` : `${title} | ${siteName}`;
+
+// JSON-LD — tag → Wikipedia entity for `mentions`
+const tagEntityMap: Record<string, { name: string; url: string }> = {
+  'dopamine': { name: 'Dopamine', url: 'https://en.wikipedia.org/wiki/Dopamine' },
+  'ドーパミン': { name: 'ドーパミン', url: 'https://ja.wikipedia.org/wiki/%E3%83%89%E3%83%BC%E3%83%91%E3%83%9F%E3%83%B3' },
+  'neuroscience': { name: 'Neuroscience', url: 'https://en.wikipedia.org/wiki/Neuroscience' },
+  '神経科学': { name: '神経科学', url: 'https://ja.wikipedia.org/wiki/%E7%A5%9E%E7%B5%8C%E7%A7%91%E5%AD%A6' },
+  'focus': { name: 'Attention', url: 'https://en.wikipedia.org/wiki/Attention' },
+  '集中力': { name: '注意', url: 'https://ja.wikipedia.org/wiki/%E6%B3%A8%E6%84%8F' },
+  'ADHD': { name: 'Attention deficit hyperactivity disorder', url: 'https://en.wikipedia.org/wiki/Attention_deficit_hyperactivity_disorder' },
+  'Japanese philosophy': { name: 'Japanese philosophy', url: 'https://en.wikipedia.org/wiki/Japanese_philosophy' },
+  '日本哲学': { name: '日本の哲学', url: 'https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E3%81%AE%E5%93%B2%E5%AD%A6' },
+  'stress': { name: 'Psychological stress', url: 'https://en.wikipedia.org/wiki/Stress_(psychology)' },
+  'ストレス': { name: 'ストレス', url: 'https://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%88%E3%83%AC%E3%82%B9' },
+  'attention': { name: 'Attention', url: 'https://en.wikipedia.org/wiki/Attention' },
+  '注意': { name: '注意', url: 'https://ja.wikipedia.org/wiki/%E6%B3%A8%E6%84%8F' },
+  'AI anxiety': { name: 'Artificial intelligence', url: 'https://en.wikipedia.org/wiki/Artificial_intelligence' },
+  'AI不安': { name: '人工知能', url: 'https://ja.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%9F%A5%E8%83%BD' },
+};
+const isArticle = !!article;
+
+// Dynamic ai-topic: article tags first, then base topics
+const aiTopicBase = 'neuroscience, dopamine, attention, Japanese philosophy, Zen, Buddhism, AI anxiety, meditation, default mode network';
+const aiTopic = isArticle && article?.tags?.length
+  ? [...new Set([...(article.tags ?? []), ...aiTopicBase.split(', ')])].join(', ')
+  : aiTopicBase;
+
+const articleMentions = isArticle
+  ? (article?.tags ?? []).map(t => tagEntityMap[t]).filter(Boolean).map(e => ({ '@type': 'Thing', name: e!.name, url: e!.url }))
+  : [];
+const jsonLD = isArticle ? {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  abstract: description,
+  image: new URL(ogImage, Astro.site).toString(),
+  datePublished: article?.publishedTime,
+  dateModified: article?.updatedDate ?? article?.publishedTime,
+  inLanguage: lang === 'ja' ? 'ja-JP' : 'en-US',
+  ...(article?.wordCount ? { wordCount: article.wordCount } : {}),
+  author: { '@type': 'Organization', name: siteName, url: Astro.site?.toString() },
+  publisher: { '@type': 'Organization', name: siteName, url: Astro.site?.toString() },
+  mainEntityOfPage: canonicalURL.toString(),
+  keywords: article?.tags?.join(', '),
+  ...(articleMentions.length ? { mentions: articleMentions } : {}),
+  ...(article?.sources?.length ? {
+    isBasedOn: article.sources.map(s => ({
+      '@type': 'ScholarlyArticle',
+      name: s.name,
+      ...(s.url ? { url: s.url } : {}),
+    })),
+  } : {}),
+} : {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteName,
+  url: Astro.site?.toString(),
+  description,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${Astro.site}posts/?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+  sameAs: [
+    'https://www.youtube.com/@DopamineLabTV',
+    'https://dopaminelabtv.substack.com',
+    'https://twitter.com/DopamineLab',
+    'https://room.rakuten.co.jp/dopaminelabtv/items',
+  ],
+  logo: new URL('/icon-brain.png', Astro.site).toString(),
+};
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <script is:inline>
+    /* Ma Mode always-on — runs before paint to avoid flash */
+    document.documentElement.classList.add('ma-mode');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+  <link rel="alternate" hreflang="en" href={enURL} />
+  <link rel="alternate" hreflang="ja" href={jaURL} />
+  <link rel="alternate" hreflang="x-default" href={enURL} />
+
+  <!-- SEO -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="author" content="Dopamine Lab TV" />
+  <meta name="keywords" content="dopamine, ADHD, focus, neuroscience, Zen, Japanese philosophy, AI anxiety, attention, digital wellness, mindfulness" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content={isArticle ? 'article' : 'website'} />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content={canonicalURL} />
+  {isArticle && <meta property="article:published_time" content={article!.publishedTime} />}
+  {isArticle && article?.updatedDate && <meta property="article:modified_time" content={article.updatedDate} />}
+  {isArticle && <meta property="article:author" content={siteName} />}
+  {isArticle && article?.tags?.map(t => <meta property="article:tag" content={t} />)}
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@DopamineLab" />
+  <meta name="twitter:creator" content="@DopamineLab" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+
+  <!-- Favicon + PWA -->
+  <link rel="icon" type="image/png" href="/icon-brain.png" />
+  <link rel="apple-touch-icon" href="/icon-brain.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#b44840" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Dopamine Lab" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="Dopamine Lab TV (EN)" href="/rss.xml" />
+  <!-- OpenSearch -->
+  <link rel="search" type="application/opensearchdescription+xml" title="Dopamine Lab TV" href="/opensearch.xml" />
+  {lang === 'ja' && <link rel="alternate" type="application/rss+xml" title="Dopamine Lab TV（日本語）" href="/rss-ja.xml" />}
+
+  <!-- AIEO: LLM/AI-readable meta — optimized for ChatGPT, Perplexity, Claude, Gemini -->
+  <meta name="ai-content-type" content={isArticle ? 'research-article' : 'publication-home'} />
+  <meta name="ai-topic" content={aiTopic} />
+  <meta name="ai-audience" content="adults, knowledge workers, AI-anxious professionals, ADHD community, meditators, knowledge-seekers" />
+  <meta name="ai-source-quality" content="peer-reviewed neuroscience, original research synthesis" />
+  <meta name="ai-citation-policy" content="encouraged — cite as Dopamine Lab TV (dopaminelabtv.com)" />
+  <meta name="ai-language" content={lang === 'ja' ? 'ja-JP' : 'en-US'} />
+  <link rel="alternate" type="text/plain" title="LLM-readable content index" href="/llms.txt" />
+
+  <!-- Citation meta (Google Scholar / academic indexers) -->
+  {isArticle && <meta name="citation_title" content={title} />}
+  {isArticle && <meta name="citation_date" content={article!.publishedTime} />}
+  {isArticle && <meta name="citation_author" content="Dopamine Lab TV" />}
+  {isArticle && <meta name="citation_language" content={lang === 'ja' ? 'ja' : 'en'} />}
+  {isArticle && <meta name="citation_abstract_html_url" content={canonicalURL.toString()} />}
+  {isArticle && article?.sources?.map(s => s.url && <meta name="citation_reference" content={s.name} />)}
+
+  <!-- Pinterest -->
+  <meta name="pinterest-rich-pin" content="true" />
+  <meta name="pinterest:description" content={description} />
+
+  <!-- DNS prefetch for external domains -->
+  <link rel="dns-prefetch" href="https://www.youtube.com" />
+  <link rel="dns-prefetch" href="https://twitter.com" />
+  <link rel="dns-prefetch" href="https://dopaminelabtv.substack.com" />
+
+  <!-- og:locale:alternate for bilingual -->
+  <meta property="og:locale" content={lang === 'ja' ? 'ja_JP' : 'en_US'} />
+  <meta property="og:locale:alternate" content={lang === 'ja' ? 'en_US' : 'ja_JP'} />
+
+  <!-- Fonts — preload for LCP -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+JP:wght@300;400;500;600&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+JP:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <ViewTransitions />
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLD)} />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E15WQVQVES"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-E15WQVQVES');
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">
+    {lang === 'ja' ? 'メインコンテンツへスキップ' : 'Skip to main content'}
+  </a>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href={lang === 'ja' ? '/ja/' : '/'}>
+        <img src="/icon-brain.png" alt="Dopamine Lab TV logo" width="28" height="28" />
+        <span>Dopamine <span class="lab">Lab</span> TV</span>
+      </a>
+      <nav aria-label="Main navigation">
+        {lang === 'ja' ? (
+          <>
+            <a href="/ja/posts">記事</a>
+            <a href="/ja/glossary">禅語</a>
+            <a href="/ja/protocols">実践</a>
+            <a href="/ja/about">About</a>
+            <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Newsletter</a>
+            <a href="/" class="lang-switch">EN</a>
+          </>
+        ) : (
+          <>
+            <a href="/posts">Articles</a>
+            <a href="/glossary">Glossary</a>
+            <a href="/protocols">Practice</a>
+            <a href="/about">About</a>
+            <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Newsletter</a>
+            <a href="/ja/" class="lang-switch">JP</a>
+          </>
+        )}
+      </nav>
+      <div class="header-mobile-controls">
+        {lang === 'ja'
+          ? <a href="/" class="lang-switch header-lang-switch">EN</a>
+          : <a href="/ja/" class="lang-switch header-lang-switch">JP</a>
+        }
+        <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile nav overlay -->
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true" role="dialog" aria-label="ナビゲーション">
+    <div class="mobile-nav-inner">
+      <span class="mobile-nav-kanji" aria-hidden="true">道</span>
+      <nav class="mobile-nav-links" aria-label="モバイルナビゲーション">
+        {lang === 'ja' ? (
+          <>
+            <a href="/ja/posts" class="mobile-nav-link">記事</a>
+            <a href="/ja/glossary" class="mobile-nav-link">禅語辞典</a>
+            <a href="/ja/protocols" class="mobile-nav-link">実践</a>
+            <a href="/ja/about" class="mobile-nav-link">About</a>
+            <a href="https://www.youtube.com/@DopamineLabTV" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://dopaminelabtv.substack.com" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">Newsletter</a>
+          </>
+        ) : (
+          <>
+            <a href="/posts" class="mobile-nav-link">Articles</a>
+            <a href="/glossary" class="mobile-nav-link">Glossary</a>
+            <a href="/protocols" class="mobile-nav-link">Practice</a>
+            <a href="/about" class="mobile-nav-link">About</a>
+            <a href="https://www.youtube.com/@DopamineLabTV" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://dopaminelabtv.substack.com" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">Newsletter</a>
+          </>
+        )}
+      </nav>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <slot />
+  </main>
+
+  <AudioPlayer transition:persist />
+
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 Dopamine Lab TV · The science of staying human. · <a href={lang === 'ja' ? '/ja/privacy' : '/privacy'} style="color:inherit;opacity:0.6;text-decoration:none;">{lang === 'ja' ? 'プライバシー' : 'Privacy'}</a></p>
+      <div class="footer-links">
+        {lang === 'ja' ? (
+          <>
+            <a href="/ja/posts">記事</a>
+            <a href="/ja/glossary">禅語</a>
+            <a href="/ja/totonou">totonou</a>
+            <a href="/ja/research">参考文献</a>
+            <a href="/ja/protocols">実践</a>
+            <a href="/ja/tags/">タグ</a>
+            <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+            <a href="/rss-ja.xml" aria-label="RSS Feed">RSS</a>
+          </>
+        ) : (
+          <>
+            <a href="/posts">Articles</a>
+            <a href="/glossary">Glossary</a>
+            <a href="/totonou">totonou</a>
+            <a href="/research">Research</a>
+            <a href="/protocols">Protocols</a>
+            <a href="/tags/">Tags</a>
+            <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
+            <a href="/rss.xml" aria-label="RSS Feed">RSS</a>
+          </>
+        )}
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+      const mobileNav = document.querySelector<HTMLElement>('.mobile-nav');
+      if (!toggle || !mobileNav) return;
+
+      function openNav() {
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.setAttribute('aria-label', 'メニューを閉じる');
+        mobileNav.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('nav-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeNav() {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'メニューを開く');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('nav-open');
+        document.body.style.overflow = '';
+      }
+
+      toggle.addEventListener('click', () => {
+        toggle.getAttribute('aria-expanded') === 'true' ? closeNav() : openNav();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeNav();
+      });
+
+      mobileNav.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeNav);
+      });
+    })();
+
+    // Global click tracking — affiliate / Substack / outbound
+  (function () {
+    function ga(event, params) {
+      if (typeof window.gtag === 'function') window.gtag('event', event, params || {});
+    }
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href]');
+      if (!link) return;
+      var href = link.href || '';
+      var text = (link.textContent || '').trim().slice(0, 80);
+      if (href.indexOf('a8.net') !== -1 || href.indexOf('px.a8') !== -1) {
+        ga('affiliate_click', { link_url: href, link_text: text, page: window.location.pathname });
+      } else if (href.indexOf('dopaminelabtv.substack.com') !== -1) {
+        ga('substack_click', { link_text: text, page: window.location.pathname });
+      } else if (href.indexOf('room.rakuten.co.jp') !== -1) {
+        ga('rakuten_click', { link_url: href, page: window.location.pathname });
+      }
+    }, true);
+  })();
+
+  // Ma Mode — 間モード (always ON)
+    document.documentElement.classList.add('ma-mode');
+  </script>
+</body>
+</html>

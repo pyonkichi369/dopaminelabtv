@@ -1,0 +1,277 @@
+---
+const modes = [
+  { id: 'rise', label: 'RISE', tagline: 'SMR · 朝の覚醒' },
+  { id: 'flow', label: 'FLOW', tagline: 'β波 · 集中' },
+  { id: 'peak', label: 'PEAK', tagline: 'γ波 · ゾーン' },
+];
+---
+
+<div class="ap" id="audio-player" aria-label="Lab BGM">
+  <audio id="lab-audio" loop preload="none"></audio>
+
+  <!-- floating trigger -->
+  <button class="ap-btn" id="ap-toggle" aria-expanded="false" aria-label="Lab BGM を開く">
+    <span class="ap-kanji" aria-hidden="true">音</span>
+    <span class="ap-waves" aria-hidden="true">
+      <span class="ap-bar"></span>
+      <span class="ap-bar"></span>
+      <span class="ap-bar"></span>
+    </span>
+  </button>
+
+  <!-- panel -->
+  <div class="ap-panel" id="ap-panel" aria-hidden="true">
+    <p class="ap-eyebrow">Focus BGM · binaural</p>
+    <div class="ap-modes">
+      {modes.map(m => (
+        <button class="ap-mode" data-mode={m.id} aria-pressed="false">
+          <span class="ap-mode-name">{m.label}</span>
+          <span class="ap-mode-sub">{m.tagline}</span>
+        </button>
+      ))}
+    </div>
+    <p class="ap-hint">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+        <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
+        <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+      </svg>
+      ヘッドフォン推奨
+    </p>
+  </div>
+</div>
+
+<style>
+/* ── Container ── */
+.ap {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+/* ── Trigger button ── */
+.ap-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+}
+.ap-btn:hover {
+  border-color: var(--border-accent);
+}
+.ap-btn.playing {
+  border-color: #b44840;
+  box-shadow: 0 0 0 3px rgba(180,72,64,0.12);
+}
+
+/* 音 kanji — visible when stopped */
+.ap-kanji {
+  font-family: var(--font-jp);
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1;
+  transition: opacity 0.2s;
+  position: absolute;
+}
+.ap-btn.playing .ap-kanji { opacity: 0; }
+
+/* wave bars — visible when playing */
+.ap-waves {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 16px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  position: absolute;
+}
+.ap-btn.playing .ap-waves { opacity: 1; }
+
+.ap-bar {
+  display: block;
+  width: 3px;
+  background: #b44840;
+  border-radius: 2px;
+  animation: none;
+}
+.ap-bar:nth-child(1) { height: 8px; }
+.ap-bar:nth-child(2) { height: 14px; }
+.ap-bar:nth-child(3) { height: 6px; }
+
+.ap-btn.playing .ap-bar:nth-child(1) { animation: wave 1.1s ease-in-out infinite; }
+.ap-btn.playing .ap-bar:nth-child(2) { animation: wave 1.1s ease-in-out infinite 0.18s; }
+.ap-btn.playing .ap-bar:nth-child(3) { animation: wave 1.1s ease-in-out infinite 0.36s; }
+
+@keyframes wave {
+  0%, 100% { transform: scaleY(1); }
+  50%       { transform: scaleY(0.35); }
+}
+
+/* ── Panel ── */
+.ap-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 16px 14px;
+  width: 210px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+.ap-panel.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.ap-eyebrow {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Mode buttons ── */
+.ap-modes {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ap-mode {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  padding: 7px 10px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  width: 100%;
+}
+.ap-mode:hover {
+  background: var(--accent-dim);
+  border-color: var(--border-accent);
+}
+.ap-mode[aria-pressed="true"] {
+  background: var(--accent-dim);
+  border-color: var(--border-accent);
+}
+
+.ap-mode-name {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--text);
+  font-weight: 500;
+}
+.ap-mode[aria-pressed="true"] .ap-mode-name { color: var(--accent); }
+
+.ap-mode-sub {
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  font-family: var(--font-jp);
+  white-space: nowrap;
+}
+
+/* ── Hint ── */
+.ap-hint {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  opacity: 0.65;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+@media (max-width: 600px) {
+  .ap { bottom: 18px; right: 18px; }
+  .ap-panel { width: 196px; }
+}
+</style>
+
+<script>
+(function () {
+  const audio   = document.getElementById('lab-audio') as HTMLAudioElement;
+  const btn     = document.getElementById('ap-toggle') as HTMLButtonElement;
+  const panel   = document.getElementById('ap-panel') as HTMLDivElement;
+  const modes   = document.querySelectorAll<HTMLButtonElement>('.ap-mode');
+
+  let current: string | null = null;
+  let open = false;
+
+  function setPlaying(v: boolean) {
+    btn.classList.toggle('playing', v);
+    btn.setAttribute('aria-label', v ? 'BGM 再生中 — クリックで停止/モード変更' : 'Lab BGM を開く');
+  }
+
+  function selectMode(id: string) {
+    current = id;
+    audio.src = `/audio/${id}.m4a`;
+    audio.load();
+    audio.play().catch(() => {});
+    setPlaying(true);
+    modes.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === id ? 'true' : 'false'));
+  }
+
+  function openPanel() {
+    panel.classList.add('open');
+    panel.setAttribute('aria-hidden', 'false');
+    btn.setAttribute('aria-expanded', 'true');
+    open = true;
+    if (!current) selectMode('flow');
+  }
+
+  function closePanel() {
+    panel.classList.remove('open');
+    panel.setAttribute('aria-hidden', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    open = false;
+  }
+
+  btn.addEventListener('click', () => {
+    if (!open) {
+      openPanel();
+    } else {
+      audio.paused ? (audio.play().catch(() => {}), setPlaying(true)) : (audio.pause(), setPlaying(false));
+    }
+  });
+
+  modes.forEach(b => {
+    b.addEventListener('click', () => {
+      const id = b.dataset.mode!;
+      if (current === id && !audio.paused) { audio.pause(); setPlaying(false); }
+      else selectMode(id);
+    });
+  });
+
+  document.addEventListener('click', e => {
+    const root = document.getElementById('audio-player');
+    if (open && root && !root.contains(e.target as Node)) closePanel();
+  });
+})();
+</script>

@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Privacy Policy — Dopamine Lab TV"
+  description="Privacy policy for Dopamine Lab TV. How we use cookies, Google Analytics, and your data."
+>
+  <div class="container">
+    <section class="about-section">
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">›</span>
+        <span class="breadcrumb-current" aria-current="page">Privacy Policy</span>
+      </nav>
+
+      <h1 style="margin-top:24px;">Privacy Policy</h1>
+      <p style="color:var(--text-muted);font-size:0.9rem;">Last updated: April 2026</p>
+
+      <h2>Overview</h2>
+      <p>Dopamine Lab TV ("we", "our") operates <strong>dopaminelabtv.com</strong>. This page explains what data we collect and how we use it.</p>
+
+      <h2>Analytics</h2>
+      <p>We use <strong>Google Analytics 4 (GA4)</strong> to understand how visitors interact with the site. GA4 collects anonymized data such as pages visited, session duration, and device type. No personally identifiable information is collected. Data is processed by Google in accordance with their <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</p>
+      <p>You can opt out of GA4 tracking by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out Browser Add-on</a>, or by enabling <strong>Do Not Track</strong> in your browser settings.</p>
+
+      <h2>Cookies</h2>
+      <p>We use the following cookies:</p>
+      <ul>
+        <li><strong>_ga, _ga_*</strong> — Google Analytics session identifiers. Expire after 2 years.</li>
+        <li><strong>dopamine_vote_*</strong> — localStorage values that remember your vote on the weekly Habit Battle. Not transmitted to any server.</li>
+      </ul>
+      <p>We do not use advertising cookies or sell data to third parties.</p>
+
+      <h2>External Services</h2>
+      <p>The site embeds links to YouTube, Substack, and X (Twitter). Visiting those links is subject to their respective privacy policies. We use Google Fonts, loaded from Google's CDN.</p>
+
+      <h2>Your Rights</h2>
+      <p>If you are in the EU/EEA, you have rights under the GDPR including access, rectification, and erasure of personal data. Since we do not collect personally identifiable data directly, most requests are satisfied by adjusting GA4 settings above. For other inquiries, contact us via <a href="https://twitter.com/DopamineLab" target="_blank" rel="noopener noreferrer">X @DopamineLab</a>.</p>
+
+      <h2>Changes</h2>
+      <p>We may update this policy. Material changes will be noted with a revised date at the top of this page.</p>
+
+      <p style="margin-top:40px;"><a href="/">← Back to home</a></p>
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const posts = await Astro.glob('../../../content/posts/ja/*.md');
+const tagMap = new Map<string, number>();
+posts.forEach(p => {
+  (p.frontmatter.tags ?? []).forEach((t: string) => {
+    tagMap.set(t, (tagMap.get(t) ?? 0) + 1);
+  });
+});
+const tags = [...tagMap.entries()].sort((a, b) => b[1] - a[1]);
+---
+<BaseLayout
+  title="全タグ — Dopamine Lab TV"
+  description="Dopamine Lab TVの全タグ一覧。ドーパミン、神経科学、集中力、AI不安、注意。"
+  lang="ja"
+>
+  <div class="container">
+    <section style="padding-top:52px;">
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <a href="/ja/">ホーム</a>
+        <span aria-hidden="true">›</span>
+        <a href="/ja/posts">記事</a>
+        <span aria-hidden="true">›</span>
+        <span class="breadcrumb-current" aria-current="page">タグ</span>
+      </nav>
+      <p class="section-label" style="margin-top:24px;">全トピック</p>
+      <h1 style="margin:8px 0 32px;font-size:2rem;font-family:var(--font-jp);">タグで探す</h1>
+      <div class="tags-cloud">
+        {tags.map(([tag, count]) => (
+          <a href={`/ja/tags/${tag}`} class="tags-cloud-item">
+            <span class="tag">{tag}</span>
+            <span class="tags-cloud-count">{count}</span>
+          </a>
+        ))}
+      </div>
+      <p style="margin-top:48px;font-size:0.9rem;"><a href="/ja/posts">← 全記事一覧</a></p>
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,365 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allPosts = await Astro.glob('../../content/posts/ja/*.md');
+const posts = allPosts
+  .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
+  .slice(0, 20);
+
+const buildNow = Date.now();
+
+function formatDate(d: string) {
+  return new Date(d).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+function slug(p: any) { return p.file.split('/').pop().replace('.md', ''); }
+function isNew(date: string) { return (new Date(date).getTime() + 14 * 86400000) > buildNow; }
+function tagHref(t: string) { return `/ja/tags/${t}`; }
+---
+<BaseLayout title="ラボは開いている" lang="ja"
+  description="AI時代のドーパミン・注意力・集中力の研究。神経科学と日本哲学の交差点から。">
+  <div class="container">
+    <section class="hero">
+      <svg class="hero-enso" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <filter id="enso-ink-ja" x="-15%" y="-15%" width="130%" height="130%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="2" seed="12" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+        </defs>
+        <circle cx="200" cy="200" r="158"
+          stroke="currentColor" stroke-width="20" stroke-linecap="round"
+          pathLength="100" stroke-dasharray="92 8" stroke-dashoffset="4"
+          filter="url(#enso-ink-ja)"
+        />
+      </svg>
+      <span class="hero-tate" aria-hidden="true">神経科学・日本哲学</span>
+      <p class="hero-eyebrow">Dopamine Lab TV</p>
+      <h1 style="font-family: var(--font-jp)">人間であり続ける<br />科学。</h1>
+      <p class="hero-sub" style="font-family: var(--font-jp)">
+        AI時代のドーパミン・注意力・明晰な思考の研究。神経科学 × 日本哲学——
+        ハックなし、ハッスルなし。シグナルだけ。
+      </p>
+      <p class="hero-tagline"><a href="/">English</a> · 日本語版</p>
+    </section>
+
+    <!-- Diagnostic Check -->
+    <section class="check-section" id="check">
+      <p class="section-label">脳の状態チェック</p>
+      <div class="check-card">
+        <!-- Quiz -->
+        <div id="check-quiz">
+          <div class="check-intro">
+            <h2 class="check-heading" style="font-family: var(--font-jp)">
+              ストレスで壊れかけてる人へ<br>
+              <span class="check-heading-accent">それ、根性じゃなくて脳の仕様です</span>
+            </h2>
+            <p class="check-sub" style="font-family: var(--font-jp)">あてはまるものを選んでください（5問）</p>
+          </div>
+
+          <div class="check-questions">
+            {[
+              'ついSNSを開いてしまう',
+              '何をするにも集中できない',
+              'やる気が出ないのに不安だけある',
+              '寝ても疲れが取れない',
+              '何もしてないのに時間が溶ける',
+            ].map((q, i) => (
+              <div class="check-q">
+                <p class="check-q-text" style="font-family: var(--font-jp)">
+                  <span class="check-q-num">Q{i + 1}</span>{q}
+                </p>
+                <div class="check-q-btns">
+                  <button class="check-btn" data-q={i} data-val="yes">YES</button>
+                  <button class="check-btn" data-q={i} data-val="no">NO</button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button class="btn check-submit" id="check-submit" disabled aria-disabled="true">
+            結果を見る →
+          </button>
+        </div>
+
+        <!-- Result (hidden until quiz completes) -->
+        <div id="check-result" hidden>
+          <div id="check-result-critical" hidden>
+            <p class="check-badge check-badge--high">臨界：ドーパミン枯渇状態</p>
+            <h3 class="check-result-h" style="font-family: var(--font-jp)">
+              集中システムが、<br>限界に達しています
+            </h3>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              5項目すべて該当。報酬回路が過飽和に達し、日常のことが無味乾燥に感じられる状態です。
+              これは回復できます——ただし、意志力ではなく、意図的なリセットが必要です。
+            </p>
+            <a href="/ja/posts/totonou-no-kagaku" class="check-rec-link">
+              <span class="check-rec-label">まず読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">整う（ととのう）——脳が本当に求めているものの正体 →</span>
+            </a>
+          </div>
+          <div id="check-result-high" hidden>
+            <p class="check-badge check-badge--high">ドーパミン過負荷状態</p>
+            <h3 class="check-result-h" style="font-family: var(--font-jp)">
+              短期刺激に、<br>脳が依存しています
+            </h3>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              SNS・動画・通知。脳が快楽に慣れすぎて、長期集中が機能しにくい状態です。
+              これは意志の問題ではなく、神経科学的な現象です。
+            </p>
+            <a href="/ja/posts/naze-shuchu-dekinai" class="check-rec-link">
+              <span class="check-rec-label">まず読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">なぜ集中できなくなったのか →</span>
+            </a>
+          </div>
+          <div id="check-result-low" hidden>
+            <p class="check-badge check-badge--low">初期警戒サイン</p>
+            <h3 class="check-result-h" style="font-family: var(--font-jp)">
+              いくつかのサイン——<br>今のうちに気づけています
+            </h3>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              まだ過負荷ではありませんが、パターンが形成されつつあります。
+              軌道修正が最も簡単なのは今です。
+            </p>
+            <a href="/ja/posts/zen-ga-shinkagaku-yori-shitte-ita-koto" class="check-rec-link">
+              <span class="check-rec-label">まず読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">禅が神経科学より先に知っていたこと →</span>
+            </a>
+          </div>
+          <div id="check-result-clear" hidden>
+            <p class="check-badge check-badge--low">脳の状態：クリア</p>
+            <h3 class="check-result-h" style="font-family: var(--font-jp)">
+              ドーパミンのベースラインは<br>健全な状態です
+            </h3>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              警戒サインはほぼありません。集中回路は機能しています。
+              注意力を守り続けてください——それがあなたの最も価値ある資源です。
+            </p>
+            <a href="/ja/posts/no-ai-niwa-dekinai-koto" class="check-rec-link">
+              <span class="check-rec-label">次に読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">あなたの脳にできて、AIにできないこと →</span>
+            </a>
+          </div>
+
+          <div class="check-cta">
+            <p class="check-cta-label">今すぐ整える</p>
+            <div class="check-cta-links">
+              <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer"
+                 class="check-cta-link">
+                <span class="check-cta-num">01</span>
+                <span class="check-cta-text">
+                  <strong style="font-family: var(--font-jp)">深く学びたい人へ</strong>
+                  <span>Substack — 週1レター</span>
+                </span>
+                <span class="check-cta-arrow">→</span>
+              </a>
+              <a href="https://room.rakuten.co.jp/dopaminelabtv/items" target="_blank" rel="noopener noreferrer"
+                 class="check-cta-link">
+                <span class="check-cta-num">02</span>
+                <span class="check-cta-text">
+                  <strong style="font-family: var(--font-jp)">おすすめアイテム</strong>
+                  <span>楽天ROOM — 研究者厳選</span>
+                </span>
+                <span class="check-cta-arrow">→</span>
+              </a>
+              <div class="check-cta-link check-cta-link--soon">
+                <span class="check-cta-num">03</span>
+                <span class="check-cta-text">
+                  <strong style="font-family: var(--font-jp)">totonou — 整うアプリ</strong>
+                  <span>App Store / Google Play · 近日公開</span>
+                </span>
+                <span class="check-cta-soon">整う</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="check-share">
+            <a id="check-share-btn" class="check-share-btn" href="#" target="_blank" rel="noopener noreferrer"
+               aria-label="X（Twitter）でシェアする">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Xでシェア
+            </a>
+            <button class="check-retry" id="check-retry" style="font-family: var(--font-jp)">
+              ← もう一度やる
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="posts-section">
+      <p class="section-label">ラボからの最新記事</p>
+      {posts.length === 0 ? (
+        <div class="post-card" style="justify-content: center; color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-jp)">
+          最初のエピソードは近日公開予定。
+        </div>
+      ) : (
+        <div class="posts-list">
+          {posts.map(post => (
+            <article class="post-card">
+              <div class="post-card-body">
+                <div class="post-tags">
+                  {isNew(post.frontmatter.date) && <span class="tag-new">NEW</span>}
+                  {post.frontmatter.tags?.map((t: string) => <a href={tagHref(t)} class="tag">{t}</a>)}
+                </div>
+                <h2 style="font-family: var(--font-jp)">
+                  <a href={`/ja/posts/${slug(post)}`}>{post.frontmatter.title}</a>
+                </h2>
+                <p class="post-excerpt" style="font-family: var(--font-jp)">{post.frontmatter.excerpt}</p>
+              </div>
+              <div class="post-meta">
+                <span class="date">{formatDate(post.frontmatter.date)}</span>
+                {post.frontmatter.readTime && <span class="read-time">{post.frontmatter.readTime}分</span>}
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+      <div class="posts-all-link">
+        <a href="/ja/posts" class="btn btn--outline" style="font-family: var(--font-jp)">すべての記事 →</a>
+      </div>
+    </section>
+  </div>
+<script is:inline>
+(function () {
+  var answers = [null, null, null, null, null];
+  var started = false;
+  var submitBtn = document.getElementById('check-submit');
+  var retryBtn = document.getElementById('check-retry');
+  var shareBtnEl = document.getElementById('check-share-btn');
+  var quizEl = document.getElementById('check-quiz');
+  var resultEl = document.getElementById('check-result');
+  var resultCritical = document.getElementById('check-result-critical');
+  var resultHigh = document.getElementById('check-result-high');
+  var resultLow = document.getElementById('check-result-low');
+  var resultClear = document.getElementById('check-result-clear');
+
+  if (!submitBtn) return;
+
+  function ga(event, params) {
+    if (typeof window.gtag === 'function') window.gtag('event', event, params || {});
+  }
+
+  document.querySelectorAll('.check-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var q = parseInt(btn.dataset.q);
+      answers[q] = btn.dataset.val;
+
+      if (!started) { started = true; ga('quiz_start', { quiz_id: 'dopamine_check_ja' }); }
+
+      btn.closest('.check-q').querySelectorAll('.check-btn').forEach(function (b) {
+        b.classList.remove('check-btn--active');
+      });
+      btn.classList.add('check-btn--active');
+
+      if (answers.every(function (a) { return a !== null; })) {
+        submitBtn.disabled = false;
+        submitBtn.removeAttribute('aria-disabled');
+      }
+    });
+  });
+
+  submitBtn.addEventListener('click', function () {
+    var yesCount = answers.filter(function (a) { return a === 'yes'; }).length;
+    var resultType = yesCount === 5 ? 'critical' : yesCount >= 3 ? 'high' : yesCount >= 1 ? 'low' : 'clear';
+
+    ga('quiz_complete', { quiz_id: 'dopamine_check_ja', result_type: resultType, yes_count: yesCount });
+
+    quizEl.hidden = true;
+    resultEl.hidden = false;
+    resultCritical.hidden = resultType !== 'critical';
+    resultHigh.hidden = resultType !== 'high';
+    resultLow.hidden = resultType !== 'low';
+    resultClear.hidden = resultType !== 'clear';
+
+    var shareText = resultType === 'critical'
+      ? '集中できないのは、\n脳が臨界状態だから。\n→ 3分でチェック\nhttps://dopaminelabtv.com/ja/#check\n#ドーパミン #集中力 #脳科学'
+      : resultType === 'high'
+      ? 'やる気が出ないの、\nサボりじゃないです\n脳が壊れてるだけです\n→ 3分でチェック\nhttps://dopaminelabtv.com/ja/#check\n#ドーパミン #集中力 #脳科学'
+      : resultType === 'low'
+      ? '初期警戒サインあり。\n今なら間に合う。\n→ 3分でわかる\nhttps://dopaminelabtv.com/ja/#check\n#ドーパミン #集中力 #脳科学'
+      : '脳の状態チェックしてみた。\n今のところクリア。\nあなたは？\n→ 3分でわかる\nhttps://dopaminelabtv.com/ja/#check\n#ドーパミン #集中力 #脳科学';
+    if (shareBtnEl) shareBtnEl.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
+
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  if (shareBtnEl) {
+    shareBtnEl.addEventListener('click', function () {
+      ga('cta_click', { quiz_id: 'dopamine_check_ja', cta_target: 'x_share' });
+    });
+  }
+
+  document.querySelectorAll('.check-cta-link:not(.check-cta-link--soon)').forEach(function (link) {
+    link.addEventListener('click', function () {
+      ga('cta_click', { quiz_id: 'dopamine_check_ja', cta_target: link.href });
+    });
+  });
+
+  document.querySelectorAll('.check-rec-link').forEach(function (link) {
+    link.addEventListener('click', function () {
+      ga('quiz_rec_click', { quiz_id: 'dopamine_check_ja', link_url: link.href });
+    });
+  });
+
+  retryBtn.addEventListener('click', function () {
+    answers = [null, null, null, null, null];
+    started = false;
+    document.querySelectorAll('.check-btn').forEach(function (b) { b.classList.remove('check-btn--active'); });
+    submitBtn.disabled = true;
+    submitBtn.setAttribute('aria-disabled', 'true');
+    quizEl.hidden = false;
+    resultEl.hidden = true;
+    resultCritical.hidden = true;
+    resultHigh.hidden = true;
+    resultLow.hidden = true;
+    resultClear.hidden = true;
+  });
+})();
+</script>
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "ついSNSを開いてしまうのはなぜですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "無意識のSNS確認は、ドーパミン回路が「可変比率強化」パターンに条件付けられたサインです。スロットマシンと同じ仕組みで、スクロールのたびに予測不可能な報酬を期待するよう脳が自動的に反応しています。意志力の問題ではなく、神経科学的な状態です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "何をするにも集中できないのはなぜですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "集中力の持続困難は、ドーパミンシステムの鈍化を示している場合があります。デジタル環境による慢性的な過剰刺激が「新奇性の閾値」を上げ、深い作業が物足りなく感じられるようになります。神経科学の研究では、この状態は適切な行動介入で改善可能とされています。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "やる気が出ないのに不安だけあるのはなぜですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "やる気のない不安は、ドーパミン-コルチゾール不均衡の典型的なパターンです。高コルチゾールが脅威検知システムを活性化し続ける一方、ドーパミン不足が行動への動機を奪います。この「動けないのに焦る」パラドックスは、性格の問題ではなく認識された神経学的状態です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "寝ても疲れが取れないのはなぜですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "夜間のスクリーン露出はメラトニン分泌を抑制し、ドーパミンサイクルを乱すことで睡眠の質を低下させます。睡眠時間が十分でもアデノシン除去とREM回復が不完全なため、翌朝も認知的疲労が残ります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "何もしていないのに時間が溶けるのはなぜですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "受動的なデジタル消費（スクロール、自動再生）は前頭前皮質の時間符号化機能を低下させます。脳が低自律・高刺激モードにある時、エピソード記憶の形成が著しく減少し、「時間が溶けた」という主観的体験が生じます。"
+      }
+    }
+  ]
+})} />
+</BaseLayout>

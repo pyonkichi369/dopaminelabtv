@@ -1,0 +1,128 @@
+# Dopamine Lab TV
+
+> Neuroscience × Japanese philosophy for the AI age
+
+Dopamine Lab TV publishes weekly research summaries at the intersection of neuroscience and Japanese philosophy — dopamine, attention, and what it means to think clearly in the age of AI. No hacks, no hustle. Just signal.
+
+Target audience: knowledge workers, adults experiencing AI anxiety, ADHD community, professionals seeking focus in high-stimulation environments.
+
+## Articles (English)
+
+- [Why You Can't Focus Anymore](https://dopaminelabtv.com/posts/why-you-cant-focus-anymore/): Dopamine hijacking is real, measurable, and reversible. Covers variable ratio reinforcement, mushin (無心) and practical lab notes.
+- [Your Brain Does Something AI Will Never Do](https://dopaminelabtv.com/posts/your-brain-does-something-ai-will-never-do/): Human brains integrate reality in ways no AI can replicate. A reframe for AI anxiety using neuroscience and Japanese philosophy.
+- [Totonou: The Japanese Word for What Your Brain Has Been Missing](https://dopaminelabtv.com/posts/totonou-what-your-brain-needs/): The neuroscience of the reset state — cold exposure, norepinephrine, autonomic contrast, and the Japanese concept of ma (間).
+- [What Zen Knew Before Neuroscience](https://dopaminelabtv.com/posts/what-zen-knew-before-neuroscience/): The default mode network (DMN), monkey mind (猿心/enshin), and how zazen (坐禅) structurally changes the brain after 8 weeks. Covers shoshin (初心), dopamine and stillness.
+- [ADHD Is Not a Broken Brain](https://dopaminelabtv.com/posts/adhd-is-not-a-broken-brain/): ADHD as dopamine architecture, not character flaw. Covers tonic/phasic dopamine, Volkow 2009, Zylowska mindfulness RCT 2008, enshin (猿心), kokki (克己), and ma (間) as recovery mechanism.
+- [Why Your Vacation Doesn't Restore Your Brain](https://dopaminelabtv.com/posts/why-vacation-doesnt-restore-your-brain/): Mental fatigue persisting after vacation is not laziness — it is incomplete dopamine baseline recovery. Covers allostatic load, cortisol dysregulation, and the Japanese concept of ma (間) as structural rest. Sources: McEwen (2007), Steptoe (2017).
+- [Why You Can't Put Down Your Phone](https://dopaminelabtv.com/posts/why-you-cant-put-down-your-phone/): Variable ratio reinforcement and dopamine prediction error (Schultz 1997) explain smartphone compulsion. The slot machine and the social media feed share the same neural circuit — designed deliberately. Buddhist taṇhā (craving/渇愛) named this self-perpetuating mechanism 2,500 years ago.
+- [Procrastination Is Not a Willpower Problem](https://dopaminelabtv.com/posts/procrastination-is-not-a-willpower-problem/): Procrastination isn't laziness — it's a dopamine prediction error problem baked into how the brain values future rewards. The fix isn't trying harder; it's redesigning the environment so the brain gets its signals right.
+- [Sleep Makes Memories: What Your Hippocampus Does at Night](https://dopaminelabtv.com/posts/sleep-makes-memories/): Sleep isn't rest — it's an active neurological process where the hippocampus replays the day's experiences and transfers them into long-term cortical storage. Skipping it doesn't just make you tired; it erases what you learned.
+- [The Law of Attraction Is Half-Right](https://dopaminelabtv.com/posts/the-law-of-attraction-is-half-right/): Visualization does work — but not through mystical forces. Predictive coding, the Reticular Activating System, and confirmation bias are the real mechanisms.
+- [How Exercise Rewires Your Brain: The BDNF Story](https://dopaminelabtv.com/posts/how-exercise-rewires-your-brain/): Aerobic exercise triggers BDNF — brain-derived neurotrophic factor — a protein that acts like fertilizer for neurons. Studies now show exercise rivals antidepressants for mild-to-moderate depression.
+- [The Neuroscience of Loneliness: Why Social Pain Is Real Pain](https://dopaminelabtv.com/posts/the-neuroscience-of-loneliness/): Social exclusion activates the same neural circuits as physical pain — the dorsal anterior cingulate cortex. Loneliness isn't a feeling to push through; it's a biological alarm with measurable consequences.
+- [Why Anger Hijacks Your Brain — And How to Get It Back](https://dopaminelabtv.com/posts/why-anger-hijacks-your-brain/): Anger triggers the amygdala before the prefrontal cortex can respond — a neurological hijack that takes approximately six seconds to resolve. Zen's warning that anger is fire maps precisely onto this circuitry.
+- [How Gratitude Rewires the Brain](https://dopaminelabtv.com/posts/how-gratitude-rewires-the-brain/): Gratitude journaling activates the medial prefrontal cortex and the brain's reward system, producing neuroplastic changes that persist long after the practice ends. The Japanese concept of 一日一善 turns out to be a neurologically optimized design.
+- [The Neuroscience of Empathy: Why Other People's Pain Feels Real to You](https://dopaminelabtv.com/posts/the-neuroscience-of-empathy/): Mirror neurons and the insular cortex activate some of the same circuits when watching others get hurt. A discovery that reshaped our understanding of social cognition — and explains why maternal empathy is neurologically exceptional.
+- [Four Things Music Does to Your Brain](https://dopaminelabtv.com/posts/four-things-music-does-to-your-brain/): Music reliably activates the brain's dopamine reward system through pure anticipation — before the satisfying chord even arrives. Four specific mechanisms neuroscience has documented.
+- [What Intuition Actually Is: Why Your Gut Knows Before You Do](https://dopaminelabtv.com/posts/what-intuition-actually-is/): Intuition is the brain's unconscious pattern-matching system delivering conclusions before conscious reasoning finishes. Damasio's Somatic Marker Hypothesis explains why your body often knows something your mind hasn't articulated yet.
+- [Eight Weeks That Change the Brain: What Mindfulness Actually Does](https://dopaminelabtv.com/posts/eight-weeks-that-change-the-brain/): Sara Lazar's Harvard studies showed that eight weeks of MBSR produces measurable structural brain changes — larger hippocampus, smaller amygdala, shifted Default Mode Network activity. The neuroscience behind what Zen has practiced for 2,500 years.
+- [Post-Holiday Blues Is a Dopamine Story](https://dopaminelabtv.com/posts/post-holiday-blues-and-the-dopamine-baseline/): When everything looks gray after a long holiday, phasic dopamine has been overspent and the hedonic setpoint has drifted up. Shu-ha-ri (守破離) carries the grammar of recovery.
+- [What the Lotus Sutra Knew 2,500 Years Ago](https://dopaminelabtv.com/posts/what-the-lotus-sutra-knew-2500-years-ago/): Your lack of motivation isn't a willpower problem. The brain runs on anticipation, not arrival — and 2,500 years ago, the Lotus Sutra called it hōben: skillful means.
+- [Hare and Ke: The 2,000-Year Japanese Blueprint for Dopamine Reset](https://dopaminelabtv.com/posts/hare-and-ke-dopamine-reset/): Ancient Shinto divided time into hare (sacred, extraordinary) and ke (ordinary, everyday). Without genuine ke — unadorned, low-stimulation days — hedonic adaptation erodes the brain's capacity to register genuine peaks. Dopamine reset through deliberate contrast, not more stimulation.
+
+## Articles (Japanese / 日本語)
+
+- [なぜ集中できなくなったのか](https://dopaminelabtv.com/ja/posts/naze-shuchu-dekinai/): ドーパミン・ハイジャックの神経科学的解説。禅の無心と現代的注意力研究の交差点。
+- [ADHDは壊れた脳ではない](https://dopaminelabtv.com/ja/posts/adhd-wa-kowareta-nou-dewa-nai/): ADHDをドーパミンアーキテクチャとして解説。トニック/フェイジックドーパミン、猿心、克己、間の神経科学的意味。
+- [あなたの脳にできて、AIにできないこと](https://dopaminelabtv.com/ja/posts/no-ai-niwa-dekinai-koto/): 人間の脳がAIと本質的に異なる点を最新研究で解説。AI不安への科学的応答。
+- [整う（ととのう）——脳が本当に求めているものの正体](https://dopaminelabtv.com/ja/posts/totonou-no-kagaku/): 冷水暴露とノルエピネフリン、自律神経のコントラスト、間（ま）の哲学から読み解く神経系リセットの科学。
+- [禅が神経科学より先に知っていたこと](https://dopaminelabtv.com/ja/posts/zen-ga-shinkagaku-yori-shitte-ita-koto/): デフォルトモードネットワーク（猿心/enshin）、坐禅の脳構造変化、初心・無心の神経科学的解釈。8週間の坐禅後に前頭前皮質と島皮質に計測可能な変化が現れる。
+- [休暇が脳を回復させない本当の理由](https://dopaminelabtv.com/ja/posts/kyuka-ga-nou-wo-kaifuku-shinai-riyu/): 休み明けも疲れが取れない原因はアロスタティック負荷とドーパミンベースラインの未回復にある。McEwen（2007）、Steptoe（2017）に基づく。「構造的な間（ま）」という回復設計の概念を解説。
+- [スマホをやめられない本当の理由](https://dopaminelabtv.com/ja/posts/sumatho-wo-yamerarenai-honto-no-riyu/): 可変比率強化スケジュールとドーパミン予測誤差回路（Schultz 1997）がスマホ依存を生み出す仕組み。スロットマシンとSNSは同じ設計原理。仏教の「渇愛（かつあい）」が2500年前に同じメカニズムを識別していた。
+- [五月病はドーパミンの話だった](https://dopaminelabtv.com/ja/posts/gogatsubyou-no-shotai/): GW明けに何もかもがグレーに見えるのは意志の問題ではない。フェイジックドーパミンの過消費でヘドニック・セットポイントが上昇している——禅の「守破離」がその回復の文法を持っていた。
+- [先延ばしの脳科学：意志力の問題ではなく設計の問題](https://dopaminelabtv.com/ja/posts/saki-nobashi-no-noukagaku/): 「やる気が出ない」のは性格の話ではない。時間的割引とドーパミン予測誤差が組み合わさった神経回路の仕様の問題だ。
+- [睡眠が記憶を作る：海馬が夜のうちにやっていること](https://dopaminelabtv.com/ja/posts/suimin-ga-kioku-wo-tsukuru/): 徹夜明けに覚えた英単語はなぜ翌日には消えているのか。海馬のリプレイと睡眠紡錘波——記憶固定の神経科学を知ると、「寝ることが最大の学習」になる。
+- [引き寄せの法則を脳科学で読み解いたら半分本当だった](https://dopaminelabtv.com/ja/posts/hikiyo-se-no-hosoku-wa-hannbun-hontou-datta/): 「思うだけで現実が変わる」これは嘘だ。ただ、予測符号化とRASの仕組みを知ると、引き寄せが「半分だけ本当」な理由が見えてくる。
+- [運動が脳を変える仕組み：BDNFという「脳の肥料」の話](https://dopaminelabtv.com/ja/posts/undou-ga-nou-wo-kaeru/): 有酸素運動後に分泌されるBDNFは海馬の神経新生を促し、記憶力と抗うつ効果をもたらす——運動は「脳のアップグレード」だ。
+- [孤独が脳に与えるダメージ：社会的痛みの神経科学](https://dopaminelabtv.com/ja/posts/kodoku-to-nou/): 誰かに仲間はずれにされたとき、脳は身体的な打撲と同じ部位で「痛み」を処理する——孤独が健康を蝕む神経科学的な理由。
+- [怒りをコントロールできない脳の話：扁桃体と前頭前皮質の綱引き](https://dopaminelabtv.com/ja/posts/ikari-to-nou/): 扁桃体ハイジャックが起きると前頭前皮質は一時的に機能を奪われる——禅の「怒りは火のごとし」が指摘した6秒間の神経科学的な根拠。
+- [感謝が脳を変える：ポジティブ感情と神経可塑性の話](https://dopaminelabtv.com/ja/posts/kansha-ga-nou-wo-kaeru/): 感謝日記を続けると内側前頭前皮質と腹側被蓋野が活性化し、神経可塑性によって抑うつが改善する——「一日一善」の日本的習慣に神経科学的根拠があった。
+- [共感の神経科学：なぜ他人の痛みが自分の痛みになるのか](https://dopaminelabtv.com/ja/posts/kyoukan-no-noukagaku/): ミラーニューロンと島皮質が他者の感情体験を自分自身のものとして処理する——共感疲れの神経科学的な理由と、母親の脳が持つ特別な変化。
+- [音楽が脳にする4つのこと](https://dopaminelabtv.com/ja/posts/ongaku-ga-nou-ni-suru-koto/): ドーパミン放出・デフォルトモードネットワーク・海馬の感情記憶・神経同期——4つの仕組みを神経科学で読み解く。
+- [直感の正体：「なんとなく」が意識より賢い理由](https://dopaminelabtv.com/ja/posts/chokkan-no-shotai/): ソマティック・マーカー仮説と予測符号化から見ると、直感とは「無意識の並列処理が意識に届く前に下した判断」だ。
+- [マインドフルネスが脳を変える8週間](https://dopaminelabtv.com/ja/posts/maindfullness-to-nou/): Sara Lazarのハーバード研究が示す、8週間のMBSRで起きる脳の物理的変化——海馬体積増加・扁桃体縮小・デフォルトモードネットワーク変化。禅の「今ここ」は神経科学的に正確な処方箋だった。
+- [法華経が2500年前に知っていたこと](https://dopaminelabtv.com/ja/posts/hokekyo-ga-2500nen-mae-ni-shitte-ita-koto/): やる気が出ないのは意志力の問題ではない。脳は「到着」ではなく「予期」で動く——法華経が2500年前に「方便（ほうべん）」として記述した原理と、ドーパミン予測誤差の神経科学的一致。
+- [ハレとケ：2000年の神道が知っていたドーパミンリセット法](https://dopaminelabtv.com/ja/posts/hare-to-ke-dopamine-reset/): 神道の時間観ハレ（非日常）とケ（日常）のサイクルは、ドーパミン感受性の保護設計だった。現代の環境的過刺激はケを消し去り、ハレが響かなくなる。意図的な低刺激が報酬への感受性を回復させる神経科学的メカニズム。
+
+## Zen & Buddhist Concepts (Glossary)
+
+The following Japanese philosophical concepts are mapped to their neuroscience equivalents at: https://dopaminelabtv.com/glossary/
+
+- **totonou (整う)**: The state of recalibrated calm following sympathetic activation. Neuroscience: parasympathetic rebound, norepinephrine spike from cold exposure.
+- **enshin (猿心)**: Monkey mind — the Zen term for the default mode network (DMN) in constant self-referential chatter.
+- **zazen (坐禅)**: Seated meditation. Reduces DMN activity; increases prefrontal gray matter after 8 weeks (MGH, 2011).
+- **shoshin (初心)**: Beginner's mind. Neurologically: bottom-up attention, full sensory cortex activation.
+- **mushin (無心)**: No-mind. Flow state; transient hypofrontality during peak performance.
+- **ma (間)**: The meaningful pause. The autonomic deactivation window that resets dopamine baseline.
+- **mu (無)**: Nothingness. DMN activates during rest — its most important creative and integrative work.
+- **mono no aware (もののあわれ)**: Sensitivity to impermanence. Acceptance reduces cortisol-linked rumination.
+- **wabi-sabi (侘び寂び)**: Beauty of imperfection. Reduces threat-system activation linked to perfectionism.
+- **danshari (断捨離)**: Intentional reduction. Reduces cognitive load on working memory and dopamine depletion.
+- **komorebi (木漏れ日)**: Sunlight through leaves. Fractal patterns in nature restore directed attention (Kaplan ART).
+- **ichigo ichie (一期一会)**: One time, one meeting. Depth of attention activates richer dopamine responses than novelty-seeking.
+- **chisoku (知足)**: Knowing sufficiency. Interrupts the wanting/liking gap (Berridge dopamine research).
+- **heijoshin (平常心)**: Ordinary mind. The stable dopamine tonic baseline; high HRV as physiological signature.
+- **shu-ha-ri (守破離)**: Three stages of mastery. Dopamine's role shifts from rule-reward to intrinsic reward.
+- **bonno (煩悩)**: Worldly desires. Berridge's wanting system running unchecked — dopaminergic craving loop.
+- **jihi (慈悲)**: Loving-kindness and compassion. Oxytocin release; insula activation; self-compassion reduces cortisol.
+- **shonen (正念)**: Right mindfulness (samma sati). Thickens prefrontal cortex; reduces amygdala reactivity.
+- **muga (無我)**: No-self. DMN dissolution during deep meditation; transient hypofrontality in flow state.
+- **zazen (坐禅)**: Seated meditation. Reduces DMN activity; thickens prefrontal gray matter after 8 weeks.
+
+## Shinto Concepts (Glossary)
+
+- **hare (ハレ)**: Sacred time; non-ordinary occasion. Ritually bounded events that create maximum dopamine reward prediction error through anticipation and contrast with ke.
+- **ke (褻)**: Everyday life; the ordinary. The low-stimulation ground that makes hare's extraordinary quality possible. Without genuine ke, hedonic adaptation erases the capacity for reward peaks.
+- **misogi (禊)**: Ritual purification through cold water immersion. Triggers 200–300% norepinephrine spike, vagal activation, HRV elevation — the same mechanism as modern cold exposure protocols.
+
+## Bushido Concepts (Glossary — Samurai Ethics)
+
+- **bushido (武士道)**: The way of the warrior. Pre-commitment to values reduces moral cognitive load under stress (Greene, 2001); basal ganglia encode practiced values as procedural habit.
+- **yū (勇)**: Courage. sgACC actively suppresses amygdala fear signals during courageous action — regulation, not fearlessness. A trainable circuit.
+- **kokki (克己)**: Self-mastery. DLPFC + ACC mediated self-control; values commitment (not willpower-as-fuel) strengthens prefrontal-striatal impulse regulation.
+- **rei (礼)**: Ritual respect/etiquette. Procedural ritual reduces limbic reactivity; TPJ activates for perspective-taking; genuine respect elevates oxytocin + testosterone simultaneously.
+
+## Practical Protocols
+
+Evidence-based practices at: https://dopaminelabtv.com/protocols/
+
+- **Cold Shower Protocol (冷)**: 20–30 sec cold exposure → norepinephrine spike → parasympathetic rebound. 15–30 min peak clarity window.
+- **Zazen (坐)**: 5–20 min seated meditation. Count exhales 1–10. The return to counting after wandering is the practice. Structural brain changes after 8 weeks.
+- **High-Intensity + Stillness (動)**: 20 min intense exercise → 10 min complete stillness. Completes the autonomic activation–deactivation cycle.
+- **Breathing Contrast (息)**: 4-4-4-4 box breathing. Autonomic shift toward parasympathetic without cold exposure.
+- **Screen-Free Recovery (間)**: 15–30 min no screens, no audio after focus sessions. Full deactivation completes the dopamine reset.
+
+## Key Topics
+
+- Dopamine: reward prediction error, variable ratio reinforcement, baseline reset, wanting vs. liking (Berridge), tonic/phasic dopamine
+- Attention: default mode network (DMN), deep focus, digital distraction, metacognition, smartphone addiction
+- Japanese philosophy: Zen, Buddhist concepts applied to modern cognition, taṇhā (渇愛), bonno (煩悩)
+- AI anxiety: human cognition vs. artificial intelligence, staying human in the AI age
+- ADHD and focus: neuroscience-backed practical approaches, dopamine architecture
+- Meditation neuroscience: structural brain changes, DMN suppression, prefrontal thickening
+- Stress and recovery: allostatic load, cortisol, autonomic nervous system, burnout prevention
+
+## Content Framing Principle
+
+Buddhist, Zen, and Shinto concepts are presented as 2,000–2,500-year empirical observation data — not religion. Neuroscience always leads; philosophy follows as complementary evidence. All sources are peer-reviewed journals. Shinto concepts are framed as natural-cycle observation (hare/ke temporal rhythm, misogi as acute stress protocol) — never as religious doctrine or national identity.
+
+## Channels
+
+- Website: https://dopaminelabtv.com
+- YouTube: https://www.youtube.com/@DopamineLabTV (weekly video episodes)
+- Newsletter: https://dopaminelabtv.substack.com (weekly letter)
+- X / Twitter: https://twitter.com/DopamineLab
+
+## Content Policy
+
+All content is original research synthesis. Sources are peer-reviewed journals and published neuroscience literature. AI crawlers are explicitly welcomed — see robots.txt. Citation and summarization encouraged.

@@ -1,0 +1,50 @@
+---
+title: "Why You Can't Focus Anymore"
+date: "2026-04-23"
+excerpt: "Your brain didn't break. Dopamine hijacking is real, measurable, and reversible — if you know what you're fighting."
+tags: ["dopamine", "focus", "neuroscience"]
+readTime: 6
+tldr:
+  - "Smartphones produce dopamine release patterns indistinguishable from early-stage addiction — by design."
+  - "This is not a willpower problem. It is a neuroscientific state caused by variable ratio reinforcement."
+  - "Remove one dopamine trigger per day for 7 days. The one that hurts most is operating like a slot machine."
+sources:
+  - name: "Striatal dopamine synthesis capacity reflects smartphone social activity, Leming & Suckling, iScience, 2021"
+    url: "https://pubmed.ncbi.nlm.nih.gov/34113831/"
+  - name: "Liking, wanting, and the incentive-sensitization theory of addiction, Berridge & Robinson, American Psychologist, 2016"
+    url: "https://pubmed.ncbi.nlm.nih.gov/27977239/"
+---
+
+Your brain didn't break.
+
+What changed is the environment it's operating in. Dopamine — the neurotransmitter behind motivation, attention, and drive — evolved to keep you alive on the savanna. It spikes on *novelty* and *unpredictability*. Every scroll, every notification, every autoplay is engineered to trigger exactly that spike.
+
+## The Research
+
+Neuroimaging studies show that striatal dopamine activity tracks directly with smartphone social engagement. The mechanism: **variable ratio reinforcement** — the same principle that makes slot machines impossible to put down.
+
+Kent Berridge's incentive salience research at Michigan explains why. Dopamine encodes *wanting* (anticipation) far more than *liking* (reward). The spike fires in expectation — not on delivery. So you check your phone not because there's something there. You check because there *might* be.
+
+## The Japanese Lens
+
+In Zen practice, there's a concept called **mu-shin** (無心) — "no-mind." Not the absence of thought, but the absence of attachment to thought. The monk doesn't fight distraction; they observe it arise and pass.
+
+The modern neuroscience equivalent: attention is a *muscle*, not a switch. You can't force focus. You train the conditions that make focus possible.
+
+> 心を無にする — Empty the mind of what doesn't belong there.
+
+## The Lab Note
+
+Remove one dopamine trigger per day for seven days. Not forever — one week. Notice which removal actually hurts. That one is the signal: it's operating on the slot machine principle, not genuine need.
+
+The goal isn't purity. It's clarity about what you're trading.
+
+If you're wondering how this plays out in an AI-saturated world, read [Your Brain Does Something AI Will Never Do](/posts/your-brain-does-something-ai-will-never-do).
+
+If this pattern sounds like your baseline — not just occasional distraction but persistent inability to activate on low-stimulation tasks — read [ADHD Is Not a Broken Brain](/posts/adhd-is-not-a-broken-brain). The mechanism is the same; the intensity is different.
+
+For the practical reset protocol, [What Zen Knew Before Neuroscience](/posts/what-zen-knew-before-neuroscience) covers the attention-training practice that produces measurable brain changes in 8 weeks.
+
+---
+
+*New research dispatches every Sunday. Subscribe to [Substack](https://dopaminelabtv.substack.com) for the full Lab Report with audio.*

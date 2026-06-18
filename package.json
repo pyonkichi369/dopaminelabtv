@@ -1,0 +1,16 @@
+{
+  "name": "dopaminelabtv",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/generate-og.mjs && (python3 scripts/generate-og-ja.py || echo 'JA OGP skipped (Pillow/font unavailable — use pre-built images)') && astro build",
+    "preview": "astro preview",
+    "new-post": "node scripts/new-post.mjs"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^3.1.0",
+    "@astrojs/sitemap": "^3.7.2",
+    "astro": "^4.15.0"
+  }
+}
