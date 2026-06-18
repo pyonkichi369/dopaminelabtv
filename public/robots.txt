@@ -35,4 +35,22 @@ Allow: /
 User-agent: meta-externalagent
 Allow: /
 
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: AI2Bot
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: AwarioBot
+Allow: /
+
+User-agent: PetalBot
+Allow: /
+
 Sitemap: https://dopaminelabtv.com/sitemap.xml

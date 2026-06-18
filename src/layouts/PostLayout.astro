@@ -44,6 +44,19 @@ const breadcrumbLD = {
   ],
 };
 
+// FAQPage schema — from faqItems frontmatter [{q, a}] or tldr array as answers
+type FaqItem = { q: string; a: string };
+const faqItems: FaqItem[] = frontmatter.faqItems ?? [];
+const faqLD = faqItems.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+} : null;
+
 // Series
 const currentSlug = Astro.url.pathname.split('/').filter(Boolean).pop() ?? '';
 const seriesInfo = getSeriesForSlug(currentSlug, lang as 'en' | 'ja');
@@ -355,6 +368,8 @@ const displayRelated = related.length > 0 ? related : relatedFallback;
   <!-- Breadcrumb JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLD)} />
 
+  <!-- FAQPage JSON-LD (conditional — add faqItems: [{q, a}] to article frontmatter) -->
+  {faqLD && <script type="application/ld+json" set:html={JSON.stringify(faqLD)} />}
 
   <!-- Speakable JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify({
