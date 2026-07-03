@@ -1,0 +1,357 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TimesSubstackEmbed from '../../components/TimesSubstackEmbed.astro';
+
+const QUESTIONS = [
+  'イライラすることが多い',
+  'なんとなく不安だ',
+  '気持ちが落ち着かない',
+  '気分がゆううつだ',
+  '夜、よく眠れない',
+  '体の調子がなんとなく悪い',
+  '物事に集中できない',
+  'することに間違いが多い',
+  '仕事中に強い眠気に襲われる',
+  'やる気が出ない',
+  'へとへとに疲れている',
+  '朝起きた時、ぐったりした疲れを感じる',
+  '以前と比べて疲れやすくなった',
+];
+---
+
+<BaseLayout
+  title="疲労係数チェック"
+  description="厚生労働省の疲労蓄積度チェックリストを基にした、13の質問でいまの疲労を0〜100で数値化するセルフチェック。"
+  lang="ja"
+>
+  <div class="container">
+    <section class="check-section" id="fatigue-check">
+      <p class="section-label">疲労係数チェック</p>
+      <div class="check-card">
+        <!-- Quiz -->
+        <div id="fatigue-quiz">
+          <div class="check-intro">
+            <h1 class="check-heading" style="font-family: var(--font-jp)">
+              いまの疲労を、<br /><span class="check-heading-accent">数字にする</span>
+            </h1>
+            <p class="check-sub" style="font-family: var(--font-jp)">あてはまるものを選んでください（13問・約2分）</p>
+          </div>
+
+          <div class="check-questions">
+            {QUESTIONS.map((q, i) => (
+              <div class="check-q">
+                <p class="check-q-text" style="font-family: var(--font-jp)">
+                  <span class="check-q-num">Q{i + 1}</span>{q}
+                </p>
+                <div class="check-q-btns">
+                  <button class="check-btn" data-q={i} data-val="0">ほとんどない</button>
+                  <button class="check-btn" data-q={i} data-val="1">時々ある</button>
+                  <button class="check-btn" data-q={i} data-val="3">よくある</button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button class="btn check-submit" id="fatigue-submit" disabled aria-disabled="true">
+            結果を見る →
+          </button>
+        </div>
+
+        <!-- Result (hidden until quiz completes) -->
+        <div id="fatigue-result" hidden>
+          <div class="fatigue-score">
+            <span class="fatigue-score-label">疲労係数</span>
+            <span class="fatigue-score-num" id="fatigue-score-num">--</span>
+            <span class="fatigue-score-max">/ 100</span>
+          </div>
+          <p class="fatigue-delta" id="fatigue-delta" hidden></p>
+
+          <div id="fatigue-band-low" hidden>
+            <p class="check-badge check-badge--low">低疲労</p>
+            <h2 class="check-result-h" style="font-family: var(--font-jp)">
+              いまのところ、<br />回復サイクルは機能しています
+            </h2>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              自覚症状のパターンはほぼ見られません。コルチゾールとドーパミンのバランスが保たれ、回復サイクルが機能している状態です。この状態を保つことが、長期的なパフォーマンスの土台になります。
+            </p>
+            <a href="/ja/posts/totonou-no-kagaku" class="check-rec-link">
+              <span class="check-rec-label">まず読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">整う（ととのう）——脳が本当に求めているものの正体 →</span>
+            </a>
+            <a href="/ja/posts/kansha-ga-nou-wo-kaeru" class="check-rec-link">
+              <span class="check-rec-label">次に読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">感謝が脳を変える：ポジティブ感情と神経可塑性の話 →</span>
+            </a>
+          </div>
+
+          <div id="fatigue-band-mid" hidden>
+            <p class="check-badge check-badge--low">蓄積注意</p>
+            <h2 class="check-result-h" style="font-family: var(--font-jp)">
+              疲労のサインが、<br />出始めています
+            </h2>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              まだ深刻ではありませんが、回復が追いつかないまま蓄積が進むと、集中力とやる気の低下が固定化しやすい段階です。今のうちに睡眠と運動のリズムを整えるのが最も効果的です。
+            </p>
+            <a href="/ja/posts/naze-shuchu-dekinai" class="check-rec-link">
+              <span class="check-rec-label">まず読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">なぜ集中できなくなったのか →</span>
+            </a>
+            <a href="/ja/posts/suimin-ga-kioku-wo-tsukuru" class="check-rec-link">
+              <span class="check-rec-label">次に読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">睡眠が記憶を作る：海馬が夜のうちにやっていること →</span>
+            </a>
+          </div>
+
+          <div id="fatigue-band-high" hidden>
+            <p class="check-badge check-badge--high">高疲労</p>
+            <h2 class="check-result-h" style="font-family: var(--font-jp)">
+              神経系が、<br />慢性的な過負荷状態にあります
+            </h2>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              複数の自覚症状が該当し、神経系が慢性的な過負荷状態にあると考えられます。前頭前皮質の機能が低下し、判断力や集中力が落ちやすい状態です。積極的な回復行動——休息の質を上げる、刺激を減らす——が必要です。
+            </p>
+            <a href="/ja/posts/kyuka-ga-nou-wo-kaifuku-shinai-riyu" class="check-rec-link">
+              <span class="check-rec-label">まず読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">休暇が脳を回復させない理由 →</span>
+            </a>
+            <a href="/ja/posts/totonou-no-kagaku" class="check-rec-link">
+              <span class="check-rec-label">次に読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">整う（ととのう）——脳が本当に求めているものの正体 →</span>
+            </a>
+            <a href="/ja/posts/suimin-ga-kioku-wo-tsukuru" class="check-rec-link">
+              <span class="check-rec-label">あわせて読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">睡眠が記憶を作る：海馬が夜のうちにやっていること →</span>
+            </a>
+          </div>
+
+          <div id="fatigue-band-critical" hidden>
+            <p class="check-badge check-badge--high">臨界</p>
+            <h2 class="check-result-h" style="font-family: var(--font-jp)">
+              セルフケアだけに、<br />頼らない段階です
+            </h2>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              ほぼ全ての項目が該当する、臨界的な疲労状態です。厚労省のチェックリストでもこの水準は医師や保健師への相談が推奨されるレベルにあたります。セルフケアだけに頼らず、専門家への相談も検討してください。
+            </p>
+            <a href="/ja/posts/naze-yakitsukita-ato-yaruki-ga-modora-nai-no-ka" class="check-rec-link">
+              <span class="check-rec-label">まず読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">燃え尽きた脳に起きていること →</span>
+            </a>
+            <a href="/ja/posts/kyuka-ga-nou-wo-kaifuku-shinai-riyu" class="check-rec-link">
+              <span class="check-rec-label">次に読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">休暇が脳を回復させない理由 →</span>
+            </a>
+          </div>
+
+          <a href="/ja/protocols" class="check-rec-link" id="fatigue-protocols-link">
+            <span class="check-rec-label">実践する</span>
+            <span class="check-rec-title" style="font-family: var(--font-jp)">実践プロトコル一覧を見る →</span>
+          </a>
+
+          <div class="fatigue-trend" id="fatigue-trend" hidden>
+            <p class="check-cta-label">測定履歴</p>
+            <div class="fatigue-trend-bars" id="fatigue-trend-bars"></div>
+          </div>
+
+          <div class="times-substack-crosslink">
+            <p style="font-family: var(--font-jp)">毎週日曜、The Dopamine Times と一緒に再測定するのがおすすめです。</p>
+            <a href="/times/" class="fatigue-times-link" id="fatigue-times-link">The Dopamine Times を見る →</a>
+            <TimesSubstackEmbed />
+          </div>
+
+          <div class="check-share">
+            <a id="fatigue-share-btn" class="check-share-btn" href="#" target="_blank" rel="noopener noreferrer"
+               aria-label="X（Twitter）でシェアする">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Xでシェア
+            </a>
+            <button class="check-retry" id="fatigue-retry" style="font-family: var(--font-jp)">
+              ← もう一度やる
+            </button>
+          </div>
+
+          <p class="fatigue-evidence">
+            本チェックは厚生労働省「労働者の疲労蓄積度自己診断チェックリスト」（2023年改訂）の自覚症状項目を基に構成しています。医学的診断ではありません。
+            <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/roudoukijun/anzen/kashi_sokutei.html" target="_blank" rel="noopener noreferrer">出典：厚生労働省</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+  (function () {
+    var QUESTION_COUNT = 13;
+    var MAX_SCORE = 39;
+    var HISTORY_KEY = 'dlt_fatigue_history';
+    var MAX_HISTORY = 12;
+
+    var answers = new Array(QUESTION_COUNT).fill(null);
+    var started = false;
+    var submitBtn = document.getElementById('fatigue-submit');
+    var retryBtn = document.getElementById('fatigue-retry');
+    var shareBtnEl = document.getElementById('fatigue-share-btn');
+    var quizEl = document.getElementById('fatigue-quiz');
+    var resultEl = document.getElementById('fatigue-result');
+    var scoreNumEl = document.getElementById('fatigue-score-num');
+    var deltaEl = document.getElementById('fatigue-delta');
+    var trendEl = document.getElementById('fatigue-trend');
+    var trendBarsEl = document.getElementById('fatigue-trend-bars');
+    var bandLow = document.getElementById('fatigue-band-low');
+    var bandMid = document.getElementById('fatigue-band-mid');
+    var bandHigh = document.getElementById('fatigue-band-high');
+    var bandCritical = document.getElementById('fatigue-band-critical');
+
+    if (!submitBtn) return;
+
+    function ga(event, params) {
+      if (typeof window.gtag === 'function') window.gtag('event', event, params || {});
+    }
+
+    function todayStr() {
+      var d = new Date();
+      var m = String(d.getMonth() + 1).padStart(2, '0');
+      var day = String(d.getDate()).padStart(2, '0');
+      return d.getFullYear() + '-' + m + '-' + day;
+    }
+
+    function shortDate(d) {
+      var parts = d.split('-');
+      return parseInt(parts[1], 10) + '/' + parseInt(parts[2], 10);
+    }
+
+    function loadHistory() {
+      try {
+        var raw = localStorage.getItem(HISTORY_KEY);
+        var arr = raw ? JSON.parse(raw) : [];
+        return Array.isArray(arr) ? arr : [];
+      } catch { return []; }
+    }
+
+    function saveHistory(coefficient) {
+      var history = loadHistory();
+      var today = todayStr();
+      var previous = null;
+      for (var i = history.length - 1; i >= 0; i--) {
+        if (history[i].d !== today) { previous = history[i]; break; }
+      }
+
+      var existingIdx = history.findIndex(function (h) { return h.d === today; });
+      if (existingIdx >= 0) history[existingIdx] = { d: today, c: coefficient };
+      else history.push({ d: today, c: coefficient });
+
+      history.sort(function (a, b) { return a.d < b.d ? -1 : a.d > b.d ? 1 : 0; });
+      if (history.length > MAX_HISTORY) history = history.slice(history.length - MAX_HISTORY);
+
+      try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); } catch { /* noop */ }
+      return { history: history, previous: previous };
+    }
+
+    function renderTrend(history) {
+      if (!trendEl || !trendBarsEl || history.length < 2) return;
+      trendBarsEl.innerHTML = '';
+      var today = todayStr();
+      history.forEach(function (entry) {
+        var bar = document.createElement('div');
+        bar.className = 'fatigue-trend-bar' + (entry.d === today ? ' fatigue-trend-bar--today' : '');
+        var fill = document.createElement('div');
+        fill.className = 'fatigue-trend-bar-fill';
+        fill.style.height = Math.max(4, entry.c) + '%';
+        var label = document.createElement('span');
+        label.className = 'fatigue-trend-bar-label';
+        label.textContent = shortDate(entry.d);
+        bar.appendChild(fill);
+        bar.appendChild(label);
+        trendBarsEl.appendChild(bar);
+      });
+      trendEl.hidden = false;
+    }
+
+    document.querySelectorAll('#fatigue-quiz .check-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var q = parseInt(btn.dataset.q, 10);
+        answers[q] = parseInt(btn.dataset.val, 10);
+
+        if (!started) { started = true; ga('quiz_start', { quiz_id: 'fatigue_keisu_ja' }); }
+
+        btn.closest('.check-q').querySelectorAll('.check-btn').forEach(function (b) {
+          b.classList.remove('check-btn--active');
+        });
+        btn.classList.add('check-btn--active');
+
+        if (answers.every(function (a) { return a !== null; })) {
+          submitBtn.disabled = false;
+          submitBtn.removeAttribute('aria-disabled');
+        }
+      });
+    });
+
+    submitBtn.addEventListener('click', function () {
+      var total = answers.reduce(function (sum, a) { return sum + a; }, 0);
+      var coefficient = Math.round((total / MAX_SCORE) * 100);
+      var band = coefficient <= 25 ? 'low' : coefficient <= 50 ? 'mid' : coefficient <= 75 ? 'high' : 'critical';
+
+      ga('quiz_complete', { quiz_id: 'fatigue_keisu_ja', coefficient: coefficient, band: band });
+
+      var saved = saveHistory(coefficient);
+
+      quizEl.hidden = true;
+      resultEl.hidden = false;
+      scoreNumEl.textContent = String(coefficient);
+      bandLow.hidden = band !== 'low';
+      bandMid.hidden = band !== 'mid';
+      bandHigh.hidden = band !== 'high';
+      bandCritical.hidden = band !== 'critical';
+
+      if (saved.previous) {
+        var delta = coefficient - saved.previous.c;
+        var sign = delta > 0 ? '+' + delta : String(delta);
+        deltaEl.textContent = '前回(' + shortDate(saved.previous.d) + '): ' + saved.previous.c + ' → 今回: ' + coefficient + ' (' + sign + ')';
+        deltaEl.hidden = false;
+      }
+
+      renderTrend(saved.history);
+
+      var bandLabel = band === 'low' ? '低疲労' : band === 'mid' ? '蓄積注意' : band === 'high' ? '高疲労' : '臨界';
+      var shareText = '疲労係数チェックしてみた。\n結果：' + bandLabel + '（' + coefficient + '/100）\n→ 2分でわかる\nhttps://dopaminelabtv.com/ja/fatigue/\n#疲労係数 #脳科学';
+      if (shareBtnEl) shareBtnEl.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
+
+      resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    if (shareBtnEl) {
+      shareBtnEl.addEventListener('click', function () {
+        ga('cta_click', { quiz_id: 'fatigue_keisu_ja', cta_target: 'x_share' });
+      });
+    }
+
+    document.querySelectorAll('.check-rec-link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        ga('quiz_rec_click', { quiz_id: 'fatigue_keisu_ja', link_url: link.href });
+      });
+    });
+
+    var timesLink = document.getElementById('fatigue-times-link');
+    if (timesLink) {
+      timesLink.addEventListener('click', function () {
+        ga('cta_click', { quiz_id: 'fatigue_keisu_ja', cta_target: timesLink.href });
+      });
+    }
+
+    retryBtn.addEventListener('click', function () {
+      answers = new Array(QUESTION_COUNT).fill(null);
+      started = false;
+      document.querySelectorAll('#fatigue-quiz .check-btn').forEach(function (b) { b.classList.remove('check-btn--active'); });
+      submitBtn.disabled = true;
+      submitBtn.setAttribute('aria-disabled', 'true');
+      quizEl.hidden = false;
+      resultEl.hidden = true;
+      deltaEl.hidden = true;
+      trendEl.hidden = true;
+      bandLow.hidden = true;
+      bandMid.hidden = true;
+      bandHigh.hidden = true;
+      bandCritical.hidden = true;
+    });
+  })();
+  </script>
+</BaseLayout>

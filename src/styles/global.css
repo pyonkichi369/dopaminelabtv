@@ -2597,6 +2597,151 @@ h3:hover .heading-anchor {
   .times-teaser { padding: 16px 18px; }
 }
 
+/* ── Fatigue coefficient checker ── */
+.fatigue-score { text-align: center; margin: 8px 0 6px; }
+
+.fatigue-score-label {
+  display: block;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.fatigue-score-num {
+  font-family: var(--font-jp);
+  font-size: 3.4rem;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.fatigue-score-max {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
+.fatigue-delta {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.fatigue-trend { margin: 28px 0; }
+
+.fatigue-trend-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 90px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+}
+
+.fatigue-trend-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  max-width: 32px;
+}
+
+.fatigue-trend-bar-fill {
+  width: 100%;
+  max-width: 22px;
+  background: var(--accent);
+  opacity: 0.45;
+  border-radius: 2px 2px 0 0;
+}
+
+.fatigue-trend-bar--today .fatigue-trend-bar-fill { opacity: 1; }
+
+.fatigue-trend-bar-label {
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  white-space: nowrap;
+}
+
+.times-substack-crosslink {
+  margin: 32px 0;
+  padding: 24px 26px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.times-substack-crosslink p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 12px !important;
+}
+
+.fatigue-times-link {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.fatigue-evidence {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.fatigue-evidence a { text-decoration: underline; text-underline-offset: 2px; }
+
+/* Homepage link card */
+.fatigue-link-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 12px 0 8px;
+  padding: 18px 26px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--bg-card);
+  color: inherit;
+}
+.fatigue-link-card:hover { opacity: 0.9; background: var(--bg-hover); }
+
+.fatigue-link-card-body { display: flex; flex-direction: column; gap: 4px; }
+
+.fatigue-link-card-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.fatigue-link-card-title { font-size: 0.92rem; color: var(--text); }
+
+.fatigue-link-card-arrow {
+  font-size: 1rem;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .fatigue-score-num { font-size: 2.6rem; }
+  .fatigue-trend-bars { gap: 5px; height: 70px; }
+  .times-substack-crosslink { padding: 18px 16px; }
+  .fatigue-link-card { padding: 14px 18px; }
+}
+
 /* ── Print styles ── */
 @media print {
   header, footer, .ap, .reading-progress,

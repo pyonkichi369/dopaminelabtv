@@ -202,6 +202,15 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
       </div>
     </section>
 
+    <!-- Fatigue coefficient checker link card -->
+    <a href="/ja/fatigue/" class="fatigue-link-card">
+      <span class="fatigue-link-card-body">
+        <span class="fatigue-link-card-label">疲労係数チェック</span>
+        <span class="fatigue-link-card-title" style="font-family: var(--font-jp)">疲労係数を測る — いまの疲労を0-100で数値化</span>
+      </span>
+      <span class="fatigue-link-card-arrow">→</span>
+    </a>
+
     <section class="posts-section">
       <p class="section-label">ラボからの最新記事</p>
       {posts.length === 0 ? (
