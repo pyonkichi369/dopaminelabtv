@@ -202,14 +202,24 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
       </div>
     </section>
 
-    <!-- Fatigue coefficient checker link card -->
-    <a href="/ja/fatigue/" class="fatigue-link-card">
-      <span class="fatigue-link-card-body">
-        <span class="fatigue-link-card-label">疲労係数チェック</span>
-        <span class="fatigue-link-card-title" style="font-family: var(--font-jp)">疲労係数を測る — いまの疲労を0-100で数値化</span>
-      </span>
-      <span class="fatigue-link-card-arrow">→</span>
-    </a>
+    <!-- Self-check measurement menu -->
+    <div class="check-menu">
+      <p class="section-label">測定メニュー</p>
+      <a href="/ja/fatigue/" class="fatigue-link-card">
+        <span class="fatigue-link-card-body">
+          <span class="fatigue-link-card-label">疲労係数チェック</span>
+          <span class="fatigue-link-card-title" style="font-family: var(--font-jp)">疲労係数を測る — いまの疲労を0-100で数値化</span>
+        </span>
+        <span class="fatigue-link-card-arrow">→</span>
+      </a>
+      <a href="/ja/dopamine-debt/" class="fatigue-link-card">
+        <span class="fatigue-link-card-body">
+          <span class="fatigue-link-card-label">ドーパミン負債スコア</span>
+          <span class="fatigue-link-card-title" style="font-family: var(--font-jp)">ドーパミン負債を測る — 刺激習慣を0-100で数値化</span>
+        </span>
+        <span class="fatigue-link-card-arrow">→</span>
+      </a>
+    </div>
 
     <section class="posts-section">
       <p class="section-label">ラボからの最新記事</p>

@@ -2701,7 +2701,20 @@ h3:hover .heading-anchor {
 }
 .fatigue-evidence a { text-decoration: underline; text-underline-offset: 2px; }
 
-/* Homepage link card */
+/* Cross-link between sibling self-checks (fatigue ↔ dopamine debt) */
+.check-other-link {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 24px 0;
+}
+.check-other-link a { color: var(--accent); font-weight: 500; }
+
+/* Homepage measurement menu */
+.check-menu { margin: 12px 0 8px; }
+.check-menu .fatigue-link-card { margin: 0 0 10px; }
+.check-menu .fatigue-link-card:last-child { margin-bottom: 8px; }
+
 .fatigue-link-card {
   display: flex;
   align-items: center;

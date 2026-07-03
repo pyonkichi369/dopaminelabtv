@@ -1,0 +1,362 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TimesSubstackEmbed from '../../components/TimesSubstackEmbed.astro';
+
+const QUESTIONS = [
+  '気づくとショート動画を30分以上見ている',
+  '通知が来ていないのにスマホを確認する',
+  '食事中や人との会話中もスマホが手元にないと落ち着かない',
+  '寝る直前までスマホを見ている',
+  '動画を倍速や飛ばし見にしないと物足りない',
+  '待ち時間（信号・レジ・エレベーター）に必ずスマホを開く',
+  '作業中に別のタブやアプリを開いてしまう',
+  '静かな時間や退屈が苦痛に感じる',
+  '一つのコンテンツを最後まで見ずに次々切り替える',
+  'SNSの反応（いいね・返信）を何度も確認しに行く',
+  'スマホの使用時間を減らそうとして失敗したことがある',
+  '刺激の強い情報（炎上・ゴシップ・過激ニュース）をつい追ってしまう',
+  'スマホなしで一日過ごすことを想像すると不安になる',
+];
+---
+
+<BaseLayout
+  title="ドーパミン負債スコア"
+  description="SAS-SVなどの公開研究を参考にした、13の質問でいまの刺激習慣を0〜100で数値化するセルフチェック。"
+  lang="ja"
+>
+  <div class="container">
+    <section class="check-section" id="debt-check">
+      <p class="section-label">ドーパミン負債スコア</p>
+      <div class="check-card">
+        <!-- Quiz -->
+        <div id="debt-quiz">
+          <div class="check-intro">
+            <h1 class="check-heading" style="font-family: var(--font-jp)">
+              刺激の前借りを、<br /><span class="check-heading-accent">数字にする</span>
+            </h1>
+            <p class="check-sub" style="font-family: var(--font-jp)">あてはまるものを選んでください（13問・約2分）</p>
+            <a href="/dopamine-debt/" class="glossary-lang-switch">English version →</a>
+          </div>
+
+          <div class="check-questions">
+            {QUESTIONS.map((q, i) => (
+              <div class="check-q">
+                <p class="check-q-text" style="font-family: var(--font-jp)">
+                  <span class="check-q-num">Q{i + 1}</span>{q}
+                </p>
+                <div class="check-q-btns">
+                  <button class="check-btn" data-q={i} data-val="0">ほとんどない</button>
+                  <button class="check-btn" data-q={i} data-val="1">時々ある</button>
+                  <button class="check-btn" data-q={i} data-val="3">よくある</button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button class="btn check-submit" id="debt-submit" disabled aria-disabled="true">
+            結果を見る →
+          </button>
+        </div>
+
+        <!-- Result (hidden until quiz completes) -->
+        <div id="debt-result" hidden>
+          <div class="fatigue-score">
+            <span class="fatigue-score-label">ドーパミン負債スコア</span>
+            <span class="fatigue-score-num" id="debt-score-num">--</span>
+            <span class="fatigue-score-max">/ 100</span>
+          </div>
+          <p class="fatigue-delta" id="debt-delta" hidden></p>
+
+          <div id="debt-band-low" hidden>
+            <p class="check-badge check-badge--low">低負債</p>
+            <h2 class="check-result-h" style="font-family: var(--font-jp)">
+              刺激の摂取は、<br />いまのところ健全な範囲です
+            </h2>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              強い刺激を借りて今日をやり過ごすパターンはほとんど見られません。ドーパミン受容体の感受性が保たれ、小さな報酬でも満足を感じられる状態です。この余白を守ることが、集中力の土台になります。
+            </p>
+            <a href="/ja/posts/totonou-no-kagaku" class="check-rec-link">
+              <span class="check-rec-label">まず読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">整う（ととのう）——脳が本当に求めているものの正体 →</span>
+            </a>
+            <a href="/ja/posts/hare-to-ke-dopamine-reset" class="check-rec-link">
+              <span class="check-rec-label">次に読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">ハレとケ：2000年の神道が知っていたドーパミンリセット法 →</span>
+            </a>
+          </div>
+
+          <div id="debt-band-mid" hidden>
+            <p class="check-badge check-badge--low">負債蓄積中</p>
+            <h2 class="check-result-h" style="font-family: var(--font-jp)">
+              刺激を、<br />少しずつ前借りし始めています
+            </h2>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              強い刺激への依存がまだ習慣として固定されてはいませんが、退屈や静寂を埋めるために反射的にスマホへ手が伸びるパターンが見え始めています。ここで介入するのが最も低コストです。
+            </p>
+            <a href="/ja/posts/sumatho-wo-yamerarenai-honto-no-riyu" class="check-rec-link">
+              <span class="check-rec-label">まず読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">スマホをやめられない本当の理由 →</span>
+            </a>
+            <a href="/ja/posts/naze-shuchu-dekinai" class="check-rec-link">
+              <span class="check-rec-label">次に読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">なぜ集中できなくなったのか →</span>
+            </a>
+          </div>
+
+          <div id="debt-band-high" hidden>
+            <p class="check-badge check-badge--high">負債超過</p>
+            <h2 class="check-result-h" style="font-family: var(--font-jp)">
+              報酬系が、<br />強い刺激を前提に動いています
+            </h2>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              複数の行動パターンが該当し、脳の報酬予測が高刺激を基準にシフトしていると考えられます。日常の静かな時間や単調な作業が、実際の退屈さ以上に苦痛に感じられやすい状態です。刺激量を意図的に落とす期間が必要です。
+            </p>
+            <a href="/ja/posts/sumatho-wo-yamerarenai-honto-no-riyu" class="check-rec-link">
+              <span class="check-rec-label">まず読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">スマホをやめられない本当の理由 →</span>
+            </a>
+            <a href="/ja/posts/hare-to-ke-dopamine-reset" class="check-rec-link">
+              <span class="check-rec-label">次に読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">ハレとケ：2000年の神道が知っていたドーパミンリセット法 →</span>
+            </a>
+            <a href="/ja/posts/naze-shuchu-dekinai" class="check-rec-link">
+              <span class="check-rec-label">あわせて読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">なぜ集中できなくなったのか →</span>
+            </a>
+          </div>
+
+          <div id="debt-band-critical" hidden>
+            <p class="check-badge check-badge--high">臨界</p>
+            <h2 class="check-result-h" style="font-family: var(--font-jp)">
+              前借りが、<br />常態化しています
+            </h2>
+            <p class="check-result-body" style="font-family: var(--font-jp)">
+              ほぼ全ての項目が該当する、臨界的な刺激依存の状態です。医学的診断ではありませんが、構造化されたデジタルデトックス——通知オフ、使用時間の可視化、静かな時間を意図的に確保する——から始めることをすすめます。
+            </p>
+            <a href="/ja/posts/hare-to-ke-dopamine-reset" class="check-rec-link">
+              <span class="check-rec-label">まず読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">ハレとケ：2000年の神道が知っていたドーパミンリセット法 →</span>
+            </a>
+            <a href="/ja/posts/sumatho-wo-yamerarenai-honto-no-riyu" class="check-rec-link">
+              <span class="check-rec-label">次に読む</span>
+              <span class="check-rec-title" style="font-family: var(--font-jp)">スマホをやめられない本当の理由 →</span>
+            </a>
+          </div>
+
+          <a href="/ja/protocols" class="check-rec-link" id="debt-protocols-link">
+            <span class="check-rec-label">実践する</span>
+            <span class="check-rec-title" style="font-family: var(--font-jp)">実践プロトコル一覧を見る →</span>
+          </a>
+
+          <div class="fatigue-trend" id="debt-trend" hidden>
+            <p class="check-cta-label">測定履歴</p>
+            <div class="fatigue-trend-bars" id="debt-trend-bars"></div>
+          </div>
+
+          <div class="times-substack-crosslink">
+            <p style="font-family: var(--font-jp)">毎週日曜、The Dopamine Times と一緒に再測定するのがおすすめです。</p>
+            <a href="/times/" class="fatigue-times-link" id="debt-times-link">The Dopamine Times を見る →</a>
+            <TimesSubstackEmbed />
+          </div>
+
+          <div class="check-share">
+            <a id="debt-share-btn" class="check-share-btn" href="#" target="_blank" rel="noopener noreferrer"
+               aria-label="X（Twitter）でシェアする">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Xでシェア
+            </a>
+            <button class="check-retry" id="debt-retry" style="font-family: var(--font-jp)">
+              ← もう一度やる
+            </button>
+          </div>
+
+          <p class="check-other-link" style="font-family: var(--font-jp)">
+            他の測定：<a href="/ja/fatigue/">疲労係数を測る →</a>
+          </p>
+
+          <p class="fatigue-evidence">
+            本チェックはスマートフォン依存尺度 SAS-SV（Kwon et al., 2013）などの公開研究を参考に、Dopamine Lab TV 編集部が構成した行動チェックです。検証済みの臨床尺度ではなく、医学的診断でもありません。
+            <a href="https://pubmed.ncbi.nlm.nih.gov/24391787/" target="_blank" rel="noopener noreferrer">出典：SAS-SV検証論文</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+  (function () {
+    var QUESTION_COUNT = 13;
+    var MAX_SCORE = 39;
+    var HISTORY_KEY = 'dlt_dopamine_debt_history';
+    var MAX_HISTORY = 12;
+
+    var answers = new Array(QUESTION_COUNT).fill(null);
+    var started = false;
+    var submitBtn = document.getElementById('debt-submit');
+    var retryBtn = document.getElementById('debt-retry');
+    var shareBtnEl = document.getElementById('debt-share-btn');
+    var quizEl = document.getElementById('debt-quiz');
+    var resultEl = document.getElementById('debt-result');
+    var scoreNumEl = document.getElementById('debt-score-num');
+    var deltaEl = document.getElementById('debt-delta');
+    var trendEl = document.getElementById('debt-trend');
+    var trendBarsEl = document.getElementById('debt-trend-bars');
+    var bandLow = document.getElementById('debt-band-low');
+    var bandMid = document.getElementById('debt-band-mid');
+    var bandHigh = document.getElementById('debt-band-high');
+    var bandCritical = document.getElementById('debt-band-critical');
+
+    if (!submitBtn) return;
+
+    function ga(event, params) {
+      if (typeof window.gtag === 'function') window.gtag('event', event, params || {});
+    }
+
+    function todayStr() {
+      var d = new Date();
+      var m = String(d.getMonth() + 1).padStart(2, '0');
+      var day = String(d.getDate()).padStart(2, '0');
+      return d.getFullYear() + '-' + m + '-' + day;
+    }
+
+    function shortDate(d) {
+      var parts = d.split('-');
+      return parseInt(parts[1], 10) + '/' + parseInt(parts[2], 10);
+    }
+
+    function loadHistory() {
+      try {
+        var raw = localStorage.getItem(HISTORY_KEY);
+        var arr = raw ? JSON.parse(raw) : [];
+        return Array.isArray(arr) ? arr : [];
+      } catch { return []; }
+    }
+
+    function saveHistory(score) {
+      var history = loadHistory();
+      var today = todayStr();
+      var previous = null;
+      for (var i = history.length - 1; i >= 0; i--) {
+        if (history[i].d !== today) { previous = history[i]; break; }
+      }
+
+      var existingIdx = history.findIndex(function (h) { return h.d === today; });
+      if (existingIdx >= 0) history[existingIdx] = { d: today, c: score };
+      else history.push({ d: today, c: score });
+
+      history.sort(function (a, b) { return a.d < b.d ? -1 : a.d > b.d ? 1 : 0; });
+      if (history.length > MAX_HISTORY) history = history.slice(history.length - MAX_HISTORY);
+
+      try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); } catch { /* noop */ }
+      return { history: history, previous: previous };
+    }
+
+    function renderTrend(history) {
+      if (!trendEl || !trendBarsEl || history.length < 2) return;
+      trendBarsEl.innerHTML = '';
+      var today = todayStr();
+      history.forEach(function (entry) {
+        var bar = document.createElement('div');
+        bar.className = 'fatigue-trend-bar' + (entry.d === today ? ' fatigue-trend-bar--today' : '');
+        var fill = document.createElement('div');
+        fill.className = 'fatigue-trend-bar-fill';
+        fill.style.height = Math.max(4, entry.c) + '%';
+        var label = document.createElement('span');
+        label.className = 'fatigue-trend-bar-label';
+        label.textContent = shortDate(entry.d);
+        bar.appendChild(fill);
+        bar.appendChild(label);
+        trendBarsEl.appendChild(bar);
+      });
+      trendEl.hidden = false;
+    }
+
+    document.querySelectorAll('#debt-quiz .check-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var q = parseInt(btn.dataset.q, 10);
+        answers[q] = parseInt(btn.dataset.val, 10);
+
+        if (!started) { started = true; ga('quiz_start', { quiz_id: 'dopamine_debt_ja' }); }
+
+        btn.closest('.check-q').querySelectorAll('.check-btn').forEach(function (b) {
+          b.classList.remove('check-btn--active');
+        });
+        btn.classList.add('check-btn--active');
+
+        if (answers.every(function (a) { return a !== null; })) {
+          submitBtn.disabled = false;
+          submitBtn.removeAttribute('aria-disabled');
+        }
+      });
+    });
+
+    submitBtn.addEventListener('click', function () {
+      var total = answers.reduce(function (sum, a) { return sum + a; }, 0);
+      var score = Math.round((total / MAX_SCORE) * 100);
+      var band = score <= 25 ? 'low' : score <= 50 ? 'mid' : score <= 75 ? 'high' : 'critical';
+
+      ga('quiz_complete', { quiz_id: 'dopamine_debt_ja', score: score, band: band });
+
+      var saved = saveHistory(score);
+
+      quizEl.hidden = true;
+      resultEl.hidden = false;
+      scoreNumEl.textContent = String(score);
+      bandLow.hidden = band !== 'low';
+      bandMid.hidden = band !== 'mid';
+      bandHigh.hidden = band !== 'high';
+      bandCritical.hidden = band !== 'critical';
+
+      if (saved.previous) {
+        var delta = score - saved.previous.c;
+        var sign = delta > 0 ? '+' + delta : String(delta);
+        deltaEl.textContent = '前回(' + shortDate(saved.previous.d) + '): ' + saved.previous.c + ' → 今回: ' + score + ' (' + sign + ')';
+        deltaEl.hidden = false;
+      }
+
+      renderTrend(saved.history);
+
+      var bandLabel = band === 'low' ? '低負債' : band === 'mid' ? '負債蓄積中' : band === 'high' ? '負債超過' : '臨界';
+      var shareText = 'ドーパミン負債スコアを測ってみた。\n結果：' + bandLabel + '（' + score + '/100）\n→ 2分でわかる\nhttps://dopaminelabtv.com/ja/dopamine-debt/\n#ドーパミン負債 #脳科学';
+      if (shareBtnEl) shareBtnEl.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
+
+      resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    if (shareBtnEl) {
+      shareBtnEl.addEventListener('click', function () {
+        ga('cta_click', { quiz_id: 'dopamine_debt_ja', cta_target: 'x_share' });
+      });
+    }
+
+    document.querySelectorAll('.check-rec-link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        ga('quiz_rec_click', { quiz_id: 'dopamine_debt_ja', link_url: link.href });
+      });
+    });
+
+    var timesLink = document.getElementById('debt-times-link');
+    if (timesLink) {
+      timesLink.addEventListener('click', function () {
+        ga('cta_click', { quiz_id: 'dopamine_debt_ja', cta_target: timesLink.href });
+      });
+    }
+
+    retryBtn.addEventListener('click', function () {
+      answers = new Array(QUESTION_COUNT).fill(null);
+      started = false;
+      document.querySelectorAll('#debt-quiz .check-btn').forEach(function (b) { b.classList.remove('check-btn--active'); });
+      submitBtn.disabled = true;
+      submitBtn.setAttribute('aria-disabled', 'true');
+      quizEl.hidden = false;
+      resultEl.hidden = true;
+      deltaEl.hidden = true;
+      trendEl.hidden = true;
+      bandLow.hidden = true;
+      bandMid.hidden = true;
+      bandHigh.hidden = true;
+      bandCritical.hidden = true;
+    });
+  })();
+  </script>
+</BaseLayout>

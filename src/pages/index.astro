@@ -203,14 +203,24 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
       </div>
     </section>
 
-    <!-- Fatigue coefficient checker link card -->
-    <a href="/fatigue/" class="fatigue-link-card">
-      <span class="fatigue-link-card-body">
-        <span class="fatigue-link-card-label">Fatigue Coefficient Check</span>
-        <span class="fatigue-link-card-title">Measure your Fatigue Coefficient — quantify today's fatigue 0-100</span>
-      </span>
-      <span class="fatigue-link-card-arrow">→</span>
-    </a>
+    <!-- Self-check measurement menu -->
+    <div class="check-menu">
+      <p class="section-label">Measurement Menu</p>
+      <a href="/fatigue/" class="fatigue-link-card">
+        <span class="fatigue-link-card-body">
+          <span class="fatigue-link-card-label">Fatigue Coefficient Check</span>
+          <span class="fatigue-link-card-title">Measure your Fatigue Coefficient — quantify today's fatigue 0-100</span>
+        </span>
+        <span class="fatigue-link-card-arrow">→</span>
+      </a>
+      <a href="/dopamine-debt/" class="fatigue-link-card">
+        <span class="fatigue-link-card-body">
+          <span class="fatigue-link-card-label">Dopamine Debt Score</span>
+          <span class="fatigue-link-card-title">Measure your Dopamine Debt — quantify today's stimulation habits 0-100</span>
+        </span>
+        <span class="fatigue-link-card-arrow">→</span>
+      </a>
+    </div>
 
     <section class="posts-section">
       <div class="wa-divider">Latest from the Lab</div>
