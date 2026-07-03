@@ -6,6 +6,11 @@ const posts = allPosts
   .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
   .slice(0, 20);
 
+const allTimesIssues = await Astro.glob('../../content/times/*.md');
+const latestIssue = allTimesIssues
+  .filter(i => !i.frontmatter.draft)
+  .sort((a, b) => (b.frontmatter.vol ?? 0) - (a.frontmatter.vol ?? 0))[0];
+
 const buildNow = Date.now();
 
 function formatDate(d: string) {
@@ -41,6 +46,17 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
       </p>
       <p class="hero-tagline"><a href="/">English</a> · 日本語版</p>
     </section>
+
+    <!-- The Dopamine Times teaser -->
+    {latestIssue && (
+      <a href={`/times/vol-${String(latestIssue.frontmatter.vol).padStart(3, '0')}`} class="times-teaser">
+        <span class="times-teaser-body">
+          <span class="times-teaser-label">最新号 — The Dopamine Times</span>
+          <span class="times-teaser-title" style="font-family: var(--font-jp)">{latestIssue.frontmatter.title}</span>
+        </span>
+        <span class="times-teaser-link">今週号を読む →</span>
+      </a>
+    )}
 
     <!-- Diagnostic Check -->
     <section class="check-section" id="check">

@@ -19,6 +19,21 @@ export const GET: APIRoute = async ({ site }) => {
       return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>`;
     }).join('\n');
 
+  const timesMods = Object.entries(
+    import.meta.glob('../content/times/*.md', { eager: true }) as Record<string, any>
+  )
+    .filter(([, mod]) => !mod.frontmatter?.draft)
+    .map(([, mod]) => ({
+      vol: String(mod.frontmatter?.vol ?? 0).padStart(3, '0'),
+      date: mod.frontmatter?.date ?? '2026-01-01',
+    }));
+
+  const timesUrls = timesMods
+    .map(({ vol, date }) => {
+      const lastmod = new Date(date).toISOString().split('T')[0];
+      return `  <url>\n    <loc>${siteUrl}/times/vol-${vol}/</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`;
+    }).join('\n');
+
   // Unique tags per language
   const enTags = [...new Set(postMods.filter(p => p.lang === 'en').flatMap(p => p.tags))];
   const jaTags = [...new Set(postMods.filter(p => p.lang === 'ja').flatMap(p => p.tags))];
@@ -52,7 +67,9 @@ export const GET: APIRoute = async ({ site }) => {
   <url><loc>${siteUrl}/ja/series/japanese-philosophy/</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>${siteUrl}/ja/series/focus-dopamine/</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>${siteUrl}/privacy/</loc><lastmod>${today}</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>${siteUrl}/times/</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
 ${postUrls}
+${timesUrls}
 ${tagUrls}
 </urlset>`;
 

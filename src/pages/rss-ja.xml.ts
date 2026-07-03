@@ -7,20 +7,34 @@ export const GET: APIRoute = async ({ site }) => {
     import.meta.glob('../content/posts/ja/*.md', { eager: true }) as Record<string, any>
   )
     .map(([path, mod]) => ({
-      slug: path.split('/').pop()!.replace('.md', ''),
+      link: `${siteUrl}/ja/posts/${path.split('/').pop()!.replace('.md', '')}/`,
       title: mod.frontmatter?.title ?? '',
       excerpt: mod.frontmatter?.excerpt ?? '',
       date: mod.frontmatter?.date ?? '2026-01-01',
       tags: (mod.frontmatter?.tags ?? []) as string[],
-    }))
+    }));
+
+  const timesIssues = Object.entries(
+    import.meta.glob('../content/times/*.md', { eager: true }) as Record<string, any>
+  )
+    .filter(([, mod]) => !mod.frontmatter?.draft)
+    .map(([, mod]) => ({
+      link: `${siteUrl}/times/vol-${String(mod.frontmatter?.vol ?? 0).padStart(3, '0')}/`,
+      title: mod.frontmatter?.title ?? `The Dopamine Times Vol.${String(mod.frontmatter?.vol ?? 0).padStart(3, '0')}`,
+      excerpt: mod.frontmatter?.excerpt ?? '',
+      date: mod.frontmatter?.date ?? '2026-01-01',
+      tags: [] as string[],
+    }));
+
+  const feedEntries = [...posts, ...timesIssues]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  const items = posts
-    .map(({ slug, title, excerpt, date, tags }) => `
+  const items = feedEntries
+    .map(({ link, title, excerpt, date, tags }) => `
   <item>
     <title><![CDATA[${title}]]></title>
-    <link>${siteUrl}/ja/posts/${slug}/</link>
-    <guid isPermaLink="true">${siteUrl}/ja/posts/${slug}/</guid>
+    <link>${link}</link>
+    <guid isPermaLink="true">${link}</guid>
     <pubDate>${new Date(date).toUTCString()}</pubDate>
     <description><![CDATA[${excerpt}]]></description>
     ${tags.map(t => `<category>${t}</category>`).join('\n    ')}

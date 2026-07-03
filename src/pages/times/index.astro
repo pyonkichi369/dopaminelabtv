@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TimesMasthead from '../../components/TimesMasthead.astro';
+import TimesSubstackEmbed from '../../components/TimesSubstackEmbed.astro';
+
+const allIssues = await Astro.glob('../../content/times/*.md');
+const issues = (import.meta.env.PROD ? allIssues.filter(i => !i.frontmatter.draft) : allIssues)
+  .sort((a, b) => (b.frontmatter.vol ?? 0) - (a.frontmatter.vol ?? 0));
+
+function formatDate(d: string) {
+  return new Date(d).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+function issueUrl(i: any) { return `/times/vol-${String(i.frontmatter.vol).padStart(3, '0')}`; }
+---
+
+<BaseLayout
+  title="The Dopamine Times — バックナンバー"
+  description="脳とドーパミンの週刊研究紙、The Dopamine Timesのバックナンバー一覧。"
+  lang="ja"
+>
+  <div class="container times-page">
+    <TimesMasthead />
+
+    <p class="section-label">バックナンバー — {issues.length}号</p>
+
+    {issues.length === 0 ? (
+      <div class="post-card" style="justify-content: center; color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-jp)">
+        創刊号は近日公開予定。
+      </div>
+    ) : (
+      <div class="posts-list times-issue-list">
+        {issues.map(issue => (
+          <article class="post-card">
+            <div class="post-card-body">
+              <span class="times-vol-badge">Vol.{String(issue.frontmatter.vol).padStart(3, '0')}</span>
+              <h2 style="font-family: var(--font-jp)">
+                <a href={issueUrl(issue)}>{issue.frontmatter.title || `Vol.${String(issue.frontmatter.vol).padStart(3, '0')}`}</a>
+              </h2>
+              <p class="post-excerpt" style="font-family: var(--font-jp)">{issue.frontmatter.excerpt}</p>
+            </div>
+            <div class="post-meta">
+              <span class="date">{formatDate(issue.frontmatter.date)}</span>
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+
+    <TimesSubstackEmbed />
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWorkSeries',
+    name: 'The Dopamine Times',
+    description: '脳とドーパミンの週刊研究紙',
+    url: 'https://dopaminelabtv.com/times/',
+    inLanguage: 'ja',
+    publisher: { '@type': 'Organization', name: 'Dopamine Lab TV', url: 'https://dopaminelabtv.com' },
+    hasPart: issues.map(issue => ({
+      '@type': 'Article',
+      headline: issue.frontmatter.title,
+      description: issue.frontmatter.excerpt,
+      url: `https://dopaminelabtv.com${issueUrl(issue)}/`,
+      datePublished: issue.frontmatter.date,
+      inLanguage: 'ja',
+    })),
+  })} />
+</BaseLayout>

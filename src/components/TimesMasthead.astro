@@ -1,0 +1,25 @@
+---
+export interface Props {
+  vol?: number;
+  date?: string;
+}
+
+const { vol, date } = Astro.props;
+
+function formatDateline(d: string) {
+  return new Date(d)
+    .toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' })
+    .replace(/\//g, '.');
+}
+---
+
+<div class="times-masthead">
+  <a href="/times/" class="times-masthead-link">
+    <p class="times-kicker">脳とドーパミンの週刊研究紙</p>
+    <h1 class="times-title">The Dopamine Times</h1>
+  </a>
+  {vol !== undefined && date && (
+    <p class="times-dateline">Vol.{String(vol).padStart(3, '0')} — {formatDateline(date)}</p>
+  )}
+</div>
+<hr class="times-rule-double" />

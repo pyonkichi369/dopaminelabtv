@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TimesMasthead from '../../components/TimesMasthead.astro';
+import TimesSubstackEmbed from '../../components/TimesSubstackEmbed.astro';
+
+export async function getStaticPaths() {
+  const allIssues = await Astro.glob('../../content/times/*.md');
+  const issues = import.meta.env.PROD
+    ? allIssues.filter(issue => !issue.frontmatter.draft)
+    : allIssues;
+  return issues.map(issue => ({
+    params: { vol: String(issue.frontmatter.vol).padStart(3, '0') },
+    props: { issue },
+  }));
+}
+
+const { issue } = Astro.props;
+const { Content, frontmatter } = issue;
+const volPadded = String(frontmatter.vol).padStart(3, '0');
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<BaseLayout
+  title={`The Dopamine Times Vol.${volPadded}`}
+  description={frontmatter.excerpt || 'The Dopamine Times — 脳とドーパミンの週刊研究紙。'}
+  lang="ja"
+  article={{
+    publishedTime: frontmatter.date,
+    tags: [],
+    isPartOf: { name: 'The Dopamine Times' },
+  }}
+>
+  <div class="container times-page">
+    <TimesMasthead vol={frontmatter.vol} date={frontmatter.date} />
+
+    {frontmatter.title && (
+      <h2 class="times-issue-title" style="font-family: var(--font-jp)">{frontmatter.title}</h2>
+    )}
+
+    <div class="article-body times-body">
+      <Content />
+    </div>
+
+    <hr class="times-rule-double" />
+
+    <!-- Monetization: Bookshelf affiliate CTA -->
+    {frontmatter.bookUrl && (
+      <div class="cta-block cta-block--times cta-block--book">
+        <span class="times-pr-badge">PR</span>
+        <p class="times-cta-label">今週の一冊</p>
+        {frontmatter.bookTitle && <p class="times-cta-title" style="font-family: var(--font-jp)">{frontmatter.bookTitle}</p>}
+        <a
+          class="btn times-affiliate-link"
+          href={frontmatter.bookUrl}
+          target="_blank"
+          rel="nofollow sponsored noopener"
+        >
+          書籍を見る →
+        </a>
+        <p class="times-cta-disclosure">※ アフィリエイトリンクを含みます。</p>
+      </div>
+    )}
+
+    <!-- Monetization: note paid-article CTA -->
+    {frontmatter.noteUrl && (
+      <div class="cta-block cta-block--times cta-block--note">
+        <p class="times-cta-label">今週の深掘り</p>
+        <a class="btn btn--note" href={frontmatter.noteUrl} target="_blank" rel="noopener noreferrer">
+          noteで深掘りする →
+        </a>
+      </div>
+    )}
+
+    <!-- Monetization: Substack signup -->
+    <TimesSubstackEmbed />
+
+    <div class="times-archive-link">
+      <a href="/times/">The Dopamine Times バックナンバー →</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<script define:vars={{ trackingUrl: canonicalURL.toString() }}>
+  (function () {
+    function ga(event, params) {
+      if (typeof window.gtag === 'function') window.gtag('event', event, params || {});
+    }
+    var affiliateLink = document.querySelector('.times-affiliate-link');
+    if (affiliateLink) {
+      affiliateLink.addEventListener('click', function () {
+        ga('affiliate_click', { link_url: affiliateLink.href, page: trackingUrl, source: 'times' });
+      });
+    }
+  })();
+</script>

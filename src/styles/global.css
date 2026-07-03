@@ -2417,6 +2417,186 @@ h3:hover .heading-anchor {
   .glossary-kanji { font-size: 1.6rem; }
 }
 
+/* ── The Dopamine Times ── */
+.times-page { max-width: var(--max-w); }
+
+.times-masthead-link { display: block; color: inherit; text-align: center; }
+.times-masthead-link:hover { opacity: 1; }
+
+.times-masthead {
+  text-align: center;
+  padding: 56px 0 26px;
+}
+
+.times-kicker {
+  font-variant: small-caps;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.times-title {
+  font-family: var(--font-jp);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 7vw, 3.4rem);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.times-dateline {
+  margin-top: 16px;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.times-rule-double {
+  border: none;
+  border-top: 3px double var(--border);
+  margin: 0 0 40px;
+}
+
+.times-issue-title {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+/* Section kickers — reuses .article-body for prose, overrides h2 as a newspaper kicker */
+.times-body h2 {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 3.2em 0 1.1em;
+  padding-bottom: 10px;
+  border-bottom: 3px double var(--border);
+}
+.times-body h2:first-of-type { margin-top: 0; }
+
+.times-pr-badge {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--bg);
+  background: var(--gold);
+  padding: 2px 7px;
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+.cta-block--times { margin-top: 32px; }
+.cta-block--book::before { content: '書'; }
+.cta-block--note::before { content: '文'; }
+
+.times-cta-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px !important;
+}
+
+.times-cta-title {
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 16px !important;
+}
+
+.times-cta-disclosure {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 12px !important;
+  margin-bottom: 0 !important;
+}
+
+.times-substack {
+  margin-top: 32px;
+  padding: 28px 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.times-substack-pitch {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.times-substack iframe { border-radius: var(--radius); }
+
+.times-archive-link {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.85rem;
+}
+
+/* Archive listing — reuses .posts-list / .post-card */
+.times-vol-badge {
+  display: inline-block;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+/* Homepage teaser */
+.times-teaser {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 36px 0 8px;
+  padding: 20px 26px;
+  border: 1px solid var(--border-accent);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--accent-dim);
+  color: inherit;
+}
+.times-teaser:hover { opacity: 0.9; }
+
+.times-teaser-body { display: flex; flex-direction: column; gap: 5px; }
+
+.times-teaser-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.times-teaser-title {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.times-teaser-link {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .times-masthead { padding: 40px 0 20px; }
+  .times-substack { padding: 22px 18px; }
+  .times-teaser { padding: 16px 18px; }
+}
+
 /* ── Print styles ── */
 @media print {
   header, footer, .ap, .reading-progress,

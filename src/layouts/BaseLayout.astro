@@ -14,6 +14,7 @@ export interface Props {
     wordCount?: number;
     tags: string[];
     sources?: { name: string; url?: string }[];
+    isPartOf?: { name: string };
   };
 }
 
@@ -102,6 +103,7 @@ const jsonLD = isArticle ? {
   mainEntityOfPage: canonicalURL.toString(),
   keywords: article?.tags?.join(', '),
   speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.tldr-box', '.article-body > p:first-of-type'] },
+  ...(article?.isPartOf ? { isPartOf: { '@type': 'CreativeWorkSeries', name: article.isPartOf.name } } : {}),
   ...(articleMentions.length ? { about: articleMentions.slice(0, 3), mentions: articleMentions } : {}),
   ...(article?.sources?.length ? {
     isBasedOn: article.sources.map(s => ({
@@ -270,6 +272,7 @@ const jsonLD = isArticle ? {
             <a href="/ja/posts">記事</a>
             <a href="/ja/glossary">禅語</a>
             <a href="/ja/protocols">実践</a>
+            <a href="/times/">Times</a>
             <a href="/ja/about">About</a>
             <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTube</a>
             <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Newsletter</a>
@@ -280,6 +283,7 @@ const jsonLD = isArticle ? {
             <a href="/posts">Articles</a>
             <a href="/glossary">Glossary</a>
             <a href="/protocols">Practice</a>
+            <a href="/times/">Times</a>
             <a href="/about">About</a>
             <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTube</a>
             <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Newsletter</a>
@@ -309,6 +313,7 @@ const jsonLD = isArticle ? {
             <a href="/ja/posts" class="mobile-nav-link">記事</a>
             <a href="/ja/glossary" class="mobile-nav-link">禅語辞典</a>
             <a href="/ja/protocols" class="mobile-nav-link">実践</a>
+            <a href="/times/" class="mobile-nav-link">Times</a>
             <a href="/ja/about" class="mobile-nav-link">About</a>
             <a href="https://www.youtube.com/@DopamineLabTV" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">YouTube</a>
             <a href="https://dopaminelabtv.substack.com" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">Newsletter</a>
@@ -318,6 +323,7 @@ const jsonLD = isArticle ? {
             <a href="/posts" class="mobile-nav-link">Articles</a>
             <a href="/glossary" class="mobile-nav-link">Glossary</a>
             <a href="/protocols" class="mobile-nav-link">Practice</a>
+            <a href="/times/" class="mobile-nav-link">Times</a>
             <a href="/about" class="mobile-nav-link">About</a>
             <a href="https://www.youtube.com/@DopamineLabTV" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">YouTube</a>
             <a href="https://dopaminelabtv.substack.com" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">Newsletter</a>
@@ -344,6 +350,7 @@ const jsonLD = isArticle ? {
             <a href="/ja/totonou">totonou</a>
             <a href="/ja/research">参考文献</a>
             <a href="/ja/protocols">実践</a>
+            <a href="/times/">Times</a>
             <a href="/ja/tags/">タグ</a>
             <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
             <a href="/rss-ja.xml" aria-label="RSS Feed">RSS</a>
@@ -355,6 +362,7 @@ const jsonLD = isArticle ? {
             <a href="/totonou">totonou</a>
             <a href="/research">Research</a>
             <a href="/protocols">Protocols</a>
+            <a href="/times/">Times</a>
             <a href="/tags/">Tags</a>
             <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
             <a href="/rss.xml" aria-label="RSS Feed">RSS</a>
