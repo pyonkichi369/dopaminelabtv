@@ -1,0 +1,368 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TimesSubstackEmbed from '../components/TimesSubstackEmbed.astro';
+
+const QUESTIONS = [
+  'I get irritated easily',
+  'I feel anxious for no clear reason',
+  'I feel restless',
+  'I feel low',
+  "I'm sleeping poorly",
+  'Something feels physically off',
+  'I have trouble concentrating',
+  "I'm making more mistakes than usual",
+  'I get hit with strong drowsiness during work',
+  'I have no motivation',
+  'I feel completely exhausted',
+  'I wake up already feeling drained',
+  'I tire more easily than I used to',
+];
+---
+
+<BaseLayout
+  title="Fatigue Coefficient Check"
+  description="A 13-question self-check, based on Japan's Ministry of Health, Labour and Welfare fatigue accumulation checklist, that scores your current fatigue from 0 to 100."
+>
+  <div class="container">
+    <section class="check-section" id="fatigue-check">
+      <p class="section-label">Fatigue Coefficient Check</p>
+      <div class="check-card">
+        <!-- Quiz -->
+        <div id="fatigue-quiz">
+          <div class="check-intro">
+            <h1 class="check-heading">
+              Turn your fatigue<br /><span class="check-heading-accent">into a number</span>
+            </h1>
+            <p class="check-sub">Answer 13 questions (about 2 minutes)</p>
+            <a href="/ja/fatigue/" class="glossary-lang-switch">日本語版 →</a>
+          </div>
+
+          <div class="check-questions">
+            {QUESTIONS.map((q, i) => (
+              <div class="check-q">
+                <p class="check-q-text">
+                  <span class="check-q-num">Q{i + 1}</span>{q}
+                </p>
+                <div class="check-q-btns">
+                  <button class="check-btn" data-q={i} data-val="0">Rarely</button>
+                  <button class="check-btn" data-q={i} data-val="1">Sometimes</button>
+                  <button class="check-btn" data-q={i} data-val="3">Often</button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button class="btn check-submit" id="fatigue-submit" disabled aria-disabled="true">
+            See your result →
+          </button>
+        </div>
+
+        <!-- Result (hidden until quiz completes) -->
+        <div id="fatigue-result" hidden>
+          <div class="fatigue-score">
+            <span class="fatigue-score-label">Fatigue Coefficient</span>
+            <span class="fatigue-score-num" id="fatigue-score-num">--</span>
+            <span class="fatigue-score-max">/ 100</span>
+          </div>
+          <p class="fatigue-delta" id="fatigue-delta" hidden></p>
+
+          <div id="fatigue-band-low" hidden>
+            <p class="check-badge check-badge--low">Low Fatigue</p>
+            <h2 class="check-result-h">
+              Right now, your<br />recovery cycle is working
+            </h2>
+            <p class="check-result-body">
+              Almost none of the symptom patterns are showing up. Your cortisol and dopamine
+              systems appear balanced, and your recovery cycle is doing its job. Protecting
+              this baseline is what makes long-term performance possible.
+            </p>
+            <a href="/posts/totonou-what-your-brain-needs" class="check-rec-link">
+              <span class="check-rec-label">Read first</span>
+              <span class="check-rec-title">Totonou: The Japanese Word for What Your Brain Has Been Missing →</span>
+            </a>
+            <a href="/posts/how-gratitude-rewires-the-brain" class="check-rec-link">
+              <span class="check-rec-label">Read next</span>
+              <span class="check-rec-title">How Gratitude Rewires the Brain →</span>
+            </a>
+          </div>
+
+          <div id="fatigue-band-mid" hidden>
+            <p class="check-badge check-badge--low">Accumulating</p>
+            <h2 class="check-result-h">
+              The early signs of<br />fatigue are showing up
+            </h2>
+            <p class="check-result-body">
+              Nothing severe yet — but if recovery keeps falling behind accumulation, lower
+              focus and motivation can start to become the norm. This is the easiest stage
+              to correct: fixing your sleep and movement rhythm now pays off the most.
+            </p>
+            <a href="/posts/why-you-cant-focus-anymore" class="check-rec-link">
+              <span class="check-rec-label">Read first</span>
+              <span class="check-rec-title">Why You Can't Focus Anymore →</span>
+            </a>
+            <a href="/posts/sleep-makes-memories" class="check-rec-link">
+              <span class="check-rec-label">Read next</span>
+              <span class="check-rec-title">Sleep Makes Memories: What Your Hippocampus Does at Night →</span>
+            </a>
+          </div>
+
+          <div id="fatigue-band-high" hidden>
+            <p class="check-badge check-badge--high">High Fatigue</p>
+            <h2 class="check-result-h">
+              Your nervous system<br />is running in chronic overload
+            </h2>
+            <p class="check-result-body">
+              Multiple symptoms are present, consistent with a nervous system under chronic
+              overload. Prefrontal cortex function tends to drop in this state, making judgment
+              and focus harder. This calls for active recovery — better-quality rest, less
+              stimulation — not just pushing through.
+            </p>
+            <a href="/posts/why-vacation-doesnt-restore-your-brain" class="check-rec-link">
+              <span class="check-rec-label">Read first</span>
+              <span class="check-rec-title">Why Vacation Doesn't Restore Your Brain →</span>
+            </a>
+            <a href="/posts/totonou-what-your-brain-needs" class="check-rec-link">
+              <span class="check-rec-label">Read next</span>
+              <span class="check-rec-title">Totonou: The Japanese Word for What Your Brain Has Been Missing →</span>
+            </a>
+            <a href="/posts/sleep-makes-memories" class="check-rec-link">
+              <span class="check-rec-label">Also read</span>
+              <span class="check-rec-title">Sleep Makes Memories: What Your Hippocampus Does at Night →</span>
+            </a>
+          </div>
+
+          <div id="fatigue-band-critical" hidden>
+            <p class="check-badge check-badge--high">Critical</p>
+            <h2 class="check-result-h">
+              This is not a stage<br />for self-care alone
+            </h2>
+            <p class="check-result-body">
+              Nearly every item applies — this is a critical level of fatigue accumulation.
+              On Japan's own MHLW checklist, this range is where consulting a doctor or
+              health professional is recommended. Don't rely on self-care alone — consider
+              talking to a professional.
+            </p>
+            <a href="/posts/what-burnout-does-to-your-brain" class="check-rec-link">
+              <span class="check-rec-label">Read first</span>
+              <span class="check-rec-title">What Burnout Actually Does to Your Brain →</span>
+            </a>
+            <a href="/posts/why-vacation-doesnt-restore-your-brain" class="check-rec-link">
+              <span class="check-rec-label">Read next</span>
+              <span class="check-rec-title">Why Vacation Doesn't Restore Your Brain →</span>
+            </a>
+          </div>
+
+          <a href="/protocols" class="check-rec-link" id="fatigue-protocols-link">
+            <span class="check-rec-label">Take action</span>
+            <span class="check-rec-title">See the full protocols list →</span>
+          </a>
+
+          <div class="fatigue-trend" id="fatigue-trend" hidden>
+            <p class="check-cta-label">Measurement history</p>
+            <div class="fatigue-trend-bars" id="fatigue-trend-bars"></div>
+          </div>
+
+          <div class="times-substack-crosslink">
+            <p>Re-measure every Sunday — alongside The Dopamine Times (JP).</p>
+            <a href="/times/" class="fatigue-times-link" id="fatigue-times-link">See The Dopamine Times →</a>
+            <TimesSubstackEmbed />
+          </div>
+
+          <div class="check-share">
+            <a id="fatigue-share-btn" class="check-share-btn" href="#" target="_blank" rel="noopener noreferrer"
+               aria-label="Share on X (Twitter)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Share on X
+            </a>
+            <button class="check-retry" id="fatigue-retry">
+              ← Take it again
+            </button>
+          </div>
+
+          <p class="fatigue-evidence">
+            This check is based on the self-assessment items of Japan's Ministry of Health, Labour and Welfare
+            "Worker Fatigue Accumulation Checklist" (2023 revision). It is not a medical diagnosis.
+            <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/roudoukijun/anzen/kashi_sokutei.html" target="_blank" rel="noopener noreferrer">Source: Japan MHLW</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+  (function () {
+    var QUESTION_COUNT = 13;
+    var MAX_SCORE = 39;
+    var HISTORY_KEY = 'dlt_fatigue_history';
+    var MAX_HISTORY = 12;
+
+    var answers = new Array(QUESTION_COUNT).fill(null);
+    var started = false;
+    var submitBtn = document.getElementById('fatigue-submit');
+    var retryBtn = document.getElementById('fatigue-retry');
+    var shareBtnEl = document.getElementById('fatigue-share-btn');
+    var quizEl = document.getElementById('fatigue-quiz');
+    var resultEl = document.getElementById('fatigue-result');
+    var scoreNumEl = document.getElementById('fatigue-score-num');
+    var deltaEl = document.getElementById('fatigue-delta');
+    var trendEl = document.getElementById('fatigue-trend');
+    var trendBarsEl = document.getElementById('fatigue-trend-bars');
+    var bandLow = document.getElementById('fatigue-band-low');
+    var bandMid = document.getElementById('fatigue-band-mid');
+    var bandHigh = document.getElementById('fatigue-band-high');
+    var bandCritical = document.getElementById('fatigue-band-critical');
+
+    if (!submitBtn) return;
+
+    function ga(event, params) {
+      if (typeof window.gtag === 'function') window.gtag('event', event, params || {});
+    }
+
+    function todayStr() {
+      var d = new Date();
+      var m = String(d.getMonth() + 1).padStart(2, '0');
+      var day = String(d.getDate()).padStart(2, '0');
+      return d.getFullYear() + '-' + m + '-' + day;
+    }
+
+    function shortDate(d) {
+      var parts = d.split('-');
+      return parseInt(parts[1], 10) + '/' + parseInt(parts[2], 10);
+    }
+
+    function loadHistory() {
+      try {
+        var raw = localStorage.getItem(HISTORY_KEY);
+        var arr = raw ? JSON.parse(raw) : [];
+        return Array.isArray(arr) ? arr : [];
+      } catch { return []; }
+    }
+
+    function saveHistory(coefficient) {
+      var history = loadHistory();
+      var today = todayStr();
+      var previous = null;
+      for (var i = history.length - 1; i >= 0; i--) {
+        if (history[i].d !== today) { previous = history[i]; break; }
+      }
+
+      var existingIdx = history.findIndex(function (h) { return h.d === today; });
+      if (existingIdx >= 0) history[existingIdx] = { d: today, c: coefficient };
+      else history.push({ d: today, c: coefficient });
+
+      history.sort(function (a, b) { return a.d < b.d ? -1 : a.d > b.d ? 1 : 0; });
+      if (history.length > MAX_HISTORY) history = history.slice(history.length - MAX_HISTORY);
+
+      try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); } catch { /* noop */ }
+      return { history: history, previous: previous };
+    }
+
+    function renderTrend(history) {
+      if (!trendEl || !trendBarsEl || history.length < 2) return;
+      trendBarsEl.innerHTML = '';
+      var today = todayStr();
+      history.forEach(function (entry) {
+        var bar = document.createElement('div');
+        bar.className = 'fatigue-trend-bar' + (entry.d === today ? ' fatigue-trend-bar--today' : '');
+        var fill = document.createElement('div');
+        fill.className = 'fatigue-trend-bar-fill';
+        fill.style.height = Math.max(4, entry.c) + '%';
+        var label = document.createElement('span');
+        label.className = 'fatigue-trend-bar-label';
+        label.textContent = shortDate(entry.d);
+        bar.appendChild(fill);
+        bar.appendChild(label);
+        trendBarsEl.appendChild(bar);
+      });
+      trendEl.hidden = false;
+    }
+
+    document.querySelectorAll('#fatigue-quiz .check-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var q = parseInt(btn.dataset.q, 10);
+        answers[q] = parseInt(btn.dataset.val, 10);
+
+        if (!started) { started = true; ga('quiz_start', { quiz_id: 'fatigue_keisu_en' }); }
+
+        btn.closest('.check-q').querySelectorAll('.check-btn').forEach(function (b) {
+          b.classList.remove('check-btn--active');
+        });
+        btn.classList.add('check-btn--active');
+
+        if (answers.every(function (a) { return a !== null; })) {
+          submitBtn.disabled = false;
+          submitBtn.removeAttribute('aria-disabled');
+        }
+      });
+    });
+
+    submitBtn.addEventListener('click', function () {
+      var total = answers.reduce(function (sum, a) { return sum + a; }, 0);
+      var coefficient = Math.round((total / MAX_SCORE) * 100);
+      var band = coefficient <= 25 ? 'low' : coefficient <= 50 ? 'mid' : coefficient <= 75 ? 'high' : 'critical';
+
+      ga('quiz_complete', { quiz_id: 'fatigue_keisu_en', coefficient: coefficient, band: band });
+
+      var saved = saveHistory(coefficient);
+
+      quizEl.hidden = true;
+      resultEl.hidden = false;
+      scoreNumEl.textContent = String(coefficient);
+      bandLow.hidden = band !== 'low';
+      bandMid.hidden = band !== 'mid';
+      bandHigh.hidden = band !== 'high';
+      bandCritical.hidden = band !== 'critical';
+
+      if (saved.previous) {
+        var delta = coefficient - saved.previous.c;
+        var sign = delta > 0 ? '+' + delta : String(delta);
+        deltaEl.textContent = 'Last time (' + shortDate(saved.previous.d) + '): ' + saved.previous.c + ' → Today: ' + coefficient + ' (' + sign + ')';
+        deltaEl.hidden = false;
+      }
+
+      renderTrend(saved.history);
+
+      var bandLabel = band === 'low' ? 'Low Fatigue' : band === 'mid' ? 'Accumulating' : band === 'high' ? 'High Fatigue' : 'Critical';
+      var shareText = 'I checked my Fatigue Coefficient.\nResult: ' + bandLabel + ' (' + coefficient + '/100)\n→ 2-minute check\nhttps://dopaminelabtv.com/fatigue/\n#fatigue #neuroscience';
+      if (shareBtnEl) shareBtnEl.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
+
+      resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    if (shareBtnEl) {
+      shareBtnEl.addEventListener('click', function () {
+        ga('cta_click', { quiz_id: 'fatigue_keisu_en', cta_target: 'x_share' });
+      });
+    }
+
+    document.querySelectorAll('.check-rec-link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        ga('quiz_rec_click', { quiz_id: 'fatigue_keisu_en', link_url: link.href });
+      });
+    });
+
+    var timesLink = document.getElementById('fatigue-times-link');
+    if (timesLink) {
+      timesLink.addEventListener('click', function () {
+        ga('cta_click', { quiz_id: 'fatigue_keisu_en', cta_target: timesLink.href });
+      });
+    }
+
+    retryBtn.addEventListener('click', function () {
+      answers = new Array(QUESTION_COUNT).fill(null);
+      started = false;
+      document.querySelectorAll('#fatigue-quiz .check-btn').forEach(function (b) { b.classList.remove('check-btn--active'); });
+      submitBtn.disabled = true;
+      submitBtn.setAttribute('aria-disabled', 'true');
+      quizEl.hidden = false;
+      resultEl.hidden = true;
+      deltaEl.hidden = true;
+      trendEl.hidden = true;
+      bandLow.hidden = true;
+      bandMid.hidden = true;
+      bandHigh.hidden = true;
+      bandCritical.hidden = true;
+    });
+  })();
+  </script>
+</BaseLayout>
