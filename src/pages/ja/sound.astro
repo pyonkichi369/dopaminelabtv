@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SoundLabEngine from '../../components/SoundLabEngine.astro';
+import ShareBlock from '../../components/ShareBlock.astro';
 
 const NOISE_SOUNDS = [
   {
@@ -134,6 +135,14 @@ const BINAURAL_SOUNDS = [
       <p class="check-other-link" style="font-family: var(--font-jp)">
         測定に戻る：<a href="/ja/fatigue/">疲労係数を測る →</a> ／ <a href="/ja/dopamine-debt/">ドーパミン負債スコアを測る →</a>
       </p>
+
+      <ShareBlock
+        url="https://dopaminelabtv.com/ja/sound/"
+        shareText="眠りと集中のための音を作る「サウンドラボ」を見つけた。\nhttps://dopaminelabtv.com/ja/sound/\n#脳科学 #睡眠"
+        lang="ja"
+        gaContext="sound_lab_ja"
+        title="サウンドラボ"
+      />
     </section>
   </div>
 
