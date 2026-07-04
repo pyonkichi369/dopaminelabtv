@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TimesSubstackEmbed from '../../components/TimesSubstackEmbed.astro';
+import ShareBlock from '../../components/ShareBlock.astro';
 
 const QUESTIONS = [
   'イライラすることが多い',
@@ -159,19 +160,22 @@ const QUESTIONS = [
             <TimesSubstackEmbed />
           </div>
 
+          <ShareBlock
+            url="https://dopaminelabtv.com/ja/fatigue/"
+            shareText="疲労係数チェックしてみた。\n→ 2分でわかる\nhttps://dopaminelabtv.com/ja/fatigue/\n#疲労係数 #脳科学"
+            lang="ja"
+            gaContext="fatigue_keisu_ja"
+            title="疲労係数チェック"
+          />
+
           <div class="check-share">
-            <a id="fatigue-share-btn" class="check-share-btn" href="#" target="_blank" rel="noopener noreferrer"
-               aria-label="X（Twitter）でシェアする">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              Xでシェア
-            </a>
             <button class="check-retry" id="fatigue-retry" style="font-family: var(--font-jp)">
               ← もう一度やる
             </button>
           </div>
 
           <p class="check-other-link" style="font-family: var(--font-jp)">
-            他の測定：<a href="/ja/dopamine-debt/">ドーパミン負債スコアを測る →</a>
+            他の測定：<a href="/ja/dopamine-debt/">ドーパミン負債スコアを測る →</a> ／ <a href="/ja/sound/">サウンドラボで整う →</a>
           </p>
 
           <p class="fatigue-evidence">
@@ -194,7 +198,7 @@ const QUESTIONS = [
     var started = false;
     var submitBtn = document.getElementById('fatigue-submit');
     var retryBtn = document.getElementById('fatigue-retry');
-    var shareBtnEl = document.getElementById('fatigue-share-btn');
+    var shareBlockEl = document.querySelector('#fatigue-result .share-block');
     var quizEl = document.getElementById('fatigue-quiz');
     var resultEl = document.getElementById('fatigue-result');
     var scoreNumEl = document.getElementById('fatigue-score-num');
@@ -318,16 +322,10 @@ const QUESTIONS = [
 
       var bandLabel = band === 'low' ? '低疲労' : band === 'mid' ? '蓄積注意' : band === 'high' ? '高疲労' : '臨界';
       var shareText = '疲労係数チェックしてみた。\n結果：' + bandLabel + '（' + coefficient + '/100）\n→ 2分でわかる\nhttps://dopaminelabtv.com/ja/fatigue/\n#疲労係数 #脳科学';
-      if (shareBtnEl) shareBtnEl.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
+      if (shareBlockEl) shareBlockEl.dataset.shareText = shareText;
 
       resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-
-    if (shareBtnEl) {
-      shareBtnEl.addEventListener('click', function () {
-        ga('cta_click', { quiz_id: 'fatigue_keisu_ja', cta_target: 'x_share' });
-      });
-    }
 
     document.querySelectorAll('.check-rec-link').forEach(function (link) {
       link.addEventListener('click', function () {

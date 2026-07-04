@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SoundLabEngine from '../components/SoundLabEngine.astro';
+
+const NOISE_SOUNDS = [
+  {
+    id: 'pink',
+    name: 'Pink Noise',
+    tier: 'moderate',
+    tierLabel: 'Evidence: Moderate',
+    desc: 'Several studies report an association with slow-wave activity during sleep.',
+    source: 'https://pubmed.ncbi.nlm.nih.gov/?term=pink+noise+sleep+slow+wave',
+  },
+  {
+    id: 'brown',
+    name: 'Brown Noise',
+    tier: 'limited',
+    tierLabel: 'Evidence: Limited',
+    desc: 'Mostly self-reported ease of falling asleep — few high-quality clinical trials so far.',
+    source: 'https://pubmed.ncbi.nlm.nih.gov/?term=brown+noise+sleep',
+  },
+  {
+    id: 'white',
+    name: 'White Noise',
+    tier: 'limited',
+    tierLabel: 'Evidence: Limited',
+    desc: 'Mostly self-reported ease of falling asleep — results are inconsistent across studies.',
+    source: 'https://pubmed.ncbi.nlm.nih.gov/?term=white+noise+sleep',
+  },
+];
+
+const BINAURAL_SOUNDS = [
+  {
+    id: 'deep',
+    name: 'Deep Sleep',
+    sub: 'Delta · 2Hz',
+    desc: 'Targets a frequency band associated with deep sleep stages.',
+  },
+  {
+    id: 'relax',
+    name: 'Relax',
+    sub: 'Theta · 6Hz',
+    desc: 'Targets a frequency band seen during rest and meditation.',
+  },
+  {
+    id: 'focus',
+    name: 'Quiet Focus',
+    sub: 'Alpha · 10Hz',
+    desc: 'Targets a frequency band associated with relaxed wakefulness.',
+  },
+  {
+    id: 'gamma',
+    name: 'Focus 40Hz',
+    sub: 'Gamma · 40Hz',
+    desc: 'Targets a frequency band studied in relation to higher-order cognitive processing.',
+  },
+];
+---
+
+<BaseLayout
+  title="Sound Lab"
+  description="Pink, brown, and white noise plus binaural beats, synthesized live in your browser — no audio files."
+>
+  <div class="container">
+    <section class="check-section" id="sound-lab">
+      <p class="section-label">Sound Lab</p>
+      <div class="check-intro">
+        <h1 class="check-heading">
+          Sounds for sleep and focus,<br /><span class="check-heading-accent">generated entirely in your browser</span>
+        </h1>
+        <p class="check-sub">No audio files — synthesized live with the Web Audio API</p>
+        <a href="/ja/sound/" class="glossary-lang-switch">日本語版 →</a>
+      </div>
+
+      <div class="sound-master">
+        <label class="sound-master-label" for="sound-volume">Volume</label>
+        <input type="range" id="sound-volume" class="sound-volume" min="0" max="100" value="50" />
+
+        <div class="sound-timer">
+          <span class="sound-timer-label">Sleep Timer</span>
+          <div class="sound-timer-btns">
+            <button class="sound-timer-btn" data-min="15" type="button">15 min</button>
+            <button class="sound-timer-btn" data-min="30" type="button">30 min</button>
+            <button class="sound-timer-btn" data-min="60" type="button">60 min</button>
+            <button class="sound-timer-btn" data-min="90" type="button">90 min</button>
+            <button class="sound-timer-btn" data-min="0" type="button">Off</button>
+          </div>
+          <p class="sound-timer-status" id="sound-timer-status" data-template="Auto-stop in {n} min" hidden></p>
+        </div>
+      </div>
+
+      <div class="sound-grid">
+        {NOISE_SOUNDS.map(s => (
+          <div class="sound-card" data-preset={s.id}>
+            <button class="sound-card-play" type="button" aria-pressed="false" aria-label={`Play ${s.name}`}>
+              <svg class="sound-card-play-icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="sound-card-play-icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+            </button>
+            <div class="sound-card-body">
+              <span class="sound-card-name">{s.name}</span>
+              <div class="sound-card-badges">
+                <span class={`sound-evidence sound-evidence--${s.tier}`}>{s.tierLabel}</span>
+              </div>
+              <p class="sound-card-desc">{s.desc}</p>
+              <a class="sound-card-source" href={s.source} target="_blank" rel="noopener noreferrer">See source →</a>
+            </div>
+          </div>
+        ))}
+        {BINAURAL_SOUNDS.map(s => (
+          <div class="sound-card" data-preset={s.id}>
+            <button class="sound-card-play" type="button" aria-pressed="false" aria-label={`Play ${s.name}`}>
+              <svg class="sound-card-play-icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="sound-card-play-icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+            </button>
+            <div class="sound-card-body">
+              <span class="sound-card-name">{s.name}<span class="sound-card-sub"> — {s.sub}</span></span>
+              <div class="sound-card-badges">
+                <span class="sound-evidence sound-evidence--limited">Evidence: Limited</span>
+                <span class="sound-headphone-badge">Headphones required</span>
+              </div>
+              <p class="sound-card-desc">{s.desc}</p>
+              <a class="sound-card-source" href="https://pubmed.ncbi.nlm.nih.gov/?term=binaural+beats+meta-analysis" target="_blank" rel="noopener noreferrer">See source →</a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="sound-disclaimer">
+        Not a guarantee of medical benefit. Binaural beats work by sending different frequencies to each ear,
+        so they only have a chance of an effect when using headphones. Evidence strength varies by sound type —
+        see each card's label above.
+      </p>
+
+      <p class="check-other-link">
+        Back to measurements: <a href="/fatigue/">check your Fatigue Coefficient →</a> / <a href="/dopamine-debt/">check your Dopamine Debt Score →</a>
+      </p>
+    </section>
+  </div>
+
+  <SoundLabEngine />
+</BaseLayout>

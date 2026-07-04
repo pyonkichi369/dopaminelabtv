@@ -72,6 +72,8 @@ export const GET: APIRoute = async ({ site }) => {
   <url><loc>${siteUrl}/fatigue/</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>${siteUrl}/ja/dopamine-debt/</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>${siteUrl}/dopamine-debt/</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>${siteUrl}/ja/sound/</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>${siteUrl}/sound/</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 ${postUrls}
 ${timesUrls}
 ${tagUrls}

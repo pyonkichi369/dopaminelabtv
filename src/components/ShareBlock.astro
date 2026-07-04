@@ -1,0 +1,127 @@
+---
+// Site-wide share widget: Web Share API primary button (mobile) + X/LINE/Threads/Copy
+// fallback (always shown). `shareText`/`url` may be updated after render by the
+// page's own script (e.g. once a quiz result is computed) via the container's
+// data-share-text / data-share-url attributes — every button reads them fresh
+// at click time, so dynamic text keeps working with no extra wiring.
+export interface Props {
+  url: string;
+  shareText: string;
+  lang: 'ja' | 'en';
+  gaContext: string;
+  title?: string;
+}
+
+const { url, shareText, lang, gaContext, title = '' } = Astro.props;
+const isJa = lang === 'ja';
+---
+
+<div class="share-block" data-share-url={url} data-share-text={shareText} data-share-title={title || (isJa ? 'Dopamine Lab TV' : 'Dopamine Lab TV')} data-ga-context={gaContext}>
+  <button type="button" class="share-block-webshare" hidden>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/>
+      <path d="M16 6l-4-4-4 4"/>
+      <path d="M12 2v14"/>
+    </svg>
+    {isJa ? '共有する' : 'Share'}
+  </button>
+
+  <div class="share-block-fallback">
+    <button type="button" class="share-block-btn share-block-btn--x" aria-label="X">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+    </button>
+    <button type="button" class="share-block-btn share-block-btn--line" aria-label="LINE">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </button>
+    <button type="button" class="share-block-btn share-block-btn--threads" aria-label="Threads">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M9 3c-3.5 0-6 2.5-6 7v4c0 4.5 2.5 7 6 7 2 0 3.5-.8 4.5-2"/>
+        <path d="M15 21c3.5 0 6-2.5 6-7v-4c0-4.5-2.5-7-6-7-2 0-3.5.8-4.5 2"/>
+        <path d="M9 12c0-2 1.5-3.5 3.5-3.5S16 10 16 12s-1.5 3.5-3.5 3.5"/>
+      </svg>
+    </button>
+    <button type="button" class="share-block-btn share-block-btn--copy" aria-label={isJa ? 'リンクをコピー' : 'Copy link'}>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+      </svg>
+      <span class="share-block-copy-label" data-confirm={isJa ? 'コピーしました' : 'Copied'}>{isJa ? 'リンクをコピー' : 'Copy link'}</span>
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+(function () {
+  function ga(event, params) {
+    if (typeof window.gtag === 'function') window.gtag('event', event, params || {});
+  }
+
+  document.querySelectorAll('.share-block').forEach(function (block) {
+    if (block.dataset.shareBlockInit) return;
+    block.dataset.shareBlockInit = 'true';
+
+    function currentUrl() { return block.dataset.shareUrl || window.location.href; }
+    function currentText() { return block.dataset.shareText || document.title; }
+    function currentTitle() { return block.dataset.shareTitle || document.title; }
+    function context() { return block.dataset.gaContext || ''; }
+
+    var webShareBtn = block.querySelector('.share-block-webshare');
+    var xBtn = block.querySelector('.share-block-btn--x');
+    var lineBtn = block.querySelector('.share-block-btn--line');
+    var threadsBtn = block.querySelector('.share-block-btn--threads');
+    var copyBtn = block.querySelector('.share-block-btn--copy');
+    var copyLabel = block.querySelector('.share-block-copy-label');
+
+    if (typeof navigator.share === 'function' && webShareBtn) {
+      webShareBtn.hidden = false;
+      webShareBtn.addEventListener('click', function () {
+        navigator.share({ title: currentTitle(), text: currentText(), url: currentUrl() })
+          .then(function () { ga('cta_click', { share_target: 'webshare', context: context() }); })
+          .catch(function () { /* user cancelled or unsupported */ });
+      });
+    }
+
+    if (xBtn) {
+      xBtn.addEventListener('click', function () {
+        ga('cta_click', { share_target: 'x', context: context() });
+        window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(currentText()), '_blank', 'noopener,noreferrer');
+      });
+    }
+
+    if (lineBtn) {
+      lineBtn.addEventListener('click', function () {
+        ga('cta_click', { share_target: 'line', context: context() });
+        window.open('https://social-plugins.line.me/lineit/share?url=' + encodeURIComponent(currentUrl()), '_blank', 'noopener,noreferrer');
+      });
+    }
+
+    if (threadsBtn) {
+      threadsBtn.addEventListener('click', function () {
+        ga('cta_click', { share_target: 'threads', context: context() });
+        window.open('https://www.threads.net/intent/post?text=' + encodeURIComponent(currentText()), '_blank', 'noopener,noreferrer');
+      });
+    }
+
+    if (copyBtn && copyLabel) {
+      var original = copyLabel.textContent;
+      copyBtn.addEventListener('click', function () {
+        ga('cta_click', { share_target: 'copy', context: context() });
+        var done = function () {
+          copyLabel.textContent = copyLabel.dataset.confirm || original;
+          copyBtn.classList.add('share-block-btn--copied');
+          setTimeout(function () {
+            copyLabel.textContent = original;
+            copyBtn.classList.remove('share-block-btn--copied');
+          }, 2000);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(currentUrl()).then(done).catch(function () { /* clipboard unavailable */ });
+        }
+      });
+    }
+  });
+})();
+</script>

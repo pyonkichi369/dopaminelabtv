@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TimesSubstackEmbed from '../components/TimesSubstackEmbed.astro';
+import ShareBlock from '../components/ShareBlock.astro';
 
 const QUESTIONS = [
   'I watch short-form videos for 30+ minutes without noticing',
@@ -168,19 +169,22 @@ const QUESTIONS = [
             <TimesSubstackEmbed />
           </div>
 
+          <ShareBlock
+            url="https://dopaminelabtv.com/dopamine-debt/"
+            shareText="I checked my Dopamine Debt Score.\n→ 2-minute check\nhttps://dopaminelabtv.com/dopamine-debt/\n#dopamine #neuroscience"
+            lang="en"
+            gaContext="dopamine_debt_en"
+            title="Dopamine Debt Score"
+          />
+
           <div class="check-share">
-            <a id="debt-share-btn" class="check-share-btn" href="#" target="_blank" rel="noopener noreferrer"
-               aria-label="Share on X (Twitter)">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              Share on X
-            </a>
             <button class="check-retry" id="debt-retry">
               ← Take it again
             </button>
           </div>
 
           <p class="check-other-link">
-            Other measurement: <a href="/fatigue/">check your Fatigue Coefficient →</a>
+            Other measurement: <a href="/fatigue/">check your Fatigue Coefficient →</a> / <a href="/sound/">Sound Lab →</a>
           </p>
 
           <p class="fatigue-evidence">
@@ -205,7 +209,7 @@ const QUESTIONS = [
     var started = false;
     var submitBtn = document.getElementById('debt-submit');
     var retryBtn = document.getElementById('debt-retry');
-    var shareBtnEl = document.getElementById('debt-share-btn');
+    var shareBlockEl = document.querySelector('#debt-result .share-block');
     var quizEl = document.getElementById('debt-quiz');
     var resultEl = document.getElementById('debt-result');
     var scoreNumEl = document.getElementById('debt-score-num');
@@ -329,16 +333,10 @@ const QUESTIONS = [
 
       var bandLabel = band === 'low' ? 'Low Debt' : band === 'mid' ? 'Accumulating' : band === 'high' ? 'Overdrawn' : 'Critical';
       var shareText = 'I checked my Dopamine Debt Score.\nResult: ' + bandLabel + ' (' + score + '/100)\n→ 2-minute check\nhttps://dopaminelabtv.com/dopamine-debt/\n#dopamine #neuroscience';
-      if (shareBtnEl) shareBtnEl.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText);
+      if (shareBlockEl) shareBlockEl.dataset.shareText = shareText;
 
       resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-
-    if (shareBtnEl) {
-      shareBtnEl.addEventListener('click', function () {
-        ga('cta_click', { quiz_id: 'dopamine_debt_en', cta_target: 'x_share' });
-      });
-    }
 
     document.querySelectorAll('.check-rec-link').forEach(function (link) {
       link.addEventListener('click', function () {

@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SoundLabEngine from '../../components/SoundLabEngine.astro';
+
+const NOISE_SOUNDS = [
+  {
+    id: 'pink',
+    name: 'ピンクノイズ',
+    tier: 'moderate',
+    tierLabel: 'エビデンス: 中程度',
+    desc: '睡眠中の徐波活動との関連が複数研究で報告されています。',
+    source: 'https://pubmed.ncbi.nlm.nih.gov/?term=pink+noise+sleep+slow+wave',
+  },
+  {
+    id: 'brown',
+    name: 'ブラウンノイズ',
+    tier: 'limited',
+    tierLabel: 'エビデンス: 限定的',
+    desc: '主観的な入眠しやすさの報告が中心で、質の高い臨床試験はまだ多くありません。',
+    source: 'https://pubmed.ncbi.nlm.nih.gov/?term=brown+noise+sleep',
+  },
+  {
+    id: 'white',
+    name: 'ホワイトノイズ',
+    tier: 'limited',
+    tierLabel: 'エビデンス: 限定的',
+    desc: '主観的な入眠しやすさの報告が中心で、結果は研究間で一貫していません。',
+    source: 'https://pubmed.ncbi.nlm.nih.gov/?term=white+noise+sleep',
+  },
+];
+
+const BINAURAL_SOUNDS = [
+  {
+    id: 'deep',
+    name: '深い眠り',
+    sub: 'デルタ波 · 2Hz',
+    desc: '深い睡眠段階に関連するとされる周波数帯を狙ったプリセットです。',
+  },
+  {
+    id: 'relax',
+    name: 'リラックス',
+    sub: 'シータ波 · 6Hz',
+    desc: '安静・瞑想時に見られる周波数帯を狙ったプリセットです。',
+  },
+  {
+    id: 'focus',
+    name: '静かな集中',
+    sub: 'アルファ波 · 10Hz',
+    desc: 'リラックスした覚醒状態に関連するとされる周波数帯です。',
+  },
+  {
+    id: 'gamma',
+    name: 'フォーカス40Hz',
+    sub: 'ガンマ波 · 40Hz',
+    desc: '高次認知処理との関連が研究されている周波数帯です。',
+  },
+];
+---
+
+<BaseLayout
+  title="サウンドラボ"
+  description="ピンクノイズ・ブラウンノイズ・ホワイトノイズ・バイノーラルビートをブラウザ上でその場に生成する、音源ファイル不使用のサウンドラボ。"
+  lang="ja"
+>
+  <div class="container">
+    <section class="check-section" id="sound-lab">
+      <p class="section-label">サウンドラボ</p>
+      <div class="check-intro">
+        <h1 class="check-heading" style="font-family: var(--font-jp)">
+          眠りと集中のための音、<br /><span class="check-heading-accent">すべてブラウザで生成</span>
+        </h1>
+        <p class="check-sub" style="font-family: var(--font-jp)">音源ファイル不使用 — Web Audio APIでその場に生成します</p>
+        <a href="/sound/" class="glossary-lang-switch">English version →</a>
+      </div>
+
+      <div class="sound-master">
+        <label class="sound-master-label" for="sound-volume">音量</label>
+        <input type="range" id="sound-volume" class="sound-volume" min="0" max="100" value="50" />
+
+        <div class="sound-timer">
+          <span class="sound-timer-label">スリープタイマー</span>
+          <div class="sound-timer-btns">
+            <button class="sound-timer-btn" data-min="15" type="button">15分</button>
+            <button class="sound-timer-btn" data-min="30" type="button">30分</button>
+            <button class="sound-timer-btn" data-min="60" type="button">60分</button>
+            <button class="sound-timer-btn" data-min="90" type="button">90分</button>
+            <button class="sound-timer-btn" data-min="0" type="button">オフ</button>
+          </div>
+          <p class="sound-timer-status" id="sound-timer-status" data-template="{n}分後に自動停止します" hidden></p>
+        </div>
+      </div>
+
+      <div class="sound-grid">
+        {NOISE_SOUNDS.map(s => (
+          <div class="sound-card" data-preset={s.id}>
+            <button class="sound-card-play" type="button" aria-pressed="false" aria-label={`${s.name}を再生`}>
+              <svg class="sound-card-play-icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="sound-card-play-icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+            </button>
+            <div class="sound-card-body">
+              <span class="sound-card-name" style="font-family: var(--font-jp)">{s.name}</span>
+              <div class="sound-card-badges">
+                <span class={`sound-evidence sound-evidence--${s.tier}`}>{s.tierLabel}</span>
+              </div>
+              <p class="sound-card-desc" style="font-family: var(--font-jp)">{s.desc}</p>
+              <a class="sound-card-source" href={s.source} target="_blank" rel="noopener noreferrer">出典を見る →</a>
+            </div>
+          </div>
+        ))}
+        {BINAURAL_SOUNDS.map(s => (
+          <div class="sound-card" data-preset={s.id}>
+            <button class="sound-card-play" type="button" aria-pressed="false" aria-label={`${s.name}を再生`}>
+              <svg class="sound-card-play-icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="sound-card-play-icon-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>
+            </button>
+            <div class="sound-card-body">
+              <span class="sound-card-name" style="font-family: var(--font-jp)">{s.name}<span class="sound-card-sub"> — {s.sub}</span></span>
+              <div class="sound-card-badges">
+                <span class="sound-evidence sound-evidence--limited">エビデンス: 限定的</span>
+                <span class="sound-headphone-badge">ヘッドホン必須</span>
+              </div>
+              <p class="sound-card-desc" style="font-family: var(--font-jp)">{s.desc}</p>
+              <a class="sound-card-source" href="https://pubmed.ncbi.nlm.nih.gov/?term=binaural+beats+meta-analysis" target="_blank" rel="noopener noreferrer">出典を見る →</a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="sound-disclaimer">
+        医療効果を保証するものではありません。バイノーラルビートは左右の耳に異なる周波数を届ける技術のため、ヘッドホン使用時のみ効果が期待できます。
+        エビデンスの強さは音の種類によって異なります——各カードの表示をご確認ください。
+      </p>
+
+      <p class="check-other-link" style="font-family: var(--font-jp)">
+        測定に戻る：<a href="/ja/fatigue/">疲労係数を測る →</a> ／ <a href="/ja/dopamine-debt/">ドーパミン負債スコアを測る →</a>
+      </p>
+    </section>
+  </div>
+
+  <SoundLabEngine />
+</BaseLayout>

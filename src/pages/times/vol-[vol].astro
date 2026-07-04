@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TimesMasthead from '../../components/TimesMasthead.astro';
 import TimesSubstackEmbed from '../../components/TimesSubstackEmbed.astro';
+import ShareBlock from '../../components/ShareBlock.astro';
 
 export async function getStaticPaths() {
   const allIssues = await Astro.glob('../../content/times/*.md');
@@ -18,6 +19,8 @@ const { issue } = Astro.props;
 const { Content, frontmatter } = issue;
 const volPadded = String(frontmatter.vol).padStart(3, '0');
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const shareHashtags = '#ドーパミン #脳科学 #TheDopamineTimes';
+const shareText = `「The Dopamine Times Vol.${volPadded}」${frontmatter.title ? ' — ' + frontmatter.title : ''}\n${shareHashtags}\n${canonicalURL}`;
 ---
 
 <BaseLayout
@@ -42,6 +45,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </div>
 
     <hr class="times-rule-double" />
+
+    <ShareBlock
+      url={canonicalURL.toString()}
+      shareText={shareText}
+      lang="ja"
+      gaContext={`times_vol_${volPadded}`}
+      title={`The Dopamine Times Vol.${volPadded}`}
+    />
 
     <!-- Monetization: Bookshelf affiliate CTA -->
     {frontmatter.bookUrl && (
