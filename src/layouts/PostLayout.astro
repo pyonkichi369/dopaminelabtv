@@ -1,7 +1,9 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import ShareBlock from '../components/ShareBlock.astro';
+import RelatedProduct from '../components/RelatedProduct.astro';
 import { getSeriesForSlug, getSeriesIndex } from '../data/series';
+import { matchProduct } from '../data/products';
 
 const { frontmatter, lang = 'en', ogImage } = Astro.props;
 const sources: { name: string; url?: string }[] = frontmatter.sources ?? [];
@@ -86,6 +88,10 @@ const relatedFallback = related.length > 0 ? [] : allPosts
   .slice(0, 2)
   .map(mapPost);
 const displayRelated = related.length > 0 ? related : relatedFallback;
+
+// Research-contextual product slot — matched by tag/title keyword overlap.
+// Renders nothing when no product is topically relevant (see data/products.ts).
+const matchedProduct = matchProduct(tags, frontmatter.title);
 ---
 <BaseLayout
   title={frontmatter.title}
@@ -234,6 +240,9 @@ const displayRelated = related.length > 0 ? related : relatedFallback;
         </div>
       </section>
     )}
+
+    <!-- Research-contextual product (renders nothing if no topical match) -->
+    {matchedProduct && <RelatedProduct product={matchedProduct} lang={lang as 'en' | 'ja'} />}
 
     <!-- Newsletter CTA -->
     <div class="newsletter-cta">

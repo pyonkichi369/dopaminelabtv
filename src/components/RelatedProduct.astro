@@ -1,0 +1,141 @@
+---
+// Research-contextual product slot. Renders a single product card matched
+// to the article's topic — never a random or generic product. Callers
+// (PostLayout.astro) are responsible for passing `null`-checked product
+// data; this component assumes `product` is non-null when rendered.
+//
+// Japanese ステマ規制 (景品表示法, enforced since 2023-10-01) requires a clear,
+// unambiguous advertisement label on any post containing promotional
+// content — the 広告/PR badge + one-line notice below satisfy that. The
+// English notice is included for the site's bilingual audience and mirrors
+// FTC endorsement-guideline practice.
+import type { Product } from '../data/products';
+
+export interface Props {
+  product: Product;
+  lang: 'en' | 'ja';
+}
+
+const { product, lang } = Astro.props;
+const isJa = lang === 'ja';
+const name = isJa ? product.nameJa : product.name;
+const blurb = isJa ? product.blurbJa : product.blurb;
+---
+
+<section class="related-product" aria-label={isJa ? '広告' : 'Advertisement'}>
+  <div class="related-product-card">
+    {product.imageUrl ? (
+      <img class="related-product-image" src={product.imageUrl} alt="" loading="lazy" width="72" height="72" />
+    ) : (
+      <div class="related-product-image related-product-image--placeholder" aria-hidden="true"></div>
+    )}
+    <div class="related-product-body">
+      <div class="related-product-badge-row">
+        <span class="related-product-badge">{isJa ? '広告' : 'Advertisement'}</span>
+      </div>
+      <h3 class="related-product-name" style={isJa ? 'font-family: var(--font-jp)' : ''}>{name}</h3>
+      <p class="related-product-blurb">{blurb}</p>
+      <a
+        class="related-product-link"
+        href={product.affiliateUrl}
+        target="_blank"
+        rel="sponsored nofollow noopener"
+      >
+        {isJa ? '詳しく見る →' : 'See details →'}
+      </a>
+    </div>
+  </div>
+  <p class="related-product-disclosure">
+    {isJa
+      ? 'この記事にはプロモーションを含みます。紹介する商品は記事のトピックに関連するものであり、研究内容を推奨・保証するものではありません。'
+      : 'This post contains promotional content. The product shown is topically related to this article — it is not an endorsement by the cited research.'}
+  </p>
+</section>
+
+<style>
+.related-product {
+  margin: 40px 0;
+  padding: 20px 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.related-product-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.related-product-image {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius);
+  object-fit: cover;
+}
+
+.related-product-image--placeholder {
+  background: linear-gradient(135deg, var(--accent-dim), var(--bg-hover));
+  border: 1px solid var(--border);
+}
+
+.related-product-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.related-product-badge-row {
+  margin-bottom: 6px;
+}
+
+.related-product-badge {
+  display: inline-block;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: 1px;
+  padding: 2px 7px;
+}
+
+.related-product-name {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 6px;
+  line-height: 1.4;
+}
+
+.related-product-blurb {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0 0 10px;
+}
+
+.related-product-link {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+.related-product-link:hover { opacity: 0.75; }
+
+.related-product-disclosure {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  opacity: 0.8;
+  line-height: 1.5;
+  margin: 12px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 600px) {
+  .related-product { padding: 16px 18px; }
+  .related-product-card { gap: 12px; }
+  .related-product-image { width: 56px; height: 56px; }
+}
+</style>
