@@ -5,9 +5,17 @@
 // product scores a match, the calling layout renders nothing — this file
 // has no concept of a "default" product.
 //
-// PLACEHOLDER DATA: affiliateUrl is a stand-in until the operator supplies
-// real affiliate links. See README note at the bottom of this file for the
-// exact fields to fill in.
+// REAL A8.net CATALOG (2026-07-12): programs below are drawn from the
+// operator's approved A8.net affiliate program export (328 programs,
+// programs_a18030633481_20260712003018.csv). Only programs that genuinely
+// relate to a neuroscience/health topic on the site were selected — most
+// of the 328 (job-change agents, VPS hosting, fortune telling, points
+// sites, etc.) do not belong here and were excluded.
+//
+// `affiliateUrl` is still a placeholder: "A8-PASTE-LINK:<programId>". The
+// operator finds the program by `programId` in the A8.net dashboard and
+// replaces the placeholder with the real px.a8.net tracking link. See the
+// README note at the bottom of this file.
 
 export interface Product {
   id: string;
@@ -21,154 +29,209 @@ export interface Product {
   matchKeywords: string[];
   /** Local path or URL. Empty string = component renders a neutral gradient placeholder instead. */
   imageUrl: string;
-  /** PLACEHOLDER — operator replaces with the real affiliate/tracking link. */
+  /** PLACEHOLDER — operator replaces with the real A8.net tracking link for this programId. */
   affiliateUrl: string;
   network: 'amazon' | 'rakuten' | 'a8' | 'other';
+  /** A8.net プログラムID — lets the operator find the program in the A8 dashboard. */
+  programId: string;
   disclosureRequired: true;
 }
 
 export const PRODUCTS: Product[] = [
   {
-    id: 'sleep-mask-weighted',
-    name: 'Blackout Sleep Mask',
-    nameJa: '遮光アイマスク',
-    blurb: 'A contoured, fully light-blocking sleep mask for reducing light exposure before and during sleep.',
-    blurbJa: '就寝前後の光刺激を減らすための、立体裁断の遮光アイマスク。',
+    id: 'yumeshizuku-insomnia-support',
+    name: 'Kita no Daichi no Yume Shizuku (Sleep Support Drops)',
+    nameJa: '北の大地の夢しずく',
+    blurb: 'A liquid supplement marketed for difficulty falling asleep, from Hokkaido-based supplement maker Kitanotatsujin.',
+    blurbJa: '寝つきの悩みに向けて作られた、北の達人コーポレーションの液体タイプのサプリメント。',
     category: 'sleep',
-    matchKeywords: ['sleep', 'memory', 'hippocampus', 'learning', 'insomnia', 'circadian', '睡眠', '記憶', '海馬'],
+    matchKeywords: ['insomnia', '不眠', '寝つき', '寝付き', 'sleep', '睡眠', 'melatonin', 'メラトニン'],
     imageUrl: '',
-    affiliateUrl: 'https://example.com/REPLACE-WITH-AFFILIATE-LINK-sleep-mask',
-    network: 'amazon',
+    affiliateUrl: 'A8-PASTE-LINK:s00000000204015',
+    network: 'a8',
+    programId: 's00000000204015',
     disclosureRequired: true,
   },
   {
-    id: 'analog-timer',
-    name: 'Analog Kitchen Timer',
-    nameJa: 'アナログキッチンタイマー',
-    blurb: 'A simple mechanical timer for structuring focused work intervals without a phone screen in view.',
-    blurbJa: 'スマホ画面を見ずに作業時間を区切るための、シンプルな機械式タイマー。',
-    category: 'dopamine-reward',
-    matchKeywords: ['dopamine', 'reward', 'hedonic adaptation', 'dopamine reset', 'procrastination', 'behavioral design', 'prediction error', 'ドーパミン'],
+    id: 'rokkaku-nou-makura-pillow',
+    name: 'Rokkaku Nou Makura (Hexagonal Cooling Pillow)',
+    nameJa: '六角脳枕',
+    blurb: 'A cooling, contoured pillow designed to support deep, uninterrupted sleep.',
+    blurbJa: 'ひんやりとした肌触りと立体構造で、深い眠りをサポートする設計の枕。',
+    category: 'sleep',
+    matchKeywords: ['sleep', 'memory', 'hippocampus', 'learning', '睡眠', '記憶', '海馬', '学習', '睡眠の質', 'deep sleep'],
     imageUrl: '',
-    affiliateUrl: 'https://example.com/REPLACE-WITH-AFFILIATE-LINK-analog-timer',
-    network: 'amazon',
+    affiliateUrl: 'A8-PASTE-LINK:s00000011064001',
+    network: 'a8',
+    programId: 's00000011064001',
     disclosureRequired: true,
   },
   {
-    id: 'noise-isolating-headphones',
-    name: 'Over-Ear Noise-Isolating Headphones',
-    nameJa: '遮音性オーバーイヤーヘッドホン',
-    blurb: 'Passive noise-isolating headphones for reducing auditory distraction during focused tasks.',
-    blurbJa: '集中作業中の聴覚的な気を散らす要因を減らすための、遮音性ヘッドホン。',
-    category: 'focus-attention',
-    matchKeywords: ['focus', 'attention', 'adhd', 'executive function', 'default mode network', '集中力', '注意', 'ADHD'],
+    id: 'totonoe-light-circadian-alarm',
+    name: 'Totonoe Light Plain (Light Therapy Alarm Clock)',
+    nameJa: '光目覚まし時計 トトノエライトプレーン',
+    blurb: 'A light-emitting alarm clock designed to simulate sunrise and help regulate the body\'s wake-sleep rhythm.',
+    blurbJa: '日の出のような光で体内時計・生活リズムを整えることを目的とした光目覚まし時計。',
+    category: 'sleep-circadian',
+    matchKeywords: ['circadian', '概日リズム', '体内時計', '光目覚まし', '起床', '朝', 'morning', 'circadian rhythm', 'wake up'],
     imageUrl: '',
-    affiliateUrl: 'https://example.com/REPLACE-WITH-AFFILIATE-LINK-headphones',
-    network: 'amazon',
+    affiliateUrl: 'A8-PASTE-LINK:s00000011588036',
+    network: 'a8',
+    programId: 's00000011588036',
     disclosureRequired: true,
   },
   {
-    id: 'l-theanine-caffeine',
-    name: 'L-Theanine + Caffeine Capsules',
-    nameJa: 'L-テアニン＋カフェイン配合サプリメント',
-    blurb: 'A combined L-theanine and caffeine supplement, commonly used to take the edge off caffeine\'s stimulant effect.',
-    blurbJa: 'カフェインの刺激感を和らげる目的で使われる、L-テアニンとカフェインを組み合わせたサプリメント。',
-    category: 'caffeine-adenosine',
-    matchKeywords: ['caffeine', 'adenosine', 'alertness', 'stimulant', 'カフェイン'],
+    id: 'awarefy-mental-care-app',
+    name: 'Awarefy (Mental Care App)',
+    nameJa: 'Awarefy（アウェアファイ）',
+    blurb: 'A mental-care app with over 1 million downloads, offering mood tracking, journaling, and CBT-based self-help exercises.',
+    blurbJa: '100万ダウンロード突破のメンタルケアアプリ。気分の記録・日記・認知行動療法（CBT）に基づくセルフケア機能を提供する。',
+    category: 'stress-mental-care',
+    matchKeywords: ['stress', 'anxiety', 'mindfulness', 'mood', 'journaling', 'gratitude', 'anger', 'emotion regulation', 'ストレス', '不安', 'マインドフルネス', '瞑想', '感情調節', '怒り', '感謝', '日記'],
     imageUrl: '',
-    affiliateUrl: 'https://example.com/REPLACE-WITH-AFFILIATE-LINK-l-theanine',
-    network: 'amazon',
+    affiliateUrl: 'A8-PASTE-LINK:s00000024926001',
+    network: 'a8',
+    programId: 's00000024926001',
     disclosureRequired: true,
   },
   {
-    id: 'resistance-bands',
-    name: 'Adjustable Resistance Bands Set',
-    nameJa: '負荷調整式トレーニングチューブセット',
-    blurb: 'A set of resistance bands for at-home aerobic and strength intervals, no gym required.',
-    blurbJa: '自宅で有酸素・筋力トレーニングの負荷を調整できる、トレーニングチューブのセット。',
+    id: 'hikiutsu-egao-mood-supplement',
+    name: 'Hikiutsu Egao (Mood Support Supplement)',
+    nameJa: 'ヒキウツ笑顔',
+    blurb: 'A supplement marketed as support for low mood and mental fatigue, from Japanese herbal-formula maker Shin Nihon Kanpo Lab.',
+    blurbJa: '気分の落ち込みや心の疲れに向けて作られた、新日本漢方ラボのサプリメント。',
+    category: 'stress-mood',
+    matchKeywords: ['mood', 'burnout', '気分', '憂うつ', '燃え尽き', 'ドーパミン低下', 'depression'],
+    imageUrl: '',
+    affiliateUrl: 'A8-PASTE-LINK:s00000020459002',
+    network: 'a8',
+    programId: 's00000020459002',
+    disclosureRequired: true,
+  },
+  {
+    id: 'kimochi-online-counseling',
+    name: 'Kimochi (Online Psychological Counseling)',
+    nameJa: 'Kimochi オンライン心理カウンセリング',
+    blurb: 'An online counseling platform staffed exclusively by licensed clinical psychologists (公認心理師).',
+    blurbJa: '国家資格「公認心理師」のみが登録するオンライン心理カウンセリングサービス。',
+    category: 'stress-counseling',
+    matchKeywords: ['counseling', 'burnout', 'anxiety', 'therapy', 'loneliness', 'カウンセリング', '燃え尽き', '不安', 'ストレス', '孤独'],
+    imageUrl: '',
+    affiliateUrl: 'A8-PASTE-LINK:s00000026504001',
+    network: 'a8',
+    programId: 's00000026504001',
+    disclosureRequired: true,
+  },
+  {
+    id: 'roun-cbd-wellness',
+    name: 'roun (Wellness CBD Brand)',
+    nameJa: 'roun（ラウン）',
+    blurb: 'A CBD wellness brand offering oils and related products marketed for relaxation.',
+    blurbJa: 'リラックスを目的としたオイルなどを展開する、ウェルネスCBDブランド。',
+    category: 'stress-relaxation',
+    matchKeywords: ['relaxation', 'recovery', 'cbd', 'リラックス', '副交感神経', 'ストレス'],
+    imageUrl: '',
+    affiliateUrl: 'A8-PASTE-LINK:s00000022112001',
+    network: 'a8',
+    programId: 's00000022112001',
+    disclosureRequired: true,
+  },
+  {
+    id: 'soelu-online-yoga',
+    name: 'SOELU (Online Yoga & Fitness)',
+    nameJa: 'SOELU（ソエル）',
+    blurb: 'A live, instructor-led online yoga and fitness platform taken from home.',
+    blurbJa: '自宅からライブ受講できる、インストラクター主導のオンラインヨガ・フィットネスサービス。',
     category: 'exercise-bdnf',
-    matchKeywords: ['exercise', 'bdnf', 'neuroplasticity', 'depression', 'aerobic', '運動'],
+    matchKeywords: ['exercise', 'bdnf', 'neuroplasticity', 'yoga', '運動', 'ヨガ', '神経可塑性'],
     imageUrl: '',
-    affiliateUrl: 'https://example.com/REPLACE-WITH-AFFILIATE-LINK-resistance-bands',
-    network: 'amazon',
+    affiliateUrl: 'A8-PASTE-LINK:s00000020569001',
+    network: 'a8',
+    programId: 's00000020569001',
     disclosureRequired: true,
   },
   {
-    id: 'ashwagandha',
-    name: 'Ashwagandha Supplement',
-    nameJa: 'アシュワガンダサプリメント',
-    blurb: 'An adaptogenic herb supplement often used as part of stress-management routines.',
-    blurbJa: 'ストレスマネジメントの一環として使われることの多い、アダプトゲン系ハーブのサプリメント。',
-    category: 'stress-cortisol',
-    matchKeywords: ['stress', 'cortisol', 'anxiety', 'burnout', 'recovery', 'ストレス', 'コルチゾール', '不安', 'バーンアウト'],
+    id: 'lava-hot-yoga-studio',
+    name: 'Hot Yoga Studio LAVA',
+    nameJa: 'ホットヨガスタジオLAVA',
+    blurb: 'A nationwide hot yoga studio chain offering trial sessions.',
+    blurbJa: '全国展開するホットヨガスタジオチェーン。体験レッスンを提供。',
+    category: 'exercise-stress',
+    matchKeywords: ['exercise', 'yoga', '運動', 'ヨガ'],
     imageUrl: '',
-    affiliateUrl: 'https://example.com/REPLACE-WITH-AFFILIATE-LINK-ashwagandha',
-    network: 'amazon',
+    affiliateUrl: 'A8-PASTE-LINK:s00000007809001',
+    network: 'a8',
+    programId: 's00000007809001',
     disclosureRequired: true,
   },
   {
-    id: 'zafu-cushion',
-    name: 'Meditation Cushion (Zafu)',
-    nameJa: '座禅用坐布（座蒲）',
-    blurb: 'A round meditation cushion for supporting an upright, stable seated posture during practice.',
-    blurbJa: '座る姿勢を安定させるための、円形の座禅用坐布。',
-    category: 'meditation-mindfulness',
-    matchKeywords: ['meditation', 'mindfulness', 'zen', 'buddhism', 'default mode network', '瞑想', 'マインドフルネス', '禅', '仏教'],
+    id: 'rizap-private-gym',
+    name: 'RIZAP (Private Personal Training Gym)',
+    nameJa: 'RIZAP（ライザップ）',
+    blurb: 'A private personal-training gym program with one-on-one coaching.',
+    blurbJa: 'マンツーマン指導によるプライベートジムのパーソナルトレーニングプログラム。',
+    category: 'exercise-bdnf',
+    matchKeywords: ['exercise', 'bdnf', 'depression', 'neuroplasticity', '運動', '筋トレ', 'うつ病', '神経可塑性'],
     imageUrl: '',
-    affiliateUrl: 'https://example.com/REPLACE-WITH-AFFILIATE-LINK-zafu',
-    network: 'amazon',
+    affiliateUrl: 'A8-PASTE-LINK:s00000015695001',
+    network: 'a8',
+    programId: 's00000015695001',
     disclosureRequired: true,
   },
   {
-    id: 'phone-lockbox',
-    name: 'Time-Lock Phone Box',
-    nameJa: '時限式スマホロックボックス',
-    blurb: 'A lockable box that keeps a phone physically inaccessible for a set duration, for reducing compulsive checking.',
-    blurbJa: '設定した時間はスマホを物理的に取り出せなくする、時限式のロックボックス。',
-    category: 'digital-detox',
-    matchKeywords: ['smartphone addiction', 'digital detox', 'attention', 'dopamine', 'focus', 'スマホ依存', 'デジタルデトックス'],
+    id: 'naturecan-fitness-protein',
+    name: 'Naturecan Fitness Protein',
+    nameJa: 'Naturecan（ネイチャーカン）フィットネスプロテイン',
+    blurb: 'A protein supplement product line from Naturecan, aimed at post-exercise nutrition.',
+    blurbJa: '運動後の栄養補給を目的とした、Naturecanのプロテイン・サプリメント商品ライン。',
+    category: 'exercise-nutrition',
+    matchKeywords: ['exercise', 'nutrition', 'protein', '運動', '栄養', 'プロテイン'],
     imageUrl: '',
-    affiliateUrl: 'https://example.com/REPLACE-WITH-AFFILIATE-LINK-phone-lockbox',
-    network: 'amazon',
+    affiliateUrl: 'A8-PASTE-LINK:s00000022232001',
+    network: 'a8',
+    programId: 's00000022232001',
     disclosureRequired: true,
   },
   {
-    id: 'cold-plunge-basin',
-    name: 'Portable Cold Plunge Basin',
-    nameJa: '携帯用コールドプランジバス',
-    blurb: 'A portable basin sized for at-home cold-water immersion sessions.',
-    blurbJa: '自宅で冷水浴を行うためのサイズの、携帯用コールドプランジバス。',
-    category: 'cold-exposure',
-    matchKeywords: ['cold exposure', 'cold plunge', 'cortisol', 'resilience', 'recovery', '寒冷曝露'],
+    id: 'megumi-no-lutein',
+    name: 'Megumi no Lutein 30 (Lutein Supplement)',
+    nameJa: 'めぐみのルテイン30',
+    blurb: 'A subscription lutein supplement marketed for eye strain and blurred/tired vision.',
+    blurbJa: '目のかすみ・ぼやけ・疲労感に向けた、ルテイン配合の定期便サプリメント。',
+    category: 'focus-attention',
+    matchKeywords: ['focus', 'eye strain', 'screen fatigue', '集中力', '目の疲れ', 'スクリーン', '目'],
     imageUrl: '',
-    affiliateUrl: 'https://example.com/REPLACE-WITH-AFFILIATE-LINK-cold-plunge',
-    network: 'amazon',
+    affiliateUrl: 'A8-PASTE-LINK:s00000010234015',
+    network: 'a8',
+    programId: 's00000010234015',
     disclosureRequired: true,
   },
   {
-    id: 'omega-3-fish-oil',
-    name: 'Omega-3 Fish Oil Capsules',
-    nameJa: 'オメガ3フィッシュオイルサプリメント',
-    blurb: 'A standard omega-3 (EPA/DHA) supplement, one of the more commonly studied nutrients in brain-health research.',
-    blurbJa: '脳の健康に関する研究で比較的よく取り上げられる栄養素、オメガ3（EPA/DHA）のサプリメント。',
-    category: 'nutrition',
-    matchKeywords: ['nutrition', 'omega-3', 'brain health', 'neuroplasticity', 'bdnf', 'memory', '栄養'],
+    id: 'teals-epsom-salt-bath',
+    name: "Tea'lets Epsom Salt Bath Soak",
+    nameJa: 'ティールズ エプソムソルト',
+    blurb: 'A US-origin Epsom salt bath product marketed for physical and mental unwinding during bath time.',
+    blurbJa: 'アメリカ生まれのエプソムソルト。心身をゆるめるバスタイムを目的とした入浴剤。',
+    category: 'stress-recovery',
+    matchKeywords: ['stress', 'recovery', 'relaxation', 'bath', 'magnesium', 'ストレス', '疲労回復', 'リラックス', '入浴'],
     imageUrl: '',
-    affiliateUrl: 'https://example.com/REPLACE-WITH-AFFILIATE-LINK-omega-3',
-    network: 'amazon',
+    affiliateUrl: 'A8-PASTE-LINK:s00000020835003',
+    network: 'a8',
+    programId: 's00000020835003',
     disclosureRequired: true,
   },
   {
-    id: 'gratitude-journal',
-    name: 'Guided Gratitude Journal',
-    nameJa: '感謝日記（ガイド付きジャーナル）',
-    blurb: 'A structured daily journal with prompts for gratitude and reflection practice.',
-    blurbJa: '感謝と内省の習慣づけのための、設問付きの日記帳。',
-    category: 'gratitude-social',
-    matchKeywords: ['gratitude', 'positive emotion', 'wellbeing', 'empathy', 'loneliness', 'social pain', 'connection', 'social brain', '感謝', '孤独'],
+    id: 'mykinso-gut-flora-test',
+    name: 'Mykinso (At-Home Gut Microbiome Test)',
+    nameJa: 'マイキンソー（Mykinso）',
+    blurb: 'An at-home gut microbiome (flora) testing kit, one of the largest such services in Japan.',
+    blurbJa: '国内最大級の、自宅でできる腸内フローラ検査キット。',
+    category: 'nutrition-gut-brain',
+    matchKeywords: ['microbiome', 'gut-brain axis', 'gut microbiome', 'gut flora', '腸内フローラ', '腸活', 'セロトニン', '腸脳相関'],
     imageUrl: '',
-    affiliateUrl: 'https://example.com/REPLACE-WITH-AFFILIATE-LINK-gratitude-journal',
-    network: 'amazon',
+    affiliateUrl: 'A8-PASTE-LINK:s00000027011001',
+    network: 'a8',
+    programId: 's00000027011001',
     disclosureRequired: true,
   },
 ];
@@ -199,10 +262,19 @@ export function matchProduct(tags: string[] = [], title = ''): Product | null {
 }
 
 // ── Operator: adding a real affiliate link ──────────────────────────────
-// 1. Find the product by `id` above.
-// 2. Replace `affiliateUrl` with the real tracking link.
-// 3. Set `network` to the correct program ('amazon' | 'rakuten' | 'a8' | 'other').
-// 4. Optionally set `imageUrl` to a real product photo path (leave '' for
+// 1. Find the product by `programId` below (matches the プログラムID column
+//    in your A8.net program export / dashboard).
+// 2. In the A8.net dashboard, generate the ad's tracking link (通常リンク)
+//    for that program.
+// 3. Replace `affiliateUrl` — currently "A8-PASTE-LINK:<programId>" — with
+//    the real px.a8.net link.
+// 4. `network` is already 'a8' for every product in this file.
+// 5. Optionally set `imageUrl` to a real product photo path (leave '' for
 //    the neutral gradient placeholder).
-// 5. Do NOT remove `disclosureRequired: true` — it gates the 広告/PR label
+// 6. Do NOT remove `disclosureRequired: true` — it gates the 広告/PR label
 //    in RelatedProduct.astro and must stay true for every product.
+// 7. `mykinso-gut-flora-test` does not currently match any live article's
+//    tags (no gut-brain-axis article exists yet) — it was kept because gut
+//    microbiome / serotonin is a legitimate neuroscience topic and a likely
+//    future article subject. It will start surfacing automatically once an
+//    article is tagged with matching keywords (see matchKeywords above).
