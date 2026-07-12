@@ -20,6 +20,9 @@ const { product, lang } = Astro.props;
 const isJa = lang === 'ja';
 const name = isJa ? product.nameJa : product.name;
 const blurb = isJa ? product.blurbJa : product.blurb;
+// A real affiliate link renders a clickable CTA; an unpasted A8-PASTE-LINK
+// placeholder renders as non-clickable text so we never ship a 404 link.
+const isLive = typeof product.affiliateUrl === 'string' && product.affiliateUrl.startsWith('http');
 ---
 
 <section class="related-product" aria-label={isJa ? '広告' : 'Advertisement'}>
@@ -35,14 +38,20 @@ const blurb = isJa ? product.blurbJa : product.blurb;
       </div>
       <h3 class="related-product-name" style={isJa ? 'font-family: var(--font-jp)' : ''}>{name}</h3>
       <p class="related-product-blurb">{blurb}</p>
-      <a
-        class="related-product-link"
-        href={product.affiliateUrl}
-        target="_blank"
-        rel="sponsored nofollow noopener"
-      >
-        {isJa ? '詳しく見る →' : 'See details →'}
-      </a>
+      {isLive ? (
+        <a
+          class="related-product-link"
+          href={product.affiliateUrl}
+          target="_blank"
+          rel="sponsored nofollow noopener"
+        >
+          {isJa ? '詳しく見る →' : 'See details →'}
+        </a>
+      ) : (
+        <span class="related-product-link" style="opacity:.55">
+          {isJa ? '詳しく見る（準備中）' : 'Details (coming soon)'}
+        </span>
+      )}
     </div>
   </div>
   <p class="related-product-disclosure">
