@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TimesMasthead from '../../components/TimesMasthead.astro';
-import TimesSubstackEmbed from '../../components/TimesSubstackEmbed.astro';
 import ShareBlock from '../../components/ShareBlock.astro';
 
 export async function getStaticPaths() {
@@ -81,9 +80,6 @@ const shareText = `「The Dopamine Times Vol.${volPadded}」${frontmatter.title 
         </a>
       </div>
     )}
-
-    <!-- Monetization: Substack signup -->
-    <TimesSubstackEmbed />
 
     <div class="times-archive-link">
       <a href="/times/">The Dopamine Times バックナンバー →</a>

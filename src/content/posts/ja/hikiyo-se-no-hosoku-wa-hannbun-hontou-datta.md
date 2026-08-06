@@ -93,6 +93,3 @@ sources:
 
 それで十分だと、私は思う。
 
----
-
-*毎週日曜日、新しい研究レポートをお届けしています。音声付きフルレポートは [Substack](https://dopaminelabtv.substack.com) で。*

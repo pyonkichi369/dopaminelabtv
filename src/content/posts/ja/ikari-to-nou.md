@@ -106,6 +106,3 @@ Daniel Golemanが著書『EQ——こころの知能指数』の中で「**ア�
 <a href="https://px.a8.net/svt/ejp?a8mat=45IJST+DRD0FM+5OI8+5YJRM" rel="nofollow">自宅から専門家に相談できるオンラインカウンセリング【Kimochi】</a>
 <img border="0" width="1" height="1" src="https://www13.a8.net/0.gif?a8mat=45IJST+DRD0FM+5OI8+5YJRM" alt="">
 
----
-
-*毎週日曜日、新しい研究レポートをお届けしています。音声付きフルレポートは [Substack](https://dopaminelabtv.substack.com) で。*

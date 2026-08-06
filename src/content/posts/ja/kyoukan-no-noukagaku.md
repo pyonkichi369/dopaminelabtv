@@ -83,6 +83,3 @@ sources:
 
 共感は枯渇するものではない。ただ、適切に補充する必要がある。
 
----
-
-*毎週日曜日、新しい研究レポートをお届けしています。音声付きフルレポートは [Substack](https://dopaminelabtv.substack.com) で。*

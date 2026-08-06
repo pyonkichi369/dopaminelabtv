@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="About" description="About Dopamine Lab TV — neuroscience × Japanese philosophy for the AI age. Research on dopamine, attention, focus, and the AI age.">
+<BaseLayout title="About" description="About Dopamine Lab TV — neuroscience × Japanese philosophy for the AI age. Research on dopamine, attention, and staying focused.">
   <div class="container">
     <section class="about-section">
       <h1>About the Lab</h1>
@@ -35,16 +35,43 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       <ul>
         <li><a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTube @DopamineLabTV</a> — weekly video episodes</li>
-        <li><a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Substack</a> — weekly newsletter</li>
         <li><a href="https://twitter.com/DopamineLab" target="_blank" rel="noopener noreferrer">X @DopamineLab</a> — daily signals</li>
         <li><a href="https://room.rakuten.co.jp/dopaminelabtv/items" target="_blank" rel="noopener noreferrer">Rakuten ROOM</a> — researcher-curated tools &amp; books</li>
       </ul>
 
-      <div class="jp-note">
+      <div class="jp-note" lang="ja">
         神経科学と日本哲学の交差点から、AI時代を生き抜くための信号を発信しています。
         毎週1本の研究論文と、1つの日本の哲学的視点をお届けします。
         <br /><a href="/ja/about" style="color:var(--accent);margin-top:8px;display:inline-block;">日本語版 →</a>
       </div>
     </section>
   </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About the Lab",
+    "url": "https://dopaminelabtv.com/about/",
+    "inLanguage": "en-US",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Dopamine Lab TV",
+      "url": "https://dopaminelabtv.com/",
+      "logo": "https://dopaminelabtv.com/icon-brain.png",
+      "founder": { "@type": "Person", "@id": "https://pyonkichi369.com/#takuya-hirata", "name": "Takuya Hirata" },
+      "sameAs": [
+        "https://www.youtube.com/@DopamineLabTV",
+        "https://twitter.com/DopamineLab",
+        "https://room.rakuten.co.jp/dopaminelabtv/items"
+      ]
+    }
+  })} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dopaminelabtv.com/" },
+      { "@type": "ListItem", "position": 2, "name": "About", "item": "https://dopaminelabtv.com/about/" }
+    ]
+  })} />
 </BaseLayout>

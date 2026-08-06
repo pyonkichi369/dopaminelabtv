@@ -102,6 +102,3 @@ You can think of aerobic exercise as a biological override on the stress spiral.
 
 Not magic. Just the molecular machinery, running in your favor.
 
----
-
-*New research reports every Sunday. Full audio report on [Substack](https://dopaminelabtv.substack.com).*

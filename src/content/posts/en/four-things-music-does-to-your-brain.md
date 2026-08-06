@@ -95,6 +95,3 @@ These are four distinct ways that music reaches into different neural systems, e
 
 The reason music has been present in every human culture across recorded history is not mystical. It's that it speaks to four different parts of the brain simultaneously, and each part finds something worth responding to.
 
----
-
-*New research reports every Sunday. Full audio report on [Substack](https://dopaminelabtv.substack.com).*

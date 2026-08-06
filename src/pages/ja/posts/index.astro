@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-const allPosts = await Astro.glob('../../../content/posts/ja/*.md');
+const allPosts = Object.values(import.meta.glob('../../../content/posts/ja/*.md', { eager: true })) as any[];
 const posts = allPosts.sort(
   (a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
 );
@@ -18,6 +18,15 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
   <div class="container">
     <section class="posts-section" style="padding-top: 52px;">
       <p class="section-label">全記事 — {posts.length}本</p>
+      {posts.length === 0 && (
+        <div class="posts-list">
+          <div class="post-card" style="justify-content: center; color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-jp)">
+            最初の記事は近日公開予定。
+          </div>
+        </div>
+      )}
+      {posts.length > 0 && (
+      <>
       <div class="search-bar">
         <input
           type="search"
@@ -49,6 +58,8 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
           </article>
         ))}
       </div>
+      </>
+      )}
     </section>
   </div>
 

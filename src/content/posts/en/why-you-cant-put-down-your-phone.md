@@ -83,6 +83,3 @@ Pair this with the **Screen-Free Recovery Window** from the [Practice page](/pro
 
 Those first 15 minutes will likely feel very long. That's how deep the calibration went.
 
----
-
-*New research dispatches every Sunday. Subscribe to [Substack](https://dopaminelabtv.substack.com) for the full Lab Report with audio.*

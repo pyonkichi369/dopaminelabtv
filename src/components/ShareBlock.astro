@@ -117,8 +117,26 @@ const isJa = lang === 'ja';
             copyBtn.classList.remove('share-block-btn--copied');
           }, 2000);
         };
+        // execCommand fallback for contexts without the async Clipboard API
+        // (non-secure origins, older WebViews) — otherwise the button is a
+        // silent no-op there.
+        var fallbackCopy = function () {
+          var ta = document.createElement('textarea');
+          ta.value = currentUrl();
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            if (document.execCommand('copy')) done();
+          } catch (e) { /* copy genuinely unavailable — leave label unchanged */ }
+          document.body.removeChild(ta);
+        };
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(currentUrl()).then(done).catch(function () { /* clipboard unavailable */ });
+          navigator.clipboard.writeText(currentUrl()).then(done).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
         }
       });
     }

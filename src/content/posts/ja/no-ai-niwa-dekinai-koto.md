@@ -55,6 +55,3 @@ AIが自分の判断を置き換えてしまうかもしれないと不安にな
 
 まず、あなたの注意を乗っ取っているものを理解するところから——[なぜ集中できなくなったのか](/ja/posts/naze-shuchu-dekinai)。
 
----
-
-*毎週日曜日に新しいリサーチを配信。[Substack](https://dopaminelabtv.substack.com) でフルレポートを受け取る。*

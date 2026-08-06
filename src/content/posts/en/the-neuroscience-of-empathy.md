@@ -95,6 +95,3 @@ Third: the mirror neuron basis of empathy means that emotional states are, to so
 
 On a day designed to honor the people whose brains restructured themselves around caring for us: the attunement wasn't just an attitude. It was neurological.
 
----
-
-*New research reports every Sunday. Full audio report on [Substack](https://dopaminelabtv.substack.com).*

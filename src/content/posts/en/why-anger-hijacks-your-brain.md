@@ -99,6 +99,3 @@ Talking about anger reduces it. Acting on it, usually, makes it worse.
 
 The fire burns the holder. The six seconds are the firebreak.
 
----
-
-*New research reports every Sunday. Full audio report on [Substack](https://dopaminelabtv.substack.com).*

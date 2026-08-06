@@ -24,7 +24,14 @@ function escapeXml(str) {
 }
 
 function wrapWords(text, maxChars) {
-  const words = text.split(' ');
+  // A single word longer than maxChars would overflow the canvas horizontally
+  // — hard-split it so every fragment fits on a line.
+  const words = text.split(' ').flatMap(w => {
+    if (w.length <= maxChars) return [w];
+    const parts = [];
+    for (let i = 0; i < w.length; i += maxChars) parts.push(w.slice(i, i + maxChars));
+    return parts;
+  });
   const lines = [];
   let current = '';
   for (const word of words) {
@@ -38,6 +45,16 @@ function wrapWords(text, maxChars) {
   }
   if (current) lines.push(current);
   return lines;
+}
+
+// Beyond 4 lines the title block collides with the eyebrow/footer — truncate
+// with an ellipsis instead of overflowing the 1200×630 canvas.
+const MAX_LINES = 4;
+function capLines(lines) {
+  if (lines.length <= MAX_LINES) return lines;
+  const capped = lines.slice(0, MAX_LINES);
+  capped[MAX_LINES - 1] = capped[MAX_LINES - 1].replace(/\s*$/, '') + '…';
+  return capped;
 }
 
 function wrapChars(text, maxChars) {
@@ -130,7 +147,7 @@ if (!existsSync(ogDir)) mkdirSync(ogDir, { recursive: true });
 
 function makeArticleSvg(title, isJa) {
   const maxChars = isJa ? 16 : 36;
-  const lines = isJa ? wrapChars(title, maxChars) : wrapWords(title, maxChars);
+  const lines = capLines(isJa ? wrapChars(title, maxChars) : wrapWords(title, maxChars));
   const count = lines.length;
   const fontSize = count >= 3 ? 52 : count === 2 ? 60 : 68;
   const lineH = Math.round(fontSize * 1.38);
@@ -159,6 +176,7 @@ ${FOOTER}
 }
 
 const postsRoot = join(ROOT, 'src', 'content', 'posts');
+const missingTitles = [];
 for (const lang of ['en']) {
   const dir = join(postsRoot, lang);
   const files = readdirSync(dir).filter(f => f.endsWith('.md'));
@@ -166,10 +184,17 @@ for (const lang of ['en']) {
     const slug = file.replace('.md', '');
     const content = readFileSync(join(dir, file), 'utf-8');
     const { title } = parseFrontmatter(content);
-    if (!title) { console.warn(`  ⚠ no title: ${file}`); continue; }
+    if (!title) { missingTitles.push(`${lang}/${file}`); continue; }
     const svg = makeArticleSvg(title, lang === 'ja');
     const png = await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
     writeFileSync(join(ogDir, `${slug}.png`), png);
     console.log(`✓ og/${slug}.png (${(png.length / 1024).toFixed(0)}KB)  "${title}"`);
   }
+}
+
+// A post without a title would ship a page whose og:image meta points at a
+// PNG that was never generated — fail the build instead of warning.
+if (missingTitles.length > 0) {
+  console.error(`✗ posts missing title frontmatter (no OGP generated): ${missingTitles.join(', ')}`);
+  process.exit(1);
 }

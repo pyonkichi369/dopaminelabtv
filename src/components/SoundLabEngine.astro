@@ -31,6 +31,8 @@
   var cards = document.querySelectorAll('.sound-card');
 
   if (!volumeSlider || !cards.length) return;
+  // No Web Audio support → leave the cards inert instead of throwing on click.
+  if (!window.AudioContext && !window.webkitAudioContext) return;
 
   var audioCtx = null;
   var masterGain = null;

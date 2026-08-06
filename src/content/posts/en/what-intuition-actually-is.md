@@ -103,6 +103,3 @@ And hold your expertise loosely enough to be surprised. The beginner's mind and 
 
 That's the discipline. Not ignoring the gut. Not blindly following it. Learning to read it accurately.
 
----
-
-*New research reports every Sunday. Full audio report on [Substack](https://dopaminelabtv.substack.com).*

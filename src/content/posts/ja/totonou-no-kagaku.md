@@ -106,6 +106,4 @@ sources:
 
 ---
 
-*totonou アプリは開発中です。ローンチ時の通知と、プロトコルの背景にある研究を受け取るには——[Substack](https://dopaminelabtv.substack.com) でお知らせします。*
-
 *ドーパミンサイクルを乱しているものについては、[なぜ集中できなくなったのか](/ja/posts/naze-shuchu-dekinai) もあわせてご覧ください。*

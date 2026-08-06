@@ -128,6 +128,3 @@ ADHD脳はこれに即座に、強烈に抵抗する。その抵抗がシグナ�
 
 セルフプロトコルを補う形で専門家のサポートが必要と感じるなら、[Kimochi](https://px.a8.net/svt/ejp?a8mat=45IJST+DRD0FM+5OI8+5YJRM) のオンラインカウンセリングという選択肢もある。ADHD特性の理解と日常設計を、専門家と一緒に組み立てられる。
 
----
-
-*毎週日曜日、新しい研究レポートをお届けしています。音声付きフルレポートは [Substack](https://dopaminelabtv.substack.com) で。*

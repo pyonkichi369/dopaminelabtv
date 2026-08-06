@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import TimesSubstackEmbed from '../../components/TimesSubstackEmbed.astro';
 import ShareBlock from '../../components/ShareBlock.astro';
 
 const QUESTIONS = [
@@ -154,10 +153,9 @@ const QUESTIONS = [
             <div class="fatigue-trend-bars" id="debt-trend-bars"></div>
           </div>
 
-          <div class="times-substack-crosslink">
+          <div class="times-crosslink">
             <p style="font-family: var(--font-jp)">毎週日曜、The Dopamine Times と一緒に再測定するのがおすすめです。</p>
             <a href="/times/" class="fatigue-times-link" id="debt-times-link">The Dopamine Times を見る →</a>
-            <TimesSubstackEmbed />
           </div>
 
           <ShareBlock

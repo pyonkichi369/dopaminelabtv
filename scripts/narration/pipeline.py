@@ -94,7 +94,8 @@ def run_pipeline(
     final_script = out_dir / "script.txt"
 
     if script_path and script_path.exists():
-        shutil.copy2(script_path, final_script)
+        if script_path.resolve() != final_script.resolve():
+            shutil.copy2(script_path, final_script)
         print(f"\n[1/3] スクリプト: {script_path} (既存使用)", file=sys.stderr)
     elif article_path:
         print(f"\n[1/3] 記事 → スクリプト変換", file=sys.stderr)

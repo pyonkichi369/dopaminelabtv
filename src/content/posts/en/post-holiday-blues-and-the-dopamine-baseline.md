@@ -127,6 +127,3 @@ The brain, inside that repetition, quietly returns the threshold to where ordina
 
 It isn't willpower. It's design.
 
----
-
-*New research letters every Sunday. Full reports with audio at [Substack](https://dopaminelabtv.substack.com).*

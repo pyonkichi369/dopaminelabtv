@@ -2,7 +2,7 @@
 
 **神経科学 × 日本哲学 for AI時代の社会人**
 
-[dopaminelabtv.com](https://dopaminelabtv.com) | [Substack](https://dopaminelabtv.substack.com) | [note](https://note.com/th19930828)
+[dopaminelabtv.com](https://dopaminelabtv.com) | [note](https://note.com/th19930828)
 
 ---
 

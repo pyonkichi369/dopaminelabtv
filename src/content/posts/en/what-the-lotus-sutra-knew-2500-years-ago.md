@@ -137,6 +137,3 @@ When motivation isn't there, before blaming yourself, try one quiet question:
 
 *Is the right anticipation in place?*
 
----
-
-*New research letters every Sunday. Full reports with audio at [Substack](https://dopaminelabtv.substack.com).*

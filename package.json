@@ -2,9 +2,12 @@
   "name": "dopaminelabtv",
   "type": "module",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=18.17"
+  },
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/generate-og.mjs && (python3 scripts/generate-og-ja.py || echo 'JA OGP skipped (Pillow/font unavailable — use pre-built images)') && astro build",
+    "build": "bash scripts/build.sh",
     "preview": "astro preview",
     "new-post": "node scripts/new-post.mjs"
   },

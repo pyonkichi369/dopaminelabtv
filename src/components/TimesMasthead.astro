@@ -11,6 +11,9 @@ function formatDateline(d: string) {
     .toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' })
     .replace(/\//g, '.');
 }
+
+// A malformed frontmatter date must drop the dateline, not print "Invalid Date".
+const hasDateline = vol !== undefined && !!date && !Number.isNaN(new Date(date).getTime());
 ---
 
 <div class="times-masthead">
@@ -18,8 +21,8 @@ function formatDateline(d: string) {
     <p class="times-kicker">脳とドーパミンの週刊研究紙</p>
     <h1 class="times-title">The Dopamine Times</h1>
   </a>
-  {vol !== undefined && date && (
-    <p class="times-dateline">Vol.{String(vol).padStart(3, '0')} — {formatDateline(date)}</p>
+  {hasDateline && (
+    <p class="times-dateline">Vol.{String(vol).padStart(3, '0')} — {formatDateline(date!)}</p>
   )}
 </div>
 <hr class="times-rule-double" />

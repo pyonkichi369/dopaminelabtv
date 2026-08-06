@@ -99,6 +99,3 @@ sources:
 
 脳の設計を責めなくていい。設計に合わせた環境を作ればいい。
 
----
-
-*毎週日曜日、新しい研究レポートをお届けしています。音声付きフルレポートは [Substack](https://dopaminelabtv.substack.com) で。*

@@ -104,6 +104,3 @@ The wandering is not the failure. The moment you notice you've wandered is the e
 
 The sitting is simple. The change is real.
 
----
-
-*New research reports every Sunday. Full audio report on [Substack](https://dopaminelabtv.substack.com).*

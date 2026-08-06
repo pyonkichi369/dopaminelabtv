@@ -45,6 +45,3 @@ If this pattern sounds like your baseline — not just occasional distraction bu
 
 For the practical reset protocol, [What Zen Knew Before Neuroscience](/posts/what-zen-knew-before-neuroscience) covers the attention-training practice that produces measurable brain changes in 8 weeks.
 
----
-
-*New research dispatches every Sunday. Subscribe to [Substack](https://dopaminelabtv.substack.com) for the full Lab Report with audio.*

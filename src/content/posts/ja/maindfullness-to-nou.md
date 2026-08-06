@@ -117,6 +117,3 @@ Ulrichの研究が示す副交感神経活性化効果を日常に持続させ�
 <a href="https://px.a8.net/svt/ejp?a8mat=4B3R32+5SZIGI+4W8G+5YJRM" rel="nofollow">パーソナル診断で自分に合う観葉植物が見つかるオンラインストア【AND PLANTS】</a>
 <img border="0" width="1" height="1" src="https://www13.a8.net/0.gif?a8mat=4B3R32+5SZIGI+4W8G+5YJRM" alt="">
 
----
-
-*毎週日曜日、新しい研究レポートをお届けしています。音声付きフルレポートは [Substack](https://dopaminelabtv.substack.com) で。*

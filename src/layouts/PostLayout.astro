@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import ShareBlock from '../components/ShareBlock.astro';
 import RelatedProduct from '../components/RelatedProduct.astro';
 import { getSeriesForSlug, getSeriesIndex } from '../data/series';
+import { getAlternatePostSlug } from '../data/post-pairs';
 import { matchProduct } from '../data/products';
 
 const { frontmatter, lang = 'en', ogImage } = Astro.props;
@@ -58,6 +59,13 @@ const faqLD = faqItems.length > 0 ? {
 
 // Series
 const currentSlug = Astro.url.pathname.split('/').filter(Boolean).pop() ?? '';
+
+// hreflang — translated counterpart uses a different slug, so the mirrored-path
+// derivation can't find it; the pair table supplies the real alternate path.
+const alternateSlug = getAlternatePostSlug(currentSlug, lang as 'en' | 'ja');
+const alternatePath = alternateSlug
+  ? (isJa ? `/posts/${alternateSlug}/` : `/ja/posts/${alternateSlug}/`)
+  : undefined;
 const seriesInfo = getSeriesForSlug(currentSlug, lang as 'en' | 'ja');
 const seriesIndex = seriesInfo ? getSeriesIndex(seriesInfo, currentSlug, lang as 'en' | 'ja') : -1;
 
@@ -98,6 +106,8 @@ const matchedProduct = matchProduct(tags, frontmatter.title);
   description={frontmatter.excerpt}
   ogImage={ogImage}
   lang={lang}
+  hreflang={!!alternatePath}
+  alternate={alternatePath}
   article={{
     publishedTime: frontmatter.date,
     updatedDate: frontmatter.updatedDate,
@@ -181,9 +191,6 @@ const matchedProduct = matchProduct(tags, frontmatter.title);
               {frontmatter.notePrice ? `有料版を読む（¥${frontmatter.notePrice}）→` : 'noteで深掘りする →'}
             </a>
           )}
-          <a class="btn btn--outline" href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">
-            {isJa ? 'Substackで読む →' : 'Read on Substack →'}
-          </a>
         </div>
       </div>
     </div>
@@ -243,27 +250,6 @@ const matchedProduct = matchProduct(tags, frontmatter.title);
 
     <!-- Research-contextual product (renders nothing if no topical match) -->
     {matchedProduct && <RelatedProduct product={matchedProduct} lang={lang as 'en' | 'ja'} />}
-
-    <!-- Newsletter CTA -->
-    <div class="newsletter-cta">
-      <span class="newsletter-cta-eyebrow">{isJa ? 'ラボレポート' : 'THE LAB REPORT'}</span>
-      <h3 class="newsletter-cta-title">
-        {isJa ? '毎週日曜、脳科学の新知見をお届け。' : 'New research dispatches, every Sunday.'}
-      </h3>
-      <p class="newsletter-cta-desc">
-        {isJa
-          ? '集中力・ドーパミン・AI時代の注意——無料、広告なし。'
-          : 'Dopamine, focus, attention in the AI age — free, no fluff.'}
-      </p>
-      <a
-        class="btn newsletter-cta-btn"
-        href="https://dopaminelabtv.substack.com"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {isJa ? 'Substackで購読する →' : 'Subscribe on Substack →'}
-      </a>
-    </div>
   </div>
 
   <!-- ADHD Reading Support Toolbar -->
@@ -314,9 +300,8 @@ const matchedProduct = matchProduct(tags, frontmatter.title);
         <span class="adhd-tldr-ct">({tldr.length})</span>
         <span class="adhd-tldr-chv" aria-hidden="true">▾</span>
       </button>
-      <ul class="adhd-tldr-ul" id="adhd-tldr-ul" hidden>
-        {tldr.map((pt) => <li>{pt}</li>)}
-      </ul>
+      <!-- Populated by JS from the visible .tldr-list (no duplicate static text) -->
+      <ul class="adhd-tldr-ul" id="adhd-tldr-ul" hidden></ul>
     </div>
   )}
 
@@ -532,6 +517,13 @@ const matchedProduct = matchProduct(tags, frontmatter.title);
     const pipChv = document.querySelector('.adhd-tldr-chv') as HTMLElement | null;
 
     if (pip && tldrBox) {
+      if (pipUl && pipUl.children.length === 0) {
+        tldrBox.querySelectorAll('.tldr-item').forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = item.textContent;
+          pipUl.appendChild(li);
+        });
+      }
       const pipObs = new IntersectionObserver(entries => {
         entries.forEach(e => { pip.hidden = e.isIntersecting; });
       }, { threshold: 0.5 });
@@ -554,7 +546,8 @@ const matchedProduct = matchProduct(tags, frontmatter.title);
 /* ── ADHD toolbar ──────────────────────────────────── */
 .adhd-tb {
   position: fixed;
-  bottom: 1.5rem;
+  /* Stacked above the site-wide Lab BGM button (.ap: bottom 28px, 44px tall) */
+  bottom: 5.25rem;
   right: 1.5rem;
   z-index: 900;
   display: flex;
@@ -787,7 +780,7 @@ body.adhd-font-xl    #article-body { font-size: 1.22rem; line-height: 1.9; }
 }
 
 @media (max-width: 600px) {
-  .adhd-tb     { bottom: 1rem; right: 1rem; }
+  .adhd-tb     { bottom: 4.5rem; right: 1.125rem; }
   .adhd-tldr-pip { bottom: 1rem; left: 1rem; max-width: calc(100vw - 6rem); }
   .adhd-panel  { max-width: 210px; }
 }

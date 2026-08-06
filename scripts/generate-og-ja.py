@@ -39,10 +39,17 @@ def parse_frontmatter(content):
         result[key.strip()] = val.strip().strip('"\'')
     return result
 
+# Beyond 4 lines the title block collides with the eyebrow/footer —
+# truncate with an ellipsis instead of overflowing the canvas.
+MAX_LINES = 4
+
 def wrap_ja(text, max_chars=16):
     lines = []
     for i in range(0, len(text), max_chars):
         lines.append(text[i:i+max_chars])
+    if len(lines) > MAX_LINES:
+        lines = lines[:MAX_LINES]
+        lines[-1] = lines[-1][:max_chars - 1] + '…'
     return lines
 
 def draw_og(title, slug):
@@ -97,13 +104,36 @@ def draw_og(title, slug):
     size_kb = out_path.stat().st_size // 1024
     print(f'✓ og/{slug}.png ({size_kb}KB)  "{title}"')
 
+# Static pages that set ogImage="/og/..." in src/pages — kept in sync with
+# the .astro files; scripts/check-og.mjs fails the build if one is missing.
+STATIC_PAGES = [
+    ('totonou',       'totonou — Focus & Reset App'),
+    ('glossary',      'Japanese Philosophy Glossary'),
+    ('protocols',     'Totonou Protocols — Practical Reset Methods'),
+    ('research',      'Research & Evidence'),
+    ('ja/totonou',    'totonou — 集中力・リセットアプリ'),
+    ('ja/glossary',   '禅語・仏教・神道・武士道辞典'),
+    ('ja/protocols',  'ととのうプロトコル — 実践的リセット法'),
+    ('ja/research',   '参考文献・エビデンスライブラリ'),
+]
+
 if __name__ == '__main__':
+    missing = []
     for md_file in sorted(POSTS_JA.glob('*.md')):
         slug = md_file.stem
         content = md_file.read_text(encoding='utf-8')
         fm = parse_frontmatter(content)
         title = fm.get('title', '')
         if not title:
-            print(f'  ⚠ no title: {md_file.name}')
+            missing.append(md_file.name)
             continue
         draw_og(title, slug)
+
+    (OG_DIR / 'ja').mkdir(parents=True, exist_ok=True)
+    for slug, title in STATIC_PAGES:
+        draw_og(title, slug)
+
+    # A post without a title ships a page whose og:image points at a PNG
+    # that was never generated — fail instead of warning.
+    if missing:
+        raise SystemExit(f'✗ posts missing title frontmatter (no OGP generated): {", ".join(missing)}')

@@ -101,6 +101,3 @@ Every time you use an implementation intention and follow through, you're not ju
 
 That's the real fix. Not more willpower. More architecture.
 
----
-
-*New research reports every Sunday. Full audio report on [Substack](https://dopaminelabtv.substack.com).*

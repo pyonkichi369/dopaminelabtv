@@ -91,6 +91,3 @@ The brain is looking for signal. Specific, real gratitude provides it.
 
 And if ichinichi ichizen speaks to you: one small deliberate act tomorrow. Not for credit. For the neural architecture it builds, brick by brick.
 
----
-
-*New research reports every Sunday. Full audio report on [Substack](https://dopaminelabtv.substack.com).*

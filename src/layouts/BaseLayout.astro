@@ -8,6 +8,15 @@ export interface Props {
   description?: string;
   ogImage?: string;
   lang?: 'en' | 'ja';
+  /* Set false on pages whose translated counterpart does not exist at the
+     mirrored /ja path (e.g. tag pages — en tag slugs ≠ ja tag slugs). */
+  hreflang?: boolean;
+  /* Absolute path of this page's other-language counterpart when it does NOT
+     live at the mirrored /ja path (e.g. article translations use different
+     slugs — see src/data/post-pairs.ts). Overrides the derived alternate. */
+  alternate?: string;
+  /* Error/utility pages (404) — emits noindex and drops canonical/hreflang. */
+  noindex?: boolean;
   article?: {
     publishedTime: string;
     updatedDate?: string;
@@ -23,18 +32,29 @@ const {
   description = 'Neuroscience × Japanese philosophy for the AI age. Research on dopamine, attention, and staying focused in the era of AI.',
   ogImage = '/og-default.png',
   lang = 'en',
+  hreflang = true,
+  alternate,
+  noindex = false,
   article,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const alternateURL = alternate ? new URL(alternate, Astro.site) : null;
 const enURL = lang === 'en'
   ? canonicalURL
-  : new URL(Astro.url.pathname.replace(/^\/ja/, '') || '/', Astro.site);
+  : (alternateURL ?? new URL(Astro.url.pathname.replace(/^\/ja/, '') || '/', Astro.site));
 const jaURL = lang === 'ja'
   ? canonicalURL
-  : new URL('/ja' + Astro.url.pathname, Astro.site);
+  : (alternateURL ?? new URL('/ja' + Astro.url.pathname, Astro.site));
+/* A ja-language page living outside /ja (e.g. /times/) has no derivable EN
+   counterpart — the mirrored-path math would declare the same URL as both
+   languages. Suppress hreflang there unless an explicit alternate is given. */
+const showHreflang = hreflang && !noindex
+  && (lang === 'en' || !!alternateURL || Astro.url.pathname.startsWith('/ja'));
 const siteName = 'Dopamine Lab TV';
-const fullTitle = title === 'The Lab is Open' ? `${siteName} — The science of staying human.` : `${title} | ${siteName}`;
+const fullTitle = title === 'The Lab is Open'
+  ? `${siteName} — The science of staying human.`
+  : title.includes(siteName) ? title : `${title} | ${siteName}`;
 
 // JSON-LD — tag → Wikipedia entity for `mentions`
 const tagEntityMap: Record<string, { name: string; url: string }> = {
@@ -101,7 +121,7 @@ const jsonLD = isArticle ? {
     founder: { '@type': 'Person', '@id': 'https://pyonkichi369.com/#takuya-hirata', name: 'Takuya Hirata' },
   },
   mainEntityOfPage: canonicalURL.toString(),
-  keywords: article?.tags?.join(', '),
+  ...(article?.tags?.length ? { keywords: article.tags.join(', ') } : {}),
   speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.tldr-box', '.article-body > p:first-of-type'] },
   ...(article?.isPartOf ? { isPartOf: { '@type': 'CreativeWorkSeries', name: article.isPartOf.name } } : {}),
   ...(articleMentions.length ? { about: articleMentions.slice(0, 3), mentions: articleMentions } : {}),
@@ -120,7 +140,6 @@ const jsonLD = isArticle ? {
   description,
   sameAs: [
     'https://www.youtube.com/@DopamineLabTV',
-    'https://dopaminelabtv.substack.com',
     'https://twitter.com/DopamineLab',
     'https://room.rakuten.co.jp/dopaminelabtv/items',
     'https://pyonkichi369.com/',
@@ -158,13 +177,15 @@ const jsonLD = isArticle ? {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
-  <link rel="canonical" href={canonicalURL} />
-  <link rel="alternate" hreflang="en" href={enURL} />
-  <link rel="alternate" hreflang="ja" href={jaURL} />
-  <link rel="alternate" hreflang="x-default" href={enURL} />
+  {!noindex && <link rel="canonical" href={canonicalURL} />}
+  {showHreflang && <link rel="alternate" hreflang="en" href={enURL} />}
+  {showHreflang && <link rel="alternate" hreflang="ja" href={jaURL} />}
+  {showHreflang && <link rel="alternate" hreflang="x-default" href={enURL} />}
 
   <!-- SEO -->
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  {noindex
+    ? <meta name="robots" content="noindex, nofollow" />
+    : <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />}
   <meta name="author" content="Dopamine Lab TV" />
   <meta name="keywords" content="dopamine, ADHD, focus, neuroscience, Zen, Japanese philosophy, AI anxiety, attention, digital wellness, mindfulness" />
 
@@ -230,7 +251,6 @@ const jsonLD = isArticle ? {
   <!-- DNS prefetch for external domains -->
   <link rel="dns-prefetch" href="https://www.youtube.com" />
   <link rel="dns-prefetch" href="https://twitter.com" />
-  <link rel="dns-prefetch" href="https://dopaminelabtv.substack.com" />
 
   <!-- og:locale:alternate for bilingual -->
   <meta property="og:locale" content={lang === 'ja' ? 'ja_JP' : 'en_US'} />
@@ -274,9 +294,7 @@ const jsonLD = isArticle ? {
             <a href="/ja/protocols">実践</a>
             <a href="/times/">Times</a>
             <a href="/ja/about">About</a>
-            <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTube</a>
-            <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Newsletter</a>
-            <a href="/" class="lang-switch">EN</a>
+            <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTube</a>            <a href="/" class="lang-switch">EN</a>
           </>
         ) : (
           <>
@@ -285,9 +303,7 @@ const jsonLD = isArticle ? {
             <a href="/protocols">Practice</a>
             <a href="/times/">Times</a>
             <a href="/about">About</a>
-            <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTube</a>
-            <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Newsletter</a>
-            <a href="/ja/" class="lang-switch">JP</a>
+            <a href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTube</a>            <a href="/ja/" class="lang-switch">JP</a>
           </>
         )}
       </nav>
@@ -315,9 +331,7 @@ const jsonLD = isArticle ? {
             <a href="/ja/protocols" class="mobile-nav-link">実践</a>
             <a href="/times/" class="mobile-nav-link">Times</a>
             <a href="/ja/about" class="mobile-nav-link">About</a>
-            <a href="https://www.youtube.com/@DopamineLabTV" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">YouTube</a>
-            <a href="https://dopaminelabtv.substack.com" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">Newsletter</a>
-          </>
+            <a href="https://www.youtube.com/@DopamineLabTV" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">YouTube</a>          </>
         ) : (
           <>
             <a href="/posts" class="mobile-nav-link">Articles</a>
@@ -325,9 +339,7 @@ const jsonLD = isArticle ? {
             <a href="/protocols" class="mobile-nav-link">Practice</a>
             <a href="/times/" class="mobile-nav-link">Times</a>
             <a href="/about" class="mobile-nav-link">About</a>
-            <a href="https://www.youtube.com/@DopamineLabTV" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">YouTube</a>
-            <a href="https://dopaminelabtv.substack.com" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">Newsletter</a>
-          </>
+            <a href="https://www.youtube.com/@DopamineLabTV" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">YouTube</a>          </>
         )}
       </nav>
     </div>
@@ -341,7 +353,7 @@ const jsonLD = isArticle ? {
 
   <footer>
     <div class="footer-inner">
-      <p class="footer-copy">© 2026 Dopamine Lab TV · The science of staying human. · <a href={lang === 'ja' ? '/ja/privacy' : '/privacy'} style="color:inherit;opacity:0.6;text-decoration:none;">{lang === 'ja' ? 'プライバシー' : 'Privacy'}</a> · {lang === 'ja' ? '運営者: ' : 'Operator: '}<a href="https://takuyahirata.com" target="_blank" rel="me noopener noreferrer" style="color:inherit;opacity:0.6;text-decoration:none;">{lang === 'ja' ? '平田拓也' : 'Takuya Hirata'}</a></p>
+      <p class="footer-copy">© 2026 Dopamine Lab TV · The science of staying human. · <a href={lang === 'ja' ? '/ja/privacy' : '/privacy'}>{lang === 'ja' ? 'プライバシー' : 'Privacy'}</a> · {lang === 'ja' ? '運営者: ' : 'Operator: '}<a href="https://takuyahirata.com" target="_blank" rel="me noopener noreferrer">{lang === 'ja' ? '平田拓也' : 'Takuya Hirata'}</a></p>
       <div class="footer-links">
         {lang === 'ja' ? (
           <>
@@ -351,9 +363,7 @@ const jsonLD = isArticle ? {
             <a href="/ja/research">参考文献</a>
             <a href="/ja/protocols">実践</a>
             <a href="/times/">Times</a>
-            <a href="/ja/tags/">タグ</a>
-            <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-            <a href="/rss-ja.xml" aria-label="RSS Feed">RSS</a>
+            <a href="/ja/tags/">タグ</a>            <a href="/rss-ja.xml" aria-label="RSS Feed">RSS</a>
           </>
         ) : (
           <>
@@ -363,9 +373,7 @@ const jsonLD = isArticle ? {
             <a href="/research">Research</a>
             <a href="/protocols">Protocols</a>
             <a href="/times/">Times</a>
-            <a href="/tags/">Tags</a>
-            <a href="https://dopaminelabtv.substack.com" target="_blank" rel="noopener noreferrer">Substack</a>
-            <a href="/rss.xml" aria-label="RSS Feed">RSS</a>
+            <a href="/tags/">Tags</a>            <a href="/rss.xml" aria-label="RSS Feed">RSS</a>
           </>
         )}
       </div>
@@ -407,7 +415,7 @@ const jsonLD = isArticle ? {
       });
     })();
 
-    // Global click tracking — affiliate / Substack / outbound
+    // Global click tracking — affiliate / outbound
   (function () {
     function ga(event, params) {
       if (typeof window.gtag === 'function') window.gtag('event', event, params || {});
@@ -419,8 +427,6 @@ const jsonLD = isArticle ? {
       var text = (link.textContent || '').trim().slice(0, 80);
       if (href.indexOf('a8.net') !== -1 || href.indexOf('px.a8') !== -1) {
         ga('affiliate_click', { link_url: href, link_text: text, page: window.location.pathname });
-      } else if (href.indexOf('dopaminelabtv.substack.com') !== -1) {
-        ga('substack_click', { link_text: text, page: window.location.pathname });
       } else if (href.indexOf('room.rakuten.co.jp') !== -1) {
         ga('rakuten_click', { link_url: href, page: window.location.pathname });
       }

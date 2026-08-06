@@ -46,6 +46,3 @@ sources:
 
 実践的なリセット法については、[禅が神経科学より先に知っていたこと](/ja/posts/zen-ga-shinkagaku-yori-shitte-ita-koto)が8週間で脳に計測可能な変化をもたらす注意訓練を解説している。
 
----
-
-*毎週日曜日に新しいリサーチを配信。[Substack](https://dopaminelabtv.substack.com) でフルレポートを受け取る。*

@@ -2,7 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await Astro.glob('../../../content/posts/ja/*.md');
+  const posts = Object.values(import.meta.glob('../../../content/posts/ja/*.md', { eager: true })) as any[];
   const tagMap = new Map<string, typeof posts>();
   posts.forEach(p => {
     (p.frontmatter.tags ?? []).forEach((t: string) => {
@@ -30,9 +30,10 @@ function formatDate(d: string) {
 function tagHref(t: string) { return `/ja/tags/${t}`; }
 ---
 <BaseLayout
-  title={`#${tag} — Dopamine Lab TV`}
+  title={`#${tag} の記事一覧`}
   description={`「${tag}」タグの全記事一覧。Dopamine Lab TV — 神経科学と日本哲学。`}
   lang="ja"
+  hreflang={false}
 >
   <div class="container">
     <section class="posts-section" style="padding-top:52px;">
@@ -69,4 +70,21 @@ function tagHref(t: string) { return `/ja/tags/${t}`; }
       <p style="margin-top:40px;font-size:0.9rem;"><a href="/ja/posts">← 全記事一覧</a></p>
     </section>
   </div>
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `#${tag} — Dopamine Lab TV`,
+  description: `「${tag}」タグの全記事一覧。`,
+  url: `https://dopaminelabtv.com/ja/tags/${encodeURIComponent(tag)}/`,
+  inLanguage: 'ja',
+  hasPart: posts.map(post => ({
+    '@type': 'Article',
+    headline: post.frontmatter.title,
+    description: post.frontmatter.excerpt,
+    url: `https://dopaminelabtv.com/ja/posts/${slug(post)}/`,
+    datePublished: post.frontmatter.date,
+    inLanguage: 'ja',
+  })),
+})} />
 </BaseLayout>

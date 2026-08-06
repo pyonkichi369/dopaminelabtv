@@ -95,6 +95,3 @@ The universe isn't rearranging itself around your thoughts. You're rearranging y
 
 That's smaller-sounding than the mystical version. But it's also *actually within your control*, which makes it more useful.
 
----
-
-*New research reports every Sunday. Full audio report on [Substack](https://dopaminelabtv.substack.com).*

@@ -82,7 +82,18 @@ body::before {
   opacity: 0.45;
 }
 
-main, header, footer { position: relative; z-index: 1; }
+header, footer { position: relative; z-index: 1; }
+/* main sits above the footer: fixed overlays rendered inside main (reading
+   progress, ADHD toolbar, TL;DR pip) are trapped in its stacking context and
+   would otherwise paint under — and be unclickable behind — the footer. */
+main { position: relative; z-index: 2; }
+
+/* Japanese phrase-aware wrapping (Chrome 119+; harmless no-op elsewhere) —
+   keeps headings like 「刺激と反応のあいだ」 from breaking mid-word. */
+html[lang="ja"] h1, html[lang="ja"] h2, html[lang="ja"] h3 {
+  word-break: auto-phrase;
+  text-wrap: pretty;
+}
 
 a { color: var(--accent); text-decoration: none; transition: opacity 0.15s; }
 a:hover { opacity: 0.75; }
@@ -137,15 +148,17 @@ header {
 
 .logo .lab { color: var(--accent); }
 
-nav { display: flex; gap: 24px; align-items: center; }
+/* Scoped to the header — a bare `nav` selector also hits nav.toc /
+   nav.breadcrumb and the mobile `nav { display:none }` was hiding the ToC. */
+header nav { display: flex; gap: 24px; align-items: center; }
 
-nav a {
+header nav a {
   color: var(--text-muted);
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-nav a:hover { color: var(--text); opacity: 1; }
+header nav a:hover { color: var(--text); opacity: 1; }
 
 .lang-switch {
   border: 1px solid var(--border-accent);
@@ -715,6 +728,32 @@ nav a:hover { color: var(--text); opacity: 1; }
   color: var(--text-muted);
 }
 
+.article-body pre {
+  overflow-x: auto;
+  padding: 16px 20px;
+  margin: 2em 0;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+.article-body code {
+  font-size: 0.9em;
+  overflow-wrap: break-word;
+}
+.article-body table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 2em 0;
+  font-size: 0.9rem;
+}
+.article-body th, .article-body td {
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  text-align: left;
+}
+
 .article-body hr {
   border: none;
   border-top: 1px solid var(--border);
@@ -833,6 +872,15 @@ footer::before {
   font-family: var(--font-jp);
   letter-spacing: 0.03em;
 }
+/* Links inherit --text-muted (AA 4.5:1) at full opacity; a subtle underline
+   keeps them distinguishable from the surrounding copy. */
+.footer-copy a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(30, 25, 16, 0.3);
+  text-underline-offset: 2px;
+}
+.footer-copy a:hover { text-decoration-color: currentColor; }
 
 .footer-links { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; justify-content: center; }
 .footer-links a {
@@ -1173,8 +1221,8 @@ footer::before {
 /* Medium: 769–1080px — nav items start to crowd */
 @media (min-width: 601px) and (max-width: 1080px) {
   .header-inner { padding: 0 24px; }
-  nav { gap: 18px; }
-  nav a { font-size: 0.75rem; }
+  header nav { gap: 18px; }
+  header nav a { font-size: 0.75rem; }
 }
 
 @media (max-width: 768px) {
@@ -1206,7 +1254,7 @@ footer::before {
   .logo { font-size: 0.875rem; gap: 8px; }
   .logo img { width: 20px; height: 20px; }
   /* デスクトップ nav を非表示 → hamburger に切り替え */
-  nav { display: none; }
+  header nav { display: none; }
   .header-mobile-controls { display: flex; }
   .header-lang-switch { display: inline-flex; }
   .nav-toggle { display: flex; }
@@ -2519,23 +2567,6 @@ h3:hover .heading-anchor {
   margin-bottom: 0 !important;
 }
 
-.times-substack {
-  margin-top: 32px;
-  padding: 28px 32px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  text-align: center;
-}
-
-.times-substack-pitch {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-bottom: 14px;
-}
-
-.times-substack iframe { border-radius: var(--radius); }
-
 .times-archive-link {
   text-align: center;
   margin-top: 40px;
@@ -2593,7 +2624,6 @@ h3:hover .heading-anchor {
 
 @media (max-width: 600px) {
   .times-masthead { padding: 40px 0 20px; }
-  .times-substack { padding: 22px 18px; }
   .times-teaser { padding: 16px 18px; }
 }
 
@@ -2668,7 +2698,7 @@ h3:hover .heading-anchor {
   white-space: nowrap;
 }
 
-.times-substack-crosslink {
+.times-crosslink {
   margin: 32px 0;
   padding: 24px 26px;
   background: var(--bg-card);
@@ -2677,7 +2707,7 @@ h3:hover .heading-anchor {
   text-align: center;
 }
 
-.times-substack-crosslink p {
+.times-crosslink p {
   font-size: 0.85rem;
   color: var(--text-muted);
   margin-bottom: 12px !important;
@@ -2751,7 +2781,7 @@ h3:hover .heading-anchor {
 @media (max-width: 600px) {
   .fatigue-score-num { font-size: 2.6rem; }
   .fatigue-trend-bars { gap: 5px; height: 70px; }
-  .times-substack-crosslink { padding: 18px 16px; }
+  .times-crosslink { padding: 18px 16px; }
   .fatigue-link-card { padding: 14px 18px; }
 }
 

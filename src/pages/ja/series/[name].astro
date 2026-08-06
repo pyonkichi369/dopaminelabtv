@@ -23,7 +23,7 @@ const seriesPosts = series.slugs.ja.map((slug: string) => ({
 ---
 
 <BaseLayout
-  title={`${series.titleJa} | Dopamine Lab TV`}
+  title={series.titleJa}
   description={series.descriptionJa}
   lang="ja"
 >
@@ -53,7 +53,7 @@ const seriesPosts = series.slugs.ja.map((slug: string) => ({
           <span class="series-post-num">0{series.slugs.ja.length + 1}</span>
           <div class="series-post-body">
             <h2 class="series-post-title series-post-title--upcoming" style="font-family: var(--font-jp)">次の記事——近日公開</h2>
-            <p class="series-post-excerpt" style="font-family: var(--font-jp)">Substackで通知を受け取る。</p>
+            <p class="series-post-excerpt" style="font-family: var(--font-jp)">毎週更新——近日公開予定。</p>
           </div>
         </div>
       )}

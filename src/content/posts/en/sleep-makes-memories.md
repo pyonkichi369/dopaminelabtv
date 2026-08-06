@@ -106,6 +106,3 @@ None of this is exotic. But framing it correctly changes the motivation.
 
 You're not sleeping because you're tired. You're sleeping because that's when the learning happens.
 
----
-
-*New research reports every Sunday. Full audio report on [Substack](https://dopaminelabtv.substack.com).*

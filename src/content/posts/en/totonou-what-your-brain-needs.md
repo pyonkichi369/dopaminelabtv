@@ -89,6 +89,4 @@ That's what the brain was designed for. And what most of us have been systematic
 
 ---
 
-*The totonou app is in development. If you want to be notified at launch — and receive the research behind the protocol — the [Substack](https://dopaminelabtv.substack.com) is where we'll announce it first.*
-
 *For more on what's disrupting your dopamine cycle, read [Why You Can't Focus Anymore](/posts/why-you-cant-focus-anymore).*

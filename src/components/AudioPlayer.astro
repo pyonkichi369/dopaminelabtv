@@ -52,10 +52,14 @@ const modes = [
   flex-direction: column-reverse;
   align-items: flex-end;
   gap: 10px;
+  /* The container box includes the closed panel's space — don't let it
+     swallow clicks meant for elements behind it (e.g. ADHD toolbar). */
+  pointer-events: none;
 }
 
 /* ── Trigger button ── */
 .ap-btn {
+  pointer-events: auto;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -212,6 +216,11 @@ const modes = [
   .ap { bottom: 18px; right: 18px; }
   .ap-panel { width: 196px; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .ap-btn.playing .ap-bar { animation: none; }
+  .ap-panel { transition: opacity 0.22s ease; transform: none; }
+}
 </style>
 
 <script>
@@ -229,14 +238,28 @@ const modes = [
     btn.setAttribute('aria-label', v ? 'BGM 再生中 — クリックで停止/モード変更' : 'Lab BGM を開く');
   }
 
+  function clearSelection() {
+    current = null;
+    setPlaying(false);
+    modes.forEach(b => b.setAttribute('aria-pressed', 'false'));
+  }
+
   function selectMode(id: string) {
     current = id;
     audio.src = `/audio/${id}.m4a`;
     audio.load();
-    audio.play().catch(() => {});
+    // Autoplay rejection must not leave the button in a fake "playing" state.
+    audio.play().catch(() => setPlaying(false));
     setPlaying(true);
     modes.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === id ? 'true' : 'false'));
   }
+
+  // Keep the button honest: real playback events win over the optimistic
+  // state set in selectMode, and a failed load (404 / network / codec)
+  // resets everything instead of animating silence forever.
+  audio.addEventListener('playing', () => setPlaying(true));
+  audio.addEventListener('pause', () => setPlaying(false));
+  audio.addEventListener('error', clearSelection);
 
   function openPanel() {
     panel.classList.add('open');

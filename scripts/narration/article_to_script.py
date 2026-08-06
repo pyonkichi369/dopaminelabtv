@@ -7,6 +7,7 @@ Usage:
     python article_to_script.py src/content/posts/ja/adhd-wa-kowareta-nou-dewa-nai.md --out workspace/youtube/adhd/script.txt
 """
 import argparse
+import os
 import re
 import sys
 from pathlib import Path
@@ -16,7 +17,8 @@ import yaml
 
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "qwen2.5:14b"
+# aegis-jp (Qwen3-Swallow) is the JA content model. Override with DLTV_OLLAMA_MODEL.
+OLLAMA_MODEL = os.environ.get("DLTV_OLLAMA_MODEL", "aegis-jp")
 
 SCRIPT_SYSTEM_PROMPT = """あなたはYouTubeナレーション脚本家です。
 以下のルールに従って、ブログ記事をYouTubeナレーション用スクリプトに変換してください。
@@ -63,6 +65,34 @@ def clean_markdown(text: str) -> str:
     return text.strip()
 
 
+def strip_reasoning(text: str) -> str:
+    """Remove <think> blocks and stage directions — TTS must never read annotations."""
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r"^```.*?$", "", text, flags=re.MULTILINE)
+    # Stage directions / annotations: （ナレーション）, [BGM], 【フック】
+    text = re.sub(r"^\s*[（(\[【][^）)\]】\n]{0,30}[）)\]】]\s*$", "", text, flags=re.MULTILINE)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
+
+
+def looks_like_reasoning(text: str) -> bool:
+    """True if the model leaked its planning instead of producing narration.
+
+    Qwen3-family models ignore think=False when served via a custom Modelfile and
+    emit plain-text reasoning. Narration read aloud must never contain it.
+    """
+    head = text[:1500]
+    tells = [
+        r"\bWe need to\b", r"\bLet's\b", r"\bRules summary\b", r"\bcount characters\b",
+        r"^\s*\d+[.)]\s", r"^\s*Sentence\s", r"\bokay\b", r"\bmaybe\b",
+    ]
+    if sum(bool(re.search(p, head, flags=re.MULTILINE | re.IGNORECASE)) for p in tells) >= 2:
+        return True
+    # Narration for a JA article must be mostly Japanese.
+    ja = len(re.findall(r"[ぁ-んァ-ヶ一-龯]", head))
+    return ja < len(head) * 0.3
+
+
 def generate_script_with_ollama(title: str, excerpt: str, body: str) -> str:
     """Use Ollama (local LLM) to convert article to narration script."""
     article_text = f"タイトル: {title}\n\n概要: {excerpt}\n\n本文:\n{clean_markdown(body)}"
@@ -71,16 +101,25 @@ def generate_script_with_ollama(title: str, excerpt: str, body: str) -> str:
         "model": OLLAMA_MODEL,
         "prompt": f"{SCRIPT_SYSTEM_PROMPT}\n\n---\n\n{article_text}",
         "stream": False,
+        "think": False,  # Qwen3-family models emit reasoning otherwise
         "options": {"temperature": 0.7, "num_predict": 4096},
     }
 
     print(f"  Ollama ({OLLAMA_MODEL}) でスクリプト生成中...", file=sys.stderr)
     try:
-        resp = requests.post(OLLAMA_URL, json=payload, timeout=120)
+        resp = requests.post(OLLAMA_URL, json=payload, timeout=600)
         resp.raise_for_status()
-        return resp.json()["response"].strip()
-    except requests.exceptions.ConnectionError:
-        print("  ⚠️  Ollama未起動。フォールバック: マークダウン除去のみ", file=sys.stderr)
+        script = strip_reasoning(resp.json()["response"])
+        if len(script) < 200:
+            print("  ⚠️  LLM出力が短すぎます。フォールバック: マークダウン除去のみ", file=sys.stderr)
+            return clean_markdown(body)
+        if looks_like_reasoning(script):
+            print("  ⚠️  推論漏れを検出（読み上げ不可）。フォールバック: マークダウン除去のみ", file=sys.stderr)
+            return clean_markdown(body)
+        return script
+    except (requests.exceptions.RequestException, KeyError, ValueError) as exc:
+        # Fail-open: a missing model / dead Ollama must not kill the pipeline.
+        print(f"  ⚠️  Ollama呼び出し失敗 ({exc}). フォールバック: マークダウン除去のみ", file=sys.stderr)
         return clean_markdown(body)
 
 

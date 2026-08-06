@@ -1,9 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TimesMasthead from '../../components/TimesMasthead.astro';
-import TimesSubstackEmbed from '../../components/TimesSubstackEmbed.astro';
 
-const allIssues = await Astro.glob('../../content/times/*.md');
+const allIssues = Object.values(import.meta.glob('../../content/times/*.md', { eager: true })) as any[];
 const issues = (import.meta.env.PROD ? allIssues.filter(i => !i.frontmatter.draft) : allIssues)
   .sort((a, b) => (b.frontmatter.vol ?? 0) - (a.frontmatter.vol ?? 0));
 
@@ -45,8 +44,6 @@ function issueUrl(i: any) { return `/times/vol-${String(i.frontmatter.vol).padSt
         ))}
       </div>
     )}
-
-    <TimesSubstackEmbed />
   </div>
 
   <script type="application/ld+json" set:html={JSON.stringify({

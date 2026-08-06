@@ -77,7 +77,6 @@ Buddhist, Zen, and Shinto concepts are presented as 2,000–2,500-year empirical
 
 - Website: https://dopaminelabtv.com
 - YouTube: https://www.youtube.com/@DopamineLabTV (weekly video episodes)
-- Newsletter: https://dopaminelabtv.substack.com (weekly letter)
 - X / Twitter: https://twitter.com/DopamineLab
 
 ## Content Policy

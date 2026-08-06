@@ -121,6 +121,3 @@ After eight weeks, the brain changes. The monkey doesn't disappear — but you s
 
 That noticing — brief, imperfect, repeated — is how the ADHD brain trains itself back toward the baseline it needs.
 
----
-
-*New research dispatches every Sunday. Subscribe to [Substack](https://dopaminelabtv.substack.com) for the full Lab Report with audio.*

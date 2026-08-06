@@ -83,6 +83,3 @@ Then try the [Zazen protocol](/protocols#zazen). Five minutes. Count exhales. Lo
 
 The holiday is not too short. The approach has been wrong.
 
----
-
-*New research dispatches every Sunday. Subscribe to [Substack](https://dopaminelabtv.substack.com) for the full Lab Report with audio.*

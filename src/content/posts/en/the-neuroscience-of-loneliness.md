@@ -98,6 +98,3 @@ Loneliness isn't fixed by willpower or social skills training. It's a biological
 
 Find one person, one context, where that signal is real. Start there.
 
----
-
-*New research reports every Sunday. Full audio report on [Substack](https://dopaminelabtv.substack.com).*

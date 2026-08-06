@@ -55,6 +55,3 @@ You're not competing with AI. You're operating in a different dimension entirely
 
 To understand what's hijacking your attention in the first place, read [Why You Can't Focus Anymore](/posts/why-you-cant-focus-anymore).
 
----
-
-*New research dispatches every Sunday. Subscribe to [Substack](https://dopaminelabtv.substack.com) for the full Lab Report with audio.*
