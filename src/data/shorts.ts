@@ -16,6 +16,14 @@ export interface ShortVideo {
 
 export const SHORTS: ShortVideo[] = [
   {
+    id: '6z7DoHP5JZY',
+    title_ja: 'コーヒーは、エネルギーを足していない',
+    title_en: "Caffeine doesn't add energy — it removes a brake",
+    topic: 'caffeine',
+    article_ja: 'caffeine-wa-energy-wo-tashite-inai',
+    article_en: 'caffeine-doesnt-add-energy-it-removes-a-brake',
+  },
+  {
     id: 'OGVtTkSJ2Rg',
     title_ja: '朝すぐ動けないのは、夜型だからじゃない',
     title_en: "Morning sluggishness isn't about being a night owl",
