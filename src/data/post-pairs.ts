@@ -10,6 +10,7 @@ export interface PostPair {
 
 export const POST_PAIRS: PostPair[] = [
   { en: 'adhd-is-not-a-broken-brain', ja: 'adhd-wa-kowareta-nou-dewa-nai' },
+  { en: 'caffeine-doesnt-add-energy-it-removes-a-brake', ja: 'caffeine-wa-energy-wo-tashite-inai' },
   { en: 'eight-weeks-that-change-the-brain', ja: 'maindfullness-to-nou' },
   { en: 'four-things-music-does-to-your-brain', ja: 'ongaku-ga-nou-ni-suru-koto' },
   { en: 'hare-and-ke-dopamine-reset', ja: 'hare-to-ke-dopamine-reset' },
