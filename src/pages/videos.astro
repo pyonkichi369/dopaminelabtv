@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SHORTS } from '../data/shorts.ts';
+---
+
+<BaseLayout
+  title="Videos"
+  description="The brain and nervous system, in 30 seconds — Dopamine Lab TV's YouTube Shorts."
+>
+  <div class="container">
+    <section class="check-section" id="videos">
+      <p class="section-label">Videos</p>
+      <div class="check-intro">
+        <h1 class="check-heading">
+          The brain and nervous system,<br /><span class="check-heading-accent">in 30 seconds.</span>
+        </h1>
+        <p class="check-sub">Short-form science, straight from the channel</p>
+        <a href="/ja/videos" class="glossary-lang-switch">日本語版 →</a>
+      </div>
+
+      <div class="video-grid">
+        {SHORTS.map(v => (
+          <div class="video-card">
+            <div class="video-embed-wrap">
+              <iframe
+                src={`https://www.youtube.com/embed/${v.id}`}
+                title={v.title_en}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <p class="video-card-title">{v.title_en}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="video-subscribe">
+        <a class="btn" href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">Subscribe on YouTube</a>
+      </p>
+
+      <p class="check-other-link">
+        More to explore: <a href="/posts/">Articles →</a> / <a href="/sound/">Sound Lab →</a>
+      </p>
+    </section>
+  </div>
+</BaseLayout>

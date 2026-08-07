@@ -2990,6 +2990,51 @@ h3:hover .heading-anchor {
   .sound-card-play { width: 52px; height: 52px; }
 }
 
+/* ── Videos (YouTube Shorts grid) ── */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin: 8px 0 28px;
+  justify-items: center;
+}
+
+.video-card {
+  width: 100%;
+  max-width: 320px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  transition: border-color 0.2s;
+}
+.video-card:hover { border-color: var(--border-accent); }
+
+.video-embed-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #000;
+}
+.video-embed-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-card-title {
+  margin-top: 12px;
+  font-size: 0.86rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.video-subscribe { text-align: center; margin: 4px 0 20px; }
+
 /* ── Print styles ── */
 @media print {
   header, footer, .ap, .reading-progress,

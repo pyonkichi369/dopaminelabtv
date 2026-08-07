@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SHORTS } from '../../data/shorts.ts';
+---
+
+<BaseLayout
+  title="動画"
+  description="脳と自律神経のことを、30秒で。Dopamine Lab TVのYouTube Shorts。"
+  lang="ja"
+>
+  <div class="container">
+    <section class="check-section" id="videos">
+      <p class="section-label">動画</p>
+      <div class="check-intro">
+        <h1 class="check-heading" style="font-family: var(--font-jp)">
+          脳と自律神経のことを、<br /><span class="check-heading-accent">30秒で。</span>
+        </h1>
+        <p class="check-sub" style="font-family: var(--font-jp)">チャンネルから届く、短尺のサイエンス</p>
+        <a href="/videos" class="glossary-lang-switch">English version →</a>
+      </div>
+
+      <div class="video-grid">
+        {SHORTS.map(v => (
+          <div class="video-card">
+            <div class="video-embed-wrap">
+              <iframe
+                src={`https://www.youtube.com/embed/${v.id}`}
+                title={v.title_ja}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <p class="video-card-title" style="font-family: var(--font-jp)">{v.title_ja}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="video-subscribe">
+        <a class="btn" href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTubeで登録する</a>
+      </p>
+
+      <p class="check-other-link">
+        こちらも: <a href="/ja/posts">記事一覧 →</a> / <a href="/ja/sound/">サウンドラボ →</a>
+      </p>
+    </section>
+  </div>
+</BaseLayout>
