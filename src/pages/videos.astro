@@ -31,12 +31,16 @@ import { SHORTS } from '../data/shorts.ts';
               ></iframe>
             </div>
             <p class="video-card-title">{v.title_en}</p>
+            {v.article_en && (
+              <a class="video-card-link" href={`/posts/${v.article_en}`}>Read the science →</a>
+            )}
           </div>
         ))}
       </div>
 
+      <p class="video-subscribe-lead">A few 30-second brain notes each week.</p>
       <p class="video-subscribe">
-        <a class="btn" href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">Subscribe on YouTube</a>
+        <a class="btn btn--subscribe" href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">Subscribe on YouTube</a>
       </p>
 
       <p class="check-other-link">

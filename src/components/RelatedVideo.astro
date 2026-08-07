@@ -1,0 +1,36 @@
+---
+// Reciprocal link back to the video hub. Rendered only by PostLayout.astro
+// when the current article's slug matches a Short's article_ja/article_en
+// field in src/data/shorts.ts — never a generic or unmatched suggestion.
+// Points to /videos (or /ja/videos), not the raw YouTube URL, to keep
+// discovery on-site.
+export interface Props {
+  lang: 'en' | 'ja';
+}
+
+const { lang } = Astro.props;
+const isJa = lang === 'ja';
+---
+
+<p class="related-video-note">
+  <a href={isJa ? '/ja/videos' : '/videos'} style={isJa ? 'font-family: var(--font-jp)' : ''}>
+    {isJa ? 'この話、30秒の動画でも見られます →' : 'Watch the 30-second version of this →'}
+  </a>
+</p>
+
+<style>
+.related-video-note {
+  margin: 28px 0;
+  padding: 14px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.86rem;
+}
+
+.related-video-note a {
+  color: var(--accent);
+  font-weight: 500;
+}
+.related-video-note a:hover { opacity: 0.75; }
+</style>

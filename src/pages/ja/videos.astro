@@ -32,12 +32,16 @@ import { SHORTS } from '../../data/shorts.ts';
               ></iframe>
             </div>
             <p class="video-card-title" style="font-family: var(--font-jp)">{v.title_ja}</p>
+            {v.article_ja && (
+              <a class="video-card-link" style="font-family: var(--font-jp)" href={`/ja/posts/${v.article_ja}`}>この続きを、科学で読む →</a>
+            )}
           </div>
         ))}
       </div>
 
+      <p class="video-subscribe-lead" style="font-family: var(--font-jp)">30秒の脳の話を、週に数本。</p>
       <p class="video-subscribe">
-        <a class="btn" href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTubeで登録する</a>
+        <a class="btn btn--subscribe" href="https://www.youtube.com/@DopamineLabTV" target="_blank" rel="noopener noreferrer">YouTubeで登録する</a>
       </p>
 
       <p class="check-other-link">

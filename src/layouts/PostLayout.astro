@@ -2,9 +2,11 @@
 import BaseLayout from './BaseLayout.astro';
 import ShareBlock from '../components/ShareBlock.astro';
 import RelatedProduct from '../components/RelatedProduct.astro';
+import RelatedVideo from '../components/RelatedVideo.astro';
 import { getSeriesForSlug, getSeriesIndex } from '../data/series';
 import { getAlternatePostSlug } from '../data/post-pairs';
 import { matchProduct } from '../data/products';
+import { SHORTS } from '../data/shorts';
 
 const { frontmatter, lang = 'en', ogImage } = Astro.props;
 const sources: { name: string; url?: string }[] = frontmatter.sources ?? [];
@@ -68,6 +70,12 @@ const alternatePath = alternateSlug
   : undefined;
 const seriesInfo = getSeriesForSlug(currentSlug, lang as 'en' | 'ja');
 const seriesIndex = seriesInfo ? getSeriesIndex(seriesInfo, currentSlug, lang as 'en' | 'ja') : -1;
+
+// Reciprocal video link — this article gets a "watch the video" callout only
+// when a Short in src/data/shorts.ts is explicitly matched to this slug.
+const hasMatchingShort = SHORTS.some(s =>
+  (lang === 'ja' ? s.article_ja : s.article_en) === currentSlug
+);
 
 // Related posts
 const allPosts = await Astro.glob('../content/posts/**/*.md');
@@ -179,6 +187,8 @@ const matchedProduct = matchProduct(tags, frontmatter.title);
 
     <div class="article-body" id="article-body">
       <slot />
+
+      {hasMatchingShort && <RelatedVideo lang={lang as 'en' | 'ja'} />}
 
       <div class="cta-block">
         <p>{isJa ? 'あなたの脳は今、どの状態ですか？' : 'What state is your brain in right now?'}</p>

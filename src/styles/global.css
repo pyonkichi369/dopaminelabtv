@@ -3033,7 +3033,30 @@ h3:hover .heading-anchor {
   line-height: 1.5;
 }
 
+.video-card-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+.video-card-link:hover { opacity: 0.75; }
+
+.video-subscribe-lead {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0 0 14px;
+}
+
 .video-subscribe { text-align: center; margin: 4px 0 20px; }
+
+.btn--subscribe {
+  padding: 13px 34px;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  box-shadow: 0 2px 14px var(--accent-dim);
+}
 
 /* ── Print styles ── */
 @media print {
