@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { SHORTS } from '../data/shorts.ts';
 
 // import.meta.glob (not Astro.glob): zero matches yields an empty list instead of
 // a build-time throw, so the empty-state branches below are actually reachable.
@@ -222,6 +223,39 @@ function tagHref(t: string) { return `/tags/${t.toLowerCase().replace(/\s+/g, '-
       </span>
       <span class="fatigue-link-card-arrow">→</span>
     </a>
+
+    <!-- Watch: latest YouTube Shorts teaser -->
+    <section class="watch-section" id="watch">
+      <p class="section-label">Watch</p>
+      <div class="watch-intro">
+        <h2 class="watch-heading">Watch: 30-second brain notes</h2>
+        <p class="watch-sub">The channel, in bite-sized science.</p>
+      </div>
+      <div class="watch-grid">
+        {SHORTS.slice(0, 3).map(v => (
+          <a
+            class="watch-card"
+            href={`https://www.youtube.com/shorts/${v.id}`}
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="watch-thumb">
+              <img
+                src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}
+                alt={v.title_en}
+                width="480"
+                height="360"
+                loading="lazy"
+              />
+            </span>
+            <span class="watch-card-title">{v.title_en}</span>
+          </a>
+        ))}
+      </div>
+      <p class="watch-all-link">
+        <a href="/videos" class="btn btn--outline">See all videos →</a>
+      </p>
+    </section>
 
     <section class="posts-section">
       <div class="wa-divider">Latest from the Lab</div>
