@@ -16,6 +16,38 @@ export interface ShortVideo {
 
 export const SHORTS: ShortVideo[] = [
   {
+    id: 'oex2GesvD90',
+    title_ja: '眠ろうとするほど眠れないのは、意志が弱いからじゃない',
+    title_en: "Trying harder to sleep keeps you awake",
+    topic: 'sleep',
+  },
+  {
+    id: 'dppW4LHUajg',
+    title_ja: '二度寝がやめられないのは、意志が弱いからじゃない',
+    title_en: "Hitting snooze isn't a willpower failure",
+    topic: 'sleep',
+    article_ja: 'asa-ugokenai-nowa-yogata-dakara-janai',
+    article_en: 'morning-sluggishness-is-not-being-a-night-owl',
+  },
+  {
+    id: '9Yk2YP-qajA',
+    title_ja: '昼過ぎに眠くなるのは、ランチのせいじゃない',
+    title_en: "The afternoon slump isn't about lunch",
+    topic: 'sleep',
+  },
+  {
+    id: 'CICczydROZM',
+    title_ja: '寝だめしても疲れが取れないのは、寝る量のせいじゃない',
+    title_en: "Weekend catch-up sleep isn't about quantity",
+    topic: 'sleep',
+  },
+  {
+    id: 'XgQJSh8XRgc',
+    title_ja: '日曜の夜が憂うつなのは、心が弱いからじゃない',
+    title_en: "Sunday-night dread isn't weakness",
+    topic: 'sleep',
+  },
+  {
     id: '6z7DoHP5JZY',
     title_ja: 'コーヒーは、エネルギーを足していない',
     title_en: "Caffeine doesn't add energy — it removes a brake",
